@@ -1,0 +1,10 @@
+# Fins de ligne normalisées en LF (CI Ubuntu ↔ dev Windows).
+* text=auto eol=lf
+
+# Binaires
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.pdf binary
