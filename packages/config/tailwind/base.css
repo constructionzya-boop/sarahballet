@@ -1,0 +1,9 @@
+/*
+ * @noema/config — couche Tailwind v4 partagée par les 7 sites.
+ *
+ * Ce fichier ne porte que le socle commun. Les tokens de la charte Noéma
+ * (Night #000A21 · Dawn #38577D · Dew #BFDEF1 · Cream #FAF6EB · Snow #F7F1EC
+ * · Orange #FF3311) et les thèmes par marque sont définis dans @noema/ui
+ * (Task 2 de la Phase 0), qui importe ce socle.
+ */
+@import "tailwindcss";

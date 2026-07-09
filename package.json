@@ -2,15 +2,22 @@
   "name": "noema-platform",
   "private": true,
   "packageManager": "pnpm@9.15.0",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
-    "test": "turbo test"
+    "test": "turbo test",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,mjs,json,css,yaml,yml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mjs,json,css,yaml,yml}\""
   },
   "devDependencies": {
-    "turbo": "^2.3.0"
+    "@noema/config": "workspace:*",
+    "prettier": "^3.4.2",
+    "turbo": "^2.3.0",
+    "typescript": "^5.7.2"
   }
 }
