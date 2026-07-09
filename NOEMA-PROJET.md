@@ -157,7 +157,22 @@ Matrices de prix **versionnées**. Audit immuable hash chaîné (contrats/paieme
 
 ---
 
-## 6. RÈGLES POUR CLAUDE
+## 6. VISION & ORGANISATION IA
+
+**Vision** : faire de Noéma le standard du local professionnel et du logement
+accessible en Afrique de l'Ouest — un produit industrialisé (pas un chantier),
+accessible sans capital (location/rent-to-own), récupérable (actif mobile),
+et conçu pour le climat (pack tropical). « Eux vendent des morceaux, nous
+livrons la pièce — finie, montée, branchée. »
+
+**Organisation** : Jeremy pilote une équipe d'agents IA spécialisés —
+ingénieur bâtiment (diagnostic, décisions D1-D11), stratégie/business
+(offres, concurrence, pré-vente), dev plateforme (ce repo, Claude Code
+local + web), génération visuelle (Sora/fal.ai, avec boucle générer →
+expertiser → corriger). Détail et flux : `docs/09-agents-ia.md`.
+Dossiers techniques de référence : `docs/references/`.
+
+## 7. RÈGLES POUR CLAUDE
 
 1. Répondre en **français** ; code et identifiants en anglais.
 2. Respecter la **trame 1,20 m** et la **nomenclature P1-P8** partout.
