@@ -340,16 +340,23 @@ fichier gagne — ou Jeremy tranche.
 
 ---
 
-## 10. CHARTE GRAPHIQUE
+## 10. CHARTE GRAPHIQUE (officielle — carte couleurs Jeremy 2026-07-10)
 
 | Nom | Hex | Usage |
 |---|---|---|
-| Night | `#000A21` | Texte, bandeaux |
-| Dawn | `#38577D` | Secondaire |
-| Dew | `#BFDEF1` | Accent doux |
-| Cream | `#FAF6EB` | Fond principal |
-| Snow | `#F7F1EC` | Fond alternatif |
-| Orange | `#FF3311` | Accent fort, CTA |
+| Night | `#000A21` | Texte, bandeaux, nav |
+| Dawn | `#385772` | Secondaire, labels |
+| Dew | `#B0DDF1` | Accent doux, badges |
+| Cream | `#FAF6EB` | Fond principal de page |
+| Sand | `#EBDDCF` | Fonds de cartes secondaires (issu de la carte, ex-conflit Cream) |
+| Snow | `#F7F1EC` | Fond alternatif, PhotoFrames |
+| Orange | `#FF3311` | Accent fort, CTA uniquement |
+
+**Logo** : picto carré Night avec toit parasol Orange (= le différenciateur produit
+dessiné) + wordmark « Noéma Construction » Night + baseline orange. Fichiers
+attendus dans `apps/construction/public/brand/` : `logo.svg`, `logo-white.svg`,
+`mark.svg` (picto seul, favicon). ⚠️ Harmoniser la baseline (« precast solution »
+sans accent, ou « solution préfabriquée »).
 
 ---
 
