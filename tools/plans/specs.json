@@ -1,0 +1,311 @@
+{
+  "_meta": {
+    "project": "Noéma Construction — One-Room Precast Solution",
+    "index": "V1",
+    "date": "2026-07-10",
+    "datum": "Toutes les altitudes sont mesurées depuis le sol fini (TN).",
+    "disclaimer": "DOCUMENT NON CONTRACTUEL — à valider par ingénieur structure agréé et architecte",
+    "corrections": [
+      "P9 : longueur corrigée 2400→2550 (= 2250 libre entre poteaux + 2×150 d'appui sur têtes de poteaux). Passage libre 2100 après coulisses de rideau (65+10 par côté).",
+      "Rainure : largeur corrigée 60→70 (= panneau 60 + 2×5 de jeu de pose). Engagement effectif 35 (profondeur 40 − 5 de jeu de fond)."
+    ]
+  },
+  "grid": {
+    "module": 1200,
+    "baysW": 3,
+    "baysD": 4,
+    "axesW": 4,
+    "axesD": 5
+  },
+  "tolerances": {
+    "precast": 3,
+    "erectionClearancePerSide": 5
+  },
+  "concrete": {
+    "class": "C25/30 min",
+    "cement": "CPJ 42.5",
+    "cover": 30,
+    "edgeChamfer": 15,
+    "mixTBV": true
+  },
+  "column": {
+    "w": 150,
+    "d": 150,
+    "height": 2900,
+    "groove": {
+      "widthNominal": 60,
+      "width": 70,
+      "depth": 40,
+      "chamfer": 5,
+      "effectiveEngagement": 35
+    },
+    "headInsert": {
+      "plate": [
+        100,
+        100,
+        8
+      ],
+      "sockets": "2×M12",
+      "TBV": "spec platine & ancrage"
+    },
+    "weight": 157
+  },
+  "panels": {
+    "P1": {
+      "w": 1200,
+      "h": 600,
+      "t": 60,
+      "mesh": "ST25 centré (TBV)",
+      "weight": 104,
+      "lifting": "2 douilles M10 à 300 des extrémités"
+    },
+    "P2": {
+      "w": 1200,
+      "h": 300,
+      "t": 60,
+      "openArea": ">=40%",
+      "insectMesh": "inox 1,2×1,2",
+      "bars": "3×Ø12 incorporés",
+      "weight": 32
+    },
+    "P6": {
+      "w": 600,
+      "h": 200,
+      "t": 60,
+      "weight": 12
+    }
+  },
+  "joints": {
+    "horizontal": {
+      "gap": 10,
+      "backerRod": 15,
+      "sealant": "PU classe 25%",
+      "larmier": [
+        10,
+        10
+      ]
+    },
+    "vertical": {
+      "gasket": [
+        20,
+        10
+      ],
+      "sealantBead": [
+        10,
+        10
+      ]
+    }
+  },
+  "wall": {
+    "plinth": 200,
+    "height": 2700,
+    "airGap": 300,
+    "overall": 3200,
+    "dpc": "arase bitumineuse pleine largeur sur plinthe",
+    "meshFrame": "cadre SHS 25×25×2 (TBV)"
+  },
+  "window": {
+    "P3": {
+      "w": 1200,
+      "h": 1200,
+      "blade": 100,
+      "bladeAngle": 45,
+      "frameSheet": 2,
+      "fixings": "6×M8 sur douilles moulées",
+      "sealant": [
+        8,
+        8
+      ],
+      "sillLevel": 1400,
+      "weight": 35
+    },
+    "sill": {
+      "slope": "10%",
+      "nose": 40,
+      "dripGroove": [
+        10,
+        10
+      ],
+      "jambUpstand": 25
+    },
+    "P5": {
+      "w": 1200,
+      "d": 400,
+      "t": 80,
+      "slope": "10%",
+      "dripFromEdge": 25,
+      "bearingEachSide": 100,
+      "fixing": "2×M10 (TBV)",
+      "weight": 88
+    }
+  },
+  "door": {
+    "P4": {
+      "clearW": 900,
+      "clearH": 2100,
+      "frameSheet": 1.5,
+      "lugsPerJamb": 3,
+      "leaf": 40,
+      "hinges": 3,
+      "weight": 55
+    },
+    "threshold": {
+      "maxUpstand": 20,
+      "drip": "rejet d'eau vers l'extérieur"
+    },
+    "transom": {
+      "w": 1200,
+      "h": 300
+    }
+  },
+  "lintel": {
+    "P9": {
+      "length": 2550,
+      "h": 300,
+      "t": 150,
+      "bearing": 150,
+      "clearStructural": 2250,
+      "clearPassage": 2100,
+      "rebar": "4 HA12 + cadres HA6 @150 — PRÉ-DIMENSIONNEMENT (TBV)",
+      "weight": 275,
+      "handling": "pose à 6 ou moyen de levage léger (TBV méthode)"
+    },
+    "shutter": {
+      "box": [
+        205,
+        205
+      ],
+      "boxFixing": "4×M10 en sous-face",
+      "slat": 77,
+      "guide": 65,
+      "guidePacking": 10
+    }
+  },
+  "roof": {
+    "slopeMin": "5% vers l'arrière",
+    "sheet": "tôle ondulée galva 0,5 peinte blanche (SRI élevé)",
+    "corrugation": [
+      76,
+      18
+    ],
+    "purlins": {
+      "profile": "C/Z formé à froid (SECTION TBV)",
+      "maxSpacing": 1200
+    },
+    "bracket": {
+      "angles": "L 50×50×5",
+      "gusset": 6,
+      "welds": "cordons d'angle a=4 — symboles normalisés (TAILLES TBV)",
+      "bolts": "2×M12 sur insert de tête"
+    },
+    "overhang": {
+      "front": 800,
+      "sides": 600,
+      "rear": 600
+    },
+    "sheetDrip": 40,
+    "fixing": {
+      "screw": "autoperceuse Ø6,3 + rondelle EPDM en sommet d'onde",
+      "field": "1 onde sur 2",
+      "edges": "toutes les ondes (anti-soulèvement — densité finale TBV calcul vent)"
+    },
+    "gutter": {
+      "type": "demi-ronde galva Ø125",
+      "brackets": 600,
+      "slope": "5 mm/m",
+      "downpipe": "PVC Ø80",
+      "lipBelowDrip": 25
+    }
+  },
+  "foundations": {
+    "rental": {
+      "sleepers": 5,
+      "rails": 2,
+      "profiles": "laminés à chaud (SECTIONS TBV)",
+      "foot": "M24 réglable ±50",
+      "anchorPlate": [
+        150,
+        150,
+        10
+      ],
+      "pad": [
+        400,
+        400,
+        400
+      ],
+      "anchors": "2×M12 à expansion (TBV)",
+      "dpc": "bande DPC sur ligne de skid",
+      "columnBase": "platine boulonnée 4×M12 (TBV)"
+    },
+    "sold": {
+      "embedment": 400,
+      "slab": 100,
+      "slabMesh": "ST25",
+      "dpm": "polyéthylène 200µ",
+      "ground": "latérite compactée",
+      "design": "TBV géotechnique"
+    }
+  },
+  "modules": {
+    "sanitaire": {
+      "level": "M3",
+      "footprint": [
+        2400,
+        3600
+      ],
+      "baysW": 2,
+      "baysD": 3,
+      "axesW": 3,
+      "axesD": 4,
+      "partition": {
+        "depth": 1800,
+        "height": 2400,
+        "interiorPost": "profil U 100×100 fixé sol + panneaux (SPEC TBV)",
+        "rule": "cloison NON structurelle sur sous-module 600 (1800 = 3×600), P1 empilés, arrêtée sous la ligne claustra"
+      },
+      "cubicle": [
+        2400,
+        1800
+      ],
+      "perCubicle": "1 WC céramique + 1 lave-mains d'angle",
+      "doors": "2×P4 sur pignons OPPOSÉS (1 travée de pignon chacune)",
+      "floor": {
+        "slope": "1,5% vers siphon central Ø50",
+        "collector": "PVC Ø100 en plinthe (dimensionnement TBV plomberie)"
+      },
+      "water": {
+        "tank": "500 L sur châssis acier galva contre mur long arrière, sous débord (CHÂSSIS TBV)",
+        "supply": "gravitaire",
+        "soakPit": "anneau préfa Ø1000 accolé (TBV — selon règles locales)"
+      },
+      "ventilation": "AUCUN vitrage — bande P2 continue + 1×P6 par pignon",
+      "elec": "1 LED/cabine + 1 applique/entrée, conduit apparent en zone haute",
+      "roof": "pente ≥5% vers le mur long arrière, débords 600, gouttière+descente côté bas"
+    },
+    "gardiennage": {
+      "level": "M2",
+      "footprint": [
+        2400,
+        2400
+      ],
+      "baysW": 2,
+      "baysD": 2,
+      "axesW": 3,
+      "axesD": 3,
+      "windows": "3×P3 (allège 1400) sur AVANT + 2 côtés, 1 travée chacune",
+      "door": "P4 sur façade ARRIÈRE",
+      "guichet": {
+        "w": 300,
+        "h": 200,
+        "sill": 1000,
+        "edge": 150,
+        "hardware": "plateau inox + volet acier verrouillable (QUINCAILLERIE TBV)",
+        "rule": "réservation MOULÉE usine dans un P1 de travée avant (jamais de découpe site)"
+      },
+      "counter": "tablette 300 de profondeur à niveau 1000, consoles sur douilles moulées",
+      "elec": "coffret 4 modules près porte, 2 PC, 1 LED int., 1 projecteur ext. sur auvent, attente plafonnier brasseur — CALIBRES TBV ÉLEC",
+      "plumbing": "AUCUNE — module M2",
+      "roof": "pente ≥5% vers l'arrière, débords 600, AVANT 800 (auvent)"
+    }
+  }
+}
