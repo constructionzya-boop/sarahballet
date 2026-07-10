@@ -1,2 +1,47 @@
 /* Le design system importe Tailwind v4 + les tokens de la charte Noéma. */
 @import "@noema/ui/styles/theme.css";
+
+@theme {
+  /* Accents complémentaires propres au site construction. */
+  --color-money: #dff3e4; /* fond des badges « économie / rentabilité » */
+  --color-money-ink: #1c7a4d;
+}
+
+@layer base {
+  /* Fond de type dashboard : Cream + très subtile trame de points (≈4 %). */
+  body {
+    background-color: var(--color-cream);
+    background-image: radial-gradient(rgba(0, 10, 33, 0.04) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-attachment: fixed;
+    color: var(--color-night);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer utilities {
+  /* Ombre douce diffuse des cartes flottantes. */
+  .shadow-soft {
+    box-shadow: 0 8px 40px rgba(0, 10, 33, 0.08);
+  }
+  .shadow-soft-lg {
+    box-shadow: 0 18px 60px rgba(0, 10, 33, 0.14);
+  }
+  /* Élévation au survol, désactivée si l'utilisateur réduit les animations. */
+  .lift {
+    transition:
+      transform 200ms ease,
+      box-shadow 200ms ease;
+  }
+  .lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 60px rgba(0, 10, 33, 0.14);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lift,
+    .lift:hover {
+      transition: none;
+      transform: none;
+    }
+  }
+}
