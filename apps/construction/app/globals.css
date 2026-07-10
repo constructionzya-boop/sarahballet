@@ -1,0 +1,2 @@
+/* Le design system importe Tailwind v4 + les tokens de la charte Noéma. */
+@import "@noema/ui/styles/theme.css";
