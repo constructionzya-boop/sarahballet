@@ -22,6 +22,8 @@ const SHEETS = [
   ["PL01", "NOEMA_PL01_Menuiseries_Baies_V1"],
   ["PL02", "NOEMA_PL02_Toiture_Parasol_V1"],
   ["PL03", "NOEMA_PL03_Structure_Assemblages_V1"],
+  ["PL04", "NOEMA_PL04_Module_Sanitaire_V1"],
+  ["PL05", "NOEMA_PL05_Poste_Gardiennage_V1"],
 ];
 
 const pngs = [];

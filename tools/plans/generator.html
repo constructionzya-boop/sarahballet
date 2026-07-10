@@ -37,6 +37,7 @@ function weldSym(x,y,dir=1){ // symbole soudure d'angle normalisé
   T(x+26*dir,y+9,"a=4*",{fs:9.5,c:NAVY,a:dir>0?"start":"end"});
 }
 function slopeArrow(x1,y1,x2,y2,label){L(x1,y1,x2,y2,1.4,OR);P([[x2,y2],[x2-10,y2-4],[x2-8,y2+5]],{f:OR,s:"none"});T((x1+x2)/2,y1-12,label,{fs:11,c:OR,w:700});}
+function ground(y,x1,x2){L(x1,y,x2,y,2.2);for(let x=x1;x<x2;x+=16){L(x,y,x-9,y+10,1,GRID);}}
 function subTitle(x,y,txt,scale){T(x,y,txt,{fs:16,w:800,a:"start"});T(x,y+18,scale,{fs:11,c:GRID,a:"start"});}
 
 out+=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1414" width="2000" height="1414">
@@ -523,8 +524,288 @@ R(X-14,Y-18,486,26+rows.length*24+8,{sw:1});
 })();
 }
 
+
+/* =====================================================================
+   PL-04 — MODULE SANITAIRE PUBLIC 2400×3600 (M3)
+===================================================================== */
+function PL04(){
+const SA=SPECS.modules.sanitaire;
+chrome("PL-04 — MODULE SANITAIRE PUBLIC 2400×3600 · M3 · 2 cabines H/F, citerne, puisard");
+
+/* ---- D1 : plan (S=0.135) ---- */
+(function(){
+const S=0.11, X=250, Y0=235;
+const mx=mm=>X+mm*S, my=mm=>Y0+mm*S;
+subTitle(120,130,"1 · PLAN — 2 CABINES, SIPHONS, CITERNE, PUISARD","éch. ≈ 1:22");
+R(mx(-60),my(-60),2520*S,3720*S,{f:CONC});
+R(mx(60),my(60),2280*S,3480*S,{f:"#fff"});
+// poteaux périmétriques (axes 1-3 / A-D)
+const AX=[0,1200,2400],AY=[0,1200,2400,3600];
+AX.forEach((x,i)=>AY.forEach((y,j)=>{
+  const per=(i===0||i===2)||(j===0||j===3); if(!per)return;
+  R(mx(x)-6,my(y)-6,12,12,{f:INK,s:"none"});
+}));
+// cloison à 1800 + 2 poteaux U intérieurs
+R(mx(60),my(1800)-4,2280*S,8,{f:"url(#conc)"});
+[[60],[2340]].forEach(p=>R(mx(p[0])-5,my(1800)-8,10,16,{f:"url(#steel)"}));
+tbv(mx(2340),my(1800),mx(150),my(4350),"A");
+T(mx(150)+16,my(4350)+18,"poteaux U cloison",{fs:10,a:"start"});
+T(mx(1200),my(1800)-14,"cloison h.2400 — arrêtée sous claustra",{fs:9.5,c:GRID});
+// portes opposées : pignon A (y=0) travée 1 · pignon D (y=3600) travée 2
+[[75,1125,0,1,"H"],[1275,2325,3600,-1,"F"]].forEach(d=>{
+  R(mx(d[0]+150),my(d[2])-7,900*S,14,{f:"#fff",s:"none"});
+  L(mx(d[0]+150),my(d[2])-7,mx(d[0]+150),my(d[2])+7,2);L(mx(d[0]+150+900),my(d[2])-7,mx(d[0]+150+900),my(d[2])+7,2);
+  L(mx(d[0]+150),my(d[2]),mx(d[0]+150)+900*S*0.7,my(d[2])+d[3]*900*S*0.7,1.4);
+  T(mx((d[0]+d[1])/2),my(d[2])+d[3]*30,"P4 — cabine "+d[4],{fs:9.5,c:INK,w:700});
+});
+// P6 sur pignons (travée sans porte)
+L(mx(1275),my(0)-5,mx(1875),my(0)-5,4,"#7E93AC");T(mx(1575),my(0)-16,"P6",{fs:9,c:GRID});
+L(mx(525),my(3600)+5,mx(1125),my(3600)+5,4,"#7E93AC");T(mx(825),my(3600)+16,"P6",{fs:9,c:GRID});
+// équipements par cabine : WC contre cloison + lave-mains d'angle + siphon central
+[[1,1800-450,1],[1,1800+450,-1]].forEach((c,k)=>{
+  const wy=k===0?1500:2100;
+  R(mx(1050),my(wy)-14,300*S*2.4,28,{f:SNOW});C(mx(1200),my(wy),11,{sw:1.2});
+  T(mx(1200),my(wy)+(k===0?-26:26),"WC",{fs:9,c:GRID});
+});
+C(mx(300),my(300),13,{sw:1.2});T(mx(300),my(160),"lave-mains",{fs:9,c:GRID});
+C(mx(2100),my(3300),13,{sw:1.2});T(mx(2100),my(3450),"lave-mains",{fs:9,c:GRID});
+[[900],[2700]].forEach(d=>{
+  C(mx(1200),my(d[0]),5,{f:INK,s:"none"});
+  [[-1,0],[1,0],[0,-1],[0,1]].forEach(v=>{L(mx(1200)+v[0]*36,my(d[0])+v[1]*30,mx(1200)+v[0]*12,my(d[0])+v[1]*10,1,OR);});
+  T(mx(1200)+52,my(d[0]),"Ø50 · 1,5%",{fs:8.5,c:OR,a:"start"});
+});
+// citerne (mur long arrière x=2400) + puisard
+R(mx(2400)+8,my(1500),34,600*S,{f:"none",sw:1.4,dash:"5 4"});T(mx(2400)+62,my(1800),"citerne 500 L",{fs:9.5,a:"start",rot:-90});
+C(mx(2400)+170,my(2900),500*S,{sw:1.4,dash:"6 4"});
+tbv(mx(2400)+170,my(2900),mx(1650),my(4350),"B");
+T(mx(1650)+16,my(4350)+18,"puisard Ø1000 préfa",{fs:10,a:"start"});
+// axes + cotes
+AX.forEach((x,i)=>{ext(mx(x),my(-60),mx(x),my(-140));C(mx(x),my(-172),11,{sw:1.3});T(mx(x),my(-172),String(i+1),{fs:11,w:800});});
+AY.forEach((y,j)=>{ext(mx(-60),my(y),mx(-150),my(y));C(mx(-182),my(y),11,{sw:1.3});T(mx(-182),my(y),"ABCD"[j],{fs:11,w:800});});
+dimH(mx(0),mx(1200),my(3900),"1200");dimH(mx(1200),mx(2400),my(3900),"1200");
+dimH(mx(0),mx(2400),my(4120),"2400",{oy:13});
+dimV(mx(-260),my(0),my(1800),"1800");dimV(mx(-260),my(1800),my(3600),"1800");
+dimV(mx(-360),my(0),my(3600),"3600");
+})();
+
+/* ---- D2 : élévation pignon (S=0.15) ---- */
+(function(){
+const S=0.15, X=830, YG=690;
+const mx=mm=>X+mm*S, my=mm=>YG-mm*S;
+subTitle(770,130,"2 · ÉLÉVATION PIGNON (entrée H)","éch. ≈ 1:20");
+R(mx(-80),my(200),2560*S,200*S,{f:SAND});
+R(mx(0),my(2900),2400*S,2700*S,{f:CONC});
+[800,1400,2000,2600].forEach(h=>L(mx(0),my(h),mx(2400),my(h),0.8,GRID));
+[0,1200,2400].forEach(ax=>R(mx(ax)-5,my(2900),10,2700*S,{f:"#DFE4EA"}));
+R(mx(150),my(2300),900*S,2100*S,{f:"#28374F"});
+R(mx(75),my(2600),1050*S,300*S,{f:CONC});
+R(mx(40),my(2900),2320*S,300*S,{f:"url(#mesh)",sw:1});
+L(mx(1425),my(400),mx(2025),my(400),5,"#7E93AC");T(mx(1725),my(560),"P6 600×200",{fs:9.5,c:GRID});
+C(mx(600),my(2450),6,{sw:1.3});T(mx(600),my(2450)-18,"applique",{fs:9,c:GRID});
+// lame d'air + toit en pente vers l'arrière (droite)
+out+=`<path d="M ${mx(-50)} ${my(3200)} L ${mx(2450)} ${my(3080)} L ${mx(2450)} ${my(2900)} L ${mx(-50)} ${my(2900)} Z" fill="url(#mesh)" stroke="${NAVY}" stroke-width="1"/>`;
+[0,1200,2400].forEach(ax=>{const yr=3200-(ax/2400)*120;L(mx(ax),my(yr),mx(ax-200),my(2900),2,INK);});
+out+=`<path d="M ${mx(-600)} ${my(3300)} L ${mx(3000)} ${my(3120)} L ${mx(3000)} ${my(3190)} L ${mx(-600)} ${my(3380)} Z" fill="#F4F5F2" stroke="${NAVY}" stroke-width="2"/>`;
+slopeArrow(mx(300),my(3330),mx(1800),my(3255),"pente ≥5% → arrière");
+ground(YG,mx(-720),mx(3120));
+dimH(mx(0),mx(1200),YG+24,"1200");dimH(mx(1200),mx(2400),YG+24,"1200");
+dimH(mx(0),mx(2400),YG+52,"2400",{oy:13});
+const cx=mx(2400)+70;
+dimV(cx,my(200),my(0),"200");dimV(cx,my(2300),my(200),"2100");dimV(cx,my(2600),my(2300),"300");dimV(cx,my(2900),my(2600),"300");
+dimV(cx+40,my(3200),my(0),"3200");
+})();
+
+/* ---- D3 : élévation long arrière (S=0.13) ---- */
+(function(){
+const S=0.13, X=1420, YG=690;
+const mx=mm=>X+mm*S, my=mm=>YG-mm*S;
+subTitle(1370,130,"3 · ÉLÉVATION MUR LONG ARRIÈRE (côté bas)","éch. ≈ 1:24");
+R(mx(-80),my(200),3760*S,200*S,{f:SAND});
+R(mx(0),my(2900),3600*S,2700*S,{f:CONC});
+[800,1400,2000,2600].forEach(h=>L(mx(0),my(h),mx(3600),my(h),0.8,GRID));
+[0,1200,2400,3600].forEach(ax=>R(mx(ax)-5,my(2900),10,2700*S,{f:"#DFE4EA"}));
+R(mx(40),my(2900),3520*S,300*S,{f:"url(#mesh)",sw:1});
+// citerne sur châssis (travée centrale) + tuyaux
+R(mx(1500),my(2450),600*S,500*S,{f:"none",sw:1.8});
+R(mx(1560),my(1950)+2,3,1,{f:"none",s:"none"});
+L(mx(1560),my(1950),mx(1560),my(300),1.6);L(mx(2040),my(1950),mx(2040),my(300),1.6);
+P([[mx(1520),my(1950)],[mx(2080),my(1950)],[mx(2080),my(1900)],[mx(1520),my(1900)]],{f:"url(#steel)"});
+tbv(mx(1800),my(1925),mx(2700),my(1500),"A");
+T(mx(2700)+16,my(1500)+16,"châssis citerne galva",{fs:10,a:"start"});
+T(mx(1800),my(2700)+18,"citerne 500 L",{fs:10,w:700});
+// lame d'air côté bas + gouttière + descente
+out+=`<path d="M ${mx(-50)} ${my(3080)} L ${mx(3650)} ${my(3080)} L ${mx(3650)} ${my(2900)} L ${mx(-50)} ${my(2900)} Z" fill="url(#mesh)" stroke="${NAVY}" stroke-width="1"/>`;
+L(mx(-600),my(3170),mx(4200),my(3170),2.4);
+out+=`<path d="M ${mx(-140)} ${my(3120)} A 20 20 0 1 0 ${mx(-60)} ${my(3120)}" fill="none" stroke="${NAVY}" stroke-width="2"/>`;
+L(mx(-100),my(3095),mx(-100),my(200),2);L(mx(-100),my(200),mx(-40),my(80),2);
+T(mx(-140),my(2650),"descente Ø80",{fs:9.5,a:"end",rot:-90});
+T(mx(1800),my(3260),"gouttière Ø125 — côté bas de pente",{fs:10,w:700});
+ground(YG,mx(-720),mx(4260));
+dimH(mx(0),mx(3600),YG+24,"3600 (3×1200)",{oy:13});
+})();
+
+/* ---- D4 : coupe plomberie + table (bas) ---- */
+(function(){
+const S=0.14, X=330, YG=1290;
+const mx=mm=>X+mm*S, my=mm=>YG-mm*S;
+subTitle(120,772,"4 · COUPE PLOMBERIE — citerne → siphon → collecteur → puisard","éch. ≈ 1:22");
+R(mx(-60),my(200),2620*S,200*S,{f:SAND});
+R(mx(0),my(2900),60*S,2700*S,{f:"url(#conc)"});R(mx(2340),my(2900),60*S,2700*S,{f:"url(#conc)"});
+// citerne haute sur mur arrière (droite) + alimentation
+R(mx(2400)+6,my(2450),30,500*S,{f:"none",sw:1.6});T(mx(2400)+52,my(2200),"citerne",{fs:9,rot:-90});
+L(mx(2340),my(1950),mx(1400),my(700),1.6,"#2F6C8E");T(mx(1900),my(1400),"alim. gravitaire",{fs:9,c:"#2F6C8E",rot:-24});
+// WC + lave-mains + pente sol + siphon + collecteur
+R(mx(1100),my(650),300*S*1.6,450*S,{f:SNOW});T(mx(1330),my(420),"WC",{fs:9.5});
+L(mx(60),my(220),mx(1200),my(200),2);slopeArrow(mx(300),my(420),mx(1050),my(360),"1,5%");
+C(mx(1200),my(210),5,{f:INK,s:"none"});T(mx(1200),my(330),"siphon Ø50",{fs:9,c:GRID});
+L(mx(1200),my(200),mx(2600),my(120),3.2,"#2F6C8E");
+tbv(mx(2000),my(160),mx(1500),my(-30),"C");
+T(mx(1500)+16,my(-30)+18,"collecteur PVC Ø100 — dim. TBV plomberie",{fs:10,a:"start"});
+// puisard à droite
+R(mx(2620),my(0),90,120,{f:"url(#earth)",sw:1});
+R(mx(2640),my(-40),50,160,{f:"none",sw:1.6,dash:"6 4"});
+T(mx(2620),my(60),"puisard Ø1000 (TBV)",{fs:9,c:OR,a:"start"});
+ground(YG,mx(-120),mx(2900));
+})();
+// table quantitatifs
+(function(){
+const X=1400,Y=980;
+T(X+210,Y,"QUANTITATIF — MODULE SANITAIRE",{fs:14,w:800});
+const rows=[["Poteaux périm. 150×150","10"],["Poteaux U cloison (TBV)","2"],["P1 1200×600×60","40 (dont 8 cloison)"],
+["P2 claustra","10"],["P4 portes + impostes","2 + 2"],["P6 grilles basses","2"],
+["WC / lave-mains / siphons","2 / 2 / 2"],["Citerne 500 L + châssis (TBV)","1"],["Puisard Ø1000 (TBV)","1"]];
+rows.forEach((r,i)=>{const y=Y+26+i*24;
+T(X,y,r[0],{fs:11.5,a:"start",w:700});T(X+300,y,r[1],{fs:11.5,a:"start",c:OR,w:700});});
+R(X-14,Y-16,450,26+rows.length*24+6,{sw:1});
+T(X+210,Y+26+rows.length*24+18,"comptes calculés depuis la géométrie (check.mjs)",{fs:9,c:GRID});
+})();
+}
+
+/* =====================================================================
+   PL-05 — POSTE DE GARDIENNAGE 2400×2400 (M2)
+===================================================================== */
+function PL05(){
+const GA=SPECS.modules.gardiennage;
+chrome("PL-05 — POSTE DE GARDIENNAGE 2400×2400 · M2 · vision 3 faces, guichet moulé, auvent 800");
+
+/* ---- D1 : plan (S=0.17) ---- */
+(function(){
+const S=0.155, X=270, Y0=260;
+const mx=mm=>X+mm*S, my=mm=>Y0+mm*S;
+subTitle(120,130,"1 · PLAN — 3 FENÊTRES, PORTE ARRIÈRE, GUICHET, TABLETTE","éch. ≈ 1:18");
+R(mx(-60),my(-60),2520*S,2520*S,{f:CONC});
+R(mx(60),my(60),2280*S,2280*S,{f:"#fff"});
+const AX=[0,1200,2400];
+AX.forEach((x,i)=>AX.forEach((y,j)=>{
+  const per=(i===0||i===2)||(j===0||j===2); if(!per)return;
+  R(mx(x)-6,my(y)-6,12,12,{f:INK,s:"none"});
+}));
+// AVANT = bas (y=2400) : fenêtre travée 1 + guichet travée 2 · côtés : fenêtres · ARRIÈRE : porte travée 2
+L(mx(75),my(2400)+5,mx(1125),my(2400)+5,4,"#28374F");T(mx(600),my(2400)+22,"P3",{fs:9.5,c:GRID});
+L(mx(1500),my(2400)+5,mx(1800),my(2400)+5,5,OR);T(mx(1650),my(2400)+22,"guichet 300",{fs:9.5,c:OR});
+L(mx(0)-5,my(600),mx(0)-5,my(1800),4,"#28374F");T(mx(0)-18,my(1200),"P3",{fs:9.5,c:GRID,rot:-90});
+L(mx(2400)+5,my(600),mx(2400)+5,my(1800),4,"#28374F");T(mx(2400)+18,my(1200),"P3",{fs:9.5,c:GRID,rot:-90});
+R(mx(1350),my(0)-7,900*S,14,{f:"#fff",s:"none"});
+L(mx(1350),my(0)-7,mx(1350),my(0)+7,2);L(mx(2250),my(0)-7,mx(2250),my(0)+7,2);
+L(mx(1350),my(0),mx(1350)+900*S*0.7,my(0)+900*S*0.7,1.4);
+T(mx(1800),my(0)-20,"P4",{fs:10,w:700});
+// tablette 300 le long du mur avant + coffret + attente brasseur
+R(mx(120),my(2400)-300*S-8,2160*S,300*S,{f:SNOW});T(mx(1200),my(2400)-150*S-8,"tablette 300 — niv. 1000",{fs:9.5,c:GRID});
+R(mx(120),my(120),150*S,220*S,{f:SNOW,sw:1.2});T(mx(140),my(430),"coffret",{fs:9,c:GRID,a:"start"});
+C(mx(1200),my(1200),8,{sw:1.2});L(mx(1200)-8,my(1200)-8,mx(1200)+8,my(1200)+8,1.2);L(mx(1200)-8,my(1200)+8,mx(1200)+8,my(1200)-8,1.2);
+T(mx(1200),my(1440),"attente brasseur (plafond)",{fs:9,c:GRID});
+AX.forEach((x,i)=>{ext(mx(x),my(-60),mx(x),my(-130));C(mx(x),my(-162),11,{sw:1.3});T(mx(x),my(-162),String(i+1),{fs:11,w:800});});
+AX.forEach((y,j)=>{ext(mx(-60),my(y),mx(-130),my(y));C(mx(-162),my(y),11,{sw:1.3});T(mx(-162),my(y),"ABC"[j],{fs:11,w:800});});
+dimH(mx(0),mx(1200),my(2760),"1200");dimH(mx(1200),mx(2400),my(2760),"1200");
+dimH(mx(0),mx(2400),my(2960),"2400",{oy:13});
+dimV(mx(-240),my(0),my(2400),"2400");
+T(mx(1200),my(3160),"▼ FAÇADE AVANT (auvent 800)",{fs:10,c:OR,w:700});
+})();
+
+/* ---- D2 : élévation avant (S=0.155) ---- */
+(function(){
+const S=0.155, X=880, YG=655;
+const mx=mm=>X+mm*S, my=mm=>YG-mm*S;
+subTitle(820,130,"2 · ÉLÉVATION AVANT — FENÊTRE + GUICHET DANS P1G","éch. ≈ 1:19");
+R(mx(-80),my(200),2560*S,200*S,{f:SAND});
+R(mx(0),my(2900),2400*S,2700*S,{f:CONC});
+[800,1400,2000,2600].forEach(h=>L(mx(0),my(h),mx(2400),my(h),0.8,GRID));
+[0,1200,2400].forEach(ax=>R(mx(ax)-5,my(2900),10,2700*S,{f:"#DFE4EA"}));
+// fenêtre travée 1 + casquette
+R(mx(75),my(2600),1050*S,1200*S,{f:"#28374F"});
+R(mx(35),my(2680),1130*S,80*S,{f:SAND});
+// guichet travée 2 : réservation 300×200 centrée (cours n°2 : 800-1400)
+[800,1400].forEach(h=>L(mx(1200),my(h),mx(2400),my(h),1,GRID,"6 4"));
+R(mx(1650),my(1200),300*S,200*S,{f:"#fff",sw:1.8,dash:"0"});
+R(mx(1650),my(1200),300*S,200*S,{s:OR,sw:1.6});
+dimH(mx(1275),mx(1650),my(870),"450",{oy:12,fs:10});
+dimH(mx(1950),mx(2325),my(870),"450",{oy:12,fs:10});
+dimV(mx(2160),my(1000),my(800),"200",{fs:10});
+dimV(mx(2160),my(1400),my(1200),"200",{fs:10});
+T(mx(1200),YG+66,"réservation MOULÉE 300×200 — allège 1000 (cours n°2, gardes 150 vérifiées)",{fs:10,c:OR,w:700});
+// claustra + lame d'air + auvent 800
+R(mx(40),my(2900),2320*S,300*S,{f:"url(#mesh)",sw:1});
+out+=`<path d="M ${mx(-50)} ${my(3200)} L ${mx(2450)} ${my(3200)} L ${mx(2450)} ${my(2900)} L ${mx(-50)} ${my(2900)} Z" fill="url(#mesh)" stroke="${NAVY}" stroke-width="1" opacity="0.5"/>`;
+R(mx(-800),my(3300),(2400+1400)*S,80*S,{f:"#F4F5F2",sw:2});
+C(mx(1200),my(3260),6,{sw:1.3});T(mx(1200)+16,my(3260),"projecteur",{fs:9,c:GRID,a:"start"});
+dimH(mx(-800),mx(0),my(3240),"800 auvent",{oy:14,fs:10});
+ground(YG,mx(-920),mx(3020));
+dimH(mx(0),mx(1200),YG+24,"1200");dimH(mx(1200),mx(2400),YG+24,"1200");
+const cx=mx(2400)+66;
+dimV(cx,my(1000),my(200),"allège 1000",{fs:10});dimV(cx+38,my(3200),my(0),"3200");
+})();
+
+/* ---- D3 : détail guichet (S vertical, grand) ---- */
+(function(){
+const X=440, Y=1090;
+subTitle(120,772,"3 · DÉTAIL GUICHET — COUPE VERTICALE (réservation moulée)","éch. ≈ 1:5");
+const s=0.42;
+// panneau P1G en coupe (cours 800-1400) : ext à gauche
+R(X,Y-600*s,60*s,600*s,{f:"url(#conc)"});
+// réservation 1000-1200
+R(X-2,Y-400*s,60*s+4,200*s,{f:"#fff",s:"none"});
+L(X-2,Y-400*s,X+60*s+2,Y-400*s,1.8);L(X-2,Y-200*s,X+60*s+2,Y-200*s,1.8);
+// plateau inox traversant + volet ext + tablette int
+R(X-90,Y-215*s,90+60*s+150,6,{f:"url(#steel)"});
+T(X+60*s+160,Y-215*s+2,"tablette int. 300 sur consoles (douilles)",{fs:9.5,a:"start"});
+P([[X-6,Y-400*s],[X-58,Y-400*s+30]],{close:false,sw:2.4});
+C(X-8,Y-400*s+2,3,{f:INK,s:"none"});
+T(X-70,Y-400*s-14,"volet acier verrouillable",{fs:9.5,a:"end"});
+tbv(X-40,Y-390*s+16,X-150,Y-40,"A");
+T(X-150,Y-40+18,"quincaillerie (TBV)",{fs:10});
+dimV(X+60*s+60,Y-400*s,Y-200*s,"200");
+dimV(X+60*s+104,Y,Y-333*s,"1000 (allège)",{fs:10});
+dimH(X,X+60*s,Y+22,"60",{oy:12,fs:10});
+L(X-160,Y,X+330,Y,1.2,GRID,"6 4");T(X+340,Y,"niv. 1000",{fs:9,c:GRID,a:"start"});
+})();
+
+/* ---- D4 : schéma élec + table (droite bas) ---- */
+(function(){
+const X=1050, Y=940;
+subTitle(1060,772,"4 · SCHÉMA ÉLECTRIQUE UNIFILAIRE (M2)","sans échelle");
+R(X,Y,90,120,{sw:1.8});T(X+45,Y-16,"coffret 4 mod.",{fs:10,w:700});
+tbv(X+90,Y+20,X+330,Y-40,"B");
+T(X+330+16,Y-40+18,"calibres disjoncteurs (TBV élec)",{fs:10,a:"start"});
+const circuits=[["éclairage int. (1 LED)",60],["projecteur ext. (auvent)",105],["2 prises de courant",150],["attente brasseur plafond",195]];
+circuits.forEach(c=>{L(X+90,Y+c[1]-30,X+220,Y+c[1]-30,1.6);C(X+228,Y+c[1]-30,5,{sw:1.3});T(X+244,Y+c[1]-30,c[0],{fs:10.5,a:"start"});});
+T(X+45,Y+240,"⚠ AUCUNE plomberie — module M2",{fs:10,c:OR,w:700,a:"start"});
+})();
+(function(){
+const X=1490,Y=1120;
+T(X+210,Y,"QUANTITATIF — POSTE DE GARDIENNAGE",{fs:14,w:800});
+const rows=[["Poteaux périm. 150×150","8"],["P1 1200×600×60","21"],["P1G (réservation guichet)","1"],
+["P2 claustra","8"],["P3 persiennes + P5 casquettes","3 + 3"],["P4 porte + imposte","1 + 1"],
+["Tablette + consoles","1"],["Coffret + PC + LED + projecteur","1+2+1+1"]];
+rows.forEach((r,i)=>{const y=Y+26+i*22;
+T(X,y,r[0],{fs:11,a:"start",w:700});T(X+310,y,r[1],{fs:11,a:"start",c:OR,w:700});});
+R(X-14,Y-16,450,26+rows.length*22+6,{sw:1});
+})();
+}
+
 if(SHEET==="PL01")PL01();
 else if(SHEET==="PL02")PL02();
+else if(SHEET==="PL04")PL04();
+else if(SHEET==="PL05")PL05();
 else PL03();
 
 out+="</svg>";

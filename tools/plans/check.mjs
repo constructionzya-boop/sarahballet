@@ -57,6 +57,47 @@ const chains = [
 ];
 for (const c of chains) eq(c.name, c.parts.reduce((a, b) => a + b, 0), c.total);
 
+// (h) module sanitaire
+const SA = S.modules.sanitaire;
+eq("(h1) sanitaire : 1800 + 1800 = profondeur 3600",
+  SA.partition.depth * 2, SA.footprint[1]);
+eq("(h2) cloison à 1800 = 3×600 (sous-module)",
+  SA.partition.depth % 600, 0);
+eq("(h3) pignon 2400 = 2×trame (porte = 1 travée pleine)",
+  2 * S.grid.module, SA.footprint[0]);
+eq("(h4) cloison 2400 = 4×600 et cloison + P2 = mur (ventilation traversante au-dessus)",
+  SA.partition.height + S.panels.P2.h, S.wall.height);
+
+// (i) module gardiennage
+const GA = S.modules.gardiennage;
+eq("(i1) gardiennage : chaque façade 2400 = 2 travées (3 fenêtres + 1 porte = 4 façades)",
+  2 * S.grid.module, GA.footprint[0]);
+eq("(i2a) guichet horizontal : 300 + 2×150 ≤ largeur P1 1200",
+  GA.guichet.w + 2 * GA.guichet.edge <= S.panels.P1.w, true);
+eq("(i2b) guichet vertical : 200 + 2×150 ≤ hauteur P1 600",
+  GA.guichet.h + 2 * GA.guichet.edge <= S.panels.P1.h, true);
+// (i3) cours d'assise : limites depuis le sol 200/800/1400 — la réservation [1000;1200]
+// avec gardes 150 → [850;1350] doit tenir dans le cours n°2 [800;1400]
+const courseBot = 800, courseTop = 1400;
+eq("(i3) réservation guichet [1000;1200] + gardes 150 tient dans le cours n°2 [800;1400]",
+  (GA.guichet.sill - GA.guichet.edge >= courseBot) && (GA.guichet.sill + GA.guichet.h + GA.guichet.edge <= courseTop), true);
+
+// Quantitatifs calculés depuis la géométrie (source des tables des planches)
+function quantities(m, nDoors, nWindows){
+  const bays = 2 * (m.baysW + m.baysD);                 // travées périmétriques
+  const posts = 2 * m.baysW + 2 * m.baysD;              // nœuds périmétriques
+  const fullBays = bays - nDoors - nWindows;
+  const P1 = fullBays * 4 + nWindows * 2;               // fenêtre P3 remplace 2 cours
+  const P2 = bays;                                      // bande claustra continue
+  return { bays, posts, P1, P2 };
+}
+const qs = quantities(SA, 2, 0);
+qs.P1 += (SA.partition.height / S.panels.P1.h) * (SA.footprint[0] / S.grid.module); // cloison : 4 cours × 2 sous-travées
+const qg = quantities(GA, 1, 3);
+console.log("\n=== QUANTITATIFS CALCULÉS ===");
+console.log(`SANITAIRE  : ${qs.posts} poteaux + 2 poteaux U int. (TBV) · P1 ${qs.P1} (dont 8 cloison) · P2 ${qs.P2} · P4 2 · impostes 2 · P6 2 · WC 2 · lave-mains 2 · siphons 2 · citerne 1 · puisard 1 (TBV)`);
+console.log(`GARDIENNAGE: ${qg.posts} poteaux · P1 ${qg.P1 - 1} + 1×P1G (réservation guichet) · P2 ${qg.P2} · P3 3 · P5 3 · P4 1 · imposte 1 · coffret 1`);
+
 // Rapport
 let fail = 0;
 console.log("=== RAPPORT DE CONTRÔLE DE COHÉRENCE — specs.json V1 ===");
