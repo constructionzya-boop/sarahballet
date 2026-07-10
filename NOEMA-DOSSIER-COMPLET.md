@@ -356,6 +356,13 @@ fichier gagne — ou Jeremy tranche.
 ## 11. DÉCISIONS ACTÉES & PROCHAINES ÉTAPES
 
 ### Décisions actées (ne pas rouvrir sans raison forte)
+0. **Création d'une SAS française « Noéma Diaspora »** (décision 2026-07-10) :
+   entité UE encaissant les ventes diaspora en EUR (Stripe, puis Alma/Oney/
+   Younited), vendant le module avec paiement échelonné ; production et pose
+   sous-traitées à l'entité CI (convention intra-groupe). Offre de lancement :
+   **plan à jalons 30 % commande / 40 % fin de fabrication (photos usine) /
+   30 % à la réception (PV + photos)** — jamais de pose sous 70 % encaissé.
+   Prix diaspora en EUR (+5-7 % vs local, parité fixe FCFA/€).
 1. Focus produit unique : One-Room Precast, 3 modèles, catalogue fermé P1-P8.
 2. Pose **manuportée** (D2) — panneaux horizontaux 1200×600×60.
 3. Trame 1,20 m ; mur 2,70 ; hors-tout 3,20 (D1).
