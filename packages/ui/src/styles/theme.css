@@ -1,0 +1,58 @@
+/*
+ * @noema/ui — Design system Noéma (Tailwind v4).
+ * Importé par chaque app : `@import "@noema/ui/styles/theme.css";`
+ *
+ * Charte : Night #000A21 · Dawn #38577D · Dew #BFDEF1 · Cream #FAF6EB
+ *          · Snow #F7F1EC · Orange #FF3311. Concrete = gris béton.
+ */
+@import "tailwindcss";
+
+/* Scanne les composants du package (résolus via le symlink workspace). */
+@source "../components";
+
+@theme {
+  /* Couleurs de marque */
+  --color-night: #000a21;
+  --color-dawn: #38577d;
+  --color-dew: #bfdef1;
+  --color-cream: #faf6eb;
+  --color-snow: #f7f1ec;
+  --color-orange: #ff3311;
+  --color-concrete: #9a9791;
+
+  /* Accent thémable : orange par défaut, surchargé par marque (voir plus bas) */
+  --color-accent: var(--color-orange);
+
+  /* Typographie */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Rayons */
+  --radius-md: 0.5rem;
+  --radius-lg: 0.875rem;
+}
+
+/*
+ * Thèmes par marque : les 4 marques annexes surchargent --color-accent.
+ * Appliquer via `<html data-brand="etansol">`. La construction et la holding
+ * gardent l'orange Noéma par défaut.
+ */
+@layer base {
+  [data-brand="etansol"] {
+    --color-accent: #1b7a5a;
+  }
+  [data-brand="hydralis"] {
+    --color-accent: #1f6fb2;
+  }
+  [data-brand="ventalis"] {
+    --color-accent: #2fa1a8;
+  }
+  [data-brand="saniva"] {
+    --color-accent: #b0752e;
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-night);
+    font-family: var(--font-sans);
+  }
+}
