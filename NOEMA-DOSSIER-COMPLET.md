@@ -340,22 +340,36 @@ fichier gagne — ou Jeremy tranche.
 
 ---
 
-## 10. CHARTE GRAPHIQUE
+## 10. CHARTE GRAPHIQUE (officielle — carte couleurs Jeremy 2026-07-10)
 
 | Nom | Hex | Usage |
 |---|---|---|
-| Night | `#000A21` | Texte, bandeaux |
-| Dawn | `#38577D` | Secondaire |
-| Dew | `#BFDEF1` | Accent doux |
-| Cream | `#FAF6EB` | Fond principal |
-| Snow | `#F7F1EC` | Fond alternatif |
-| Orange | `#FF3311` | Accent fort, CTA |
+| Night | `#000A21` | Texte, bandeaux, nav |
+| Dawn | `#385772` | Secondaire, labels |
+| Dew | `#B0DDF1` | Accent doux, badges |
+| Cream | `#FAF6EB` | Fond principal de page |
+| Sand | `#EBDDCF` | Fonds de cartes secondaires (issu de la carte, ex-conflit Cream) |
+| Snow | `#F7F1EC` | Fond alternatif, PhotoFrames |
+| Orange | `#FF3311` | Accent fort, CTA uniquement |
+
+**Logo** : picto carré Night avec toit parasol Orange (= le différenciateur produit
+dessiné) + wordmark « Noéma Construction » Night + baseline orange. Fichiers
+attendus dans `apps/construction/public/brand/` : `logo.svg`, `logo-white.svg`,
+`mark.svg` (picto seul, favicon). ⚠️ Harmoniser la baseline (« precast solution »
+sans accent, ou « solution préfabriquée »).
 
 ---
 
 ## 11. DÉCISIONS ACTÉES & PROCHAINES ÉTAPES
 
 ### Décisions actées (ne pas rouvrir sans raison forte)
+0. **Création d'une SAS française « Noéma Diaspora »** (décision 2026-07-10) :
+   entité UE encaissant les ventes diaspora en EUR (Stripe, puis Alma/Oney/
+   Younited), vendant le module avec paiement échelonné ; production et pose
+   sous-traitées à l'entité CI (convention intra-groupe). Offre de lancement :
+   **plan à jalons 30 % commande / 40 % fin de fabrication (photos usine) /
+   30 % à la réception (PV + photos)** — jamais de pose sous 70 % encaissé.
+   Prix diaspora en EUR (+5-7 % vs local, parité fixe FCFA/€).
 1. Focus produit unique : One-Room Precast, 3 modèles, catalogue fermé P1-P8.
 2. Pose **manuportée** (D2) — panneaux horizontaux 1200×600×60.
 3. Trame 1,20 m ; mur 2,70 ; hors-tout 3,20 (D1).

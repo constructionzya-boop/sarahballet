@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 190" role="img" aria-label="Noéma Construction — precast solution">
+  <!-- Version blanche pour fonds Night. Recréation V1 — remplacer par l'export exact. -->
+  <g>
+    <rect x="10" y="35" width="120" height="120" rx="10" fill="#FFFFFF"/>
+    <path d="M 18 69 Q 18 45 44 45 L 106 45 Q 122 45 122 61 L 122 79
+             Q 94 57 62 71 Q 36 82 18 75 Z" fill="#000A21"/>
+    <path d="M 122 121 Q 122 145 96 145 L 34 145 Q 18 145 18 129 L 18 111
+             Q 46 133 78 119 Q 104 108 122 115 Z" fill="#000A21"/>
+    <path d="M 28 87 Q 70 69 112 85 Q 114 86 112 89 Q 70 99 30 92 Q 26 90 28 87 Z" fill="#FF3311"/>
+    <path d="M 66 93 L 73 93 L 73 119 Q 73 124 69.5 124 Q 66 124 66 119 Z" fill="#FF3311"/>
+  </g>
+  <g font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+    <text x="150" y="88" font-size="52" font-weight="800" fill="#FFFFFF" letter-spacing="-1">Noéma</text>
+    <text x="150" y="138" font-size="52" font-weight="800" fill="#FFFFFF" letter-spacing="-1">Construction</text>
+    <text x="152" y="172" font-size="30" font-weight="500" fill="#FF3311">precast solution</text>
+  </g>
+</svg>
