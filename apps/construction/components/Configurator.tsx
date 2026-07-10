@@ -17,6 +17,8 @@ import { PhotoFrame } from "./PhotoFrame";
 import { PlanPreview2D } from "./PlanPreview2D";
 import { ConfiguratorPanel } from "./ConfiguratorPanel";
 import { PriceBar } from "./PriceBar";
+import { Tour3DPoster } from "./three/Tour3DPoster";
+import type { ModuleConfig } from "../lib/three/moduleBuilder";
 
 const PROJECT_ORDER: ProjectId[] = ["commerce", "studio", "local-pro"];
 
@@ -92,6 +94,7 @@ function ProjectChoice({ onSelect }: { onSelect: (id: ProjectId) => void }) {
 
 export function Configurator() {
   const [state, setState] = useState<State>(INITIAL);
+  const [view, setView] = useState<"3d" | "plan">("3d");
 
   const selectProject = (id: ProjectId) => {
     const p = PRICING_V1.projects[id];
@@ -136,6 +139,14 @@ export function Configurator() {
   const project = result.project;
   const clamp = (n: number) => Math.max(0, Math.min(n, PRICING_V1.travee.maxExtra));
 
+  const moduleConfig: ModuleConfig = {
+    preset: project.id,
+    extraTravees: state.extraTravees,
+    level: state.level,
+    base: state.base,
+    options: state.options,
+  };
+
   return (
     <div className="pb-40 lg:grid lg:grid-cols-5 lg:gap-6 lg:pb-0">
       {/* Zone visuelle (gauche) */}
@@ -157,13 +168,41 @@ export function Configurator() {
             </button>
           </div>
 
-          <div className="mt-6 flex items-center justify-center rounded-2xl bg-cream p-4">
-            <PlanPreview2D
-              project={project.id}
-              extraTravees={state.extraTravees}
-              className="max-h-[42vh] w-auto"
-            />
+          {/* Onglets Vue 3D / Vue plan */}
+          <div className="mt-4 flex w-fit gap-1 rounded-full bg-cream p-1">
+            {(["3d", "plan"] as const).map((v) => (
+              <button
+                key={v}
+                type="button"
+                onClick={() => setView(v)}
+                aria-pressed={view === v}
+                className={cn(
+                  "rounded-full px-4 py-1.5 text-sm font-semibold transition-colors",
+                  view === v ? "bg-night text-cream" : "text-night",
+                )}
+              >
+                {v === "3d" ? "Vue 3D" : "Vue plan"}
+              </button>
+            ))}
           </div>
+          {view === "3d" ? (
+            <div className="mt-4">
+              <Tour3DPoster
+                config={moduleConfig}
+                priceFcfa={result.totalFcfa}
+                label={`Aperçu 3D — ${project.offer}`}
+                className="h-[46vh] min-h-[320px]"
+              />
+            </div>
+          ) : (
+            <div className="mt-4 flex items-center justify-center rounded-2xl bg-cream p-4">
+              <PlanPreview2D
+                project={project.id}
+                extraTravees={state.extraTravees}
+                className="max-h-[42vh] w-auto"
+              />
+            </div>
+          )}
 
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-night/70">
             <span className="tabular-nums">

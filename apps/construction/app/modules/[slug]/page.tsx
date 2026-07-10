@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PhotoFrame } from "../../../components/PhotoFrame";
 import { WhatsAppCTA } from "../../../components/WhatsAppCTA";
+import { Tour3DPoster } from "../../../components/three/Tour3DPoster";
 import { getModule, MODULES } from "../../../lib/modules";
 import { EUR_XOF } from "../../../lib/constants";
 import { formatEur, formatFcfa } from "../../../lib/pricing";
@@ -121,6 +122,27 @@ export default async function ModulePage({ params }: { params: Promise<{ slug: s
           <PhotoFrame label={`${m.name} — détail toiture ventilée`} ratio="1/1" />
           <PhotoFrame label={`${m.name} — pose sur site`} ratio="1/1" />
         </section>
+
+        {/* Visite 3D */}
+        {m.configurable ? (
+          <section className="flex flex-col gap-4">
+            <h2 className="text-2xl font-black tracking-tight text-night sm:text-3xl">
+              Visitez ce module en 3D
+            </h2>
+            <Tour3DPoster
+              config={{
+                preset: m.configurable,
+                extraTravees: 0,
+                level: m.level,
+                base: "achat",
+                options: [],
+              }}
+              priceFcfa={m.fromFcfa ?? undefined}
+              label={`Visite 3D — ${m.name}`}
+              className="h-[70vh] min-h-[440px]"
+            />
+          </section>
+        ) : null}
 
         {/* Financements */}
         {m.fromFcfa ? (

@@ -9,8 +9,8 @@ import { WhatsAppCTA } from "./WhatsAppCTA";
 const LINKS = [
   { href: "/modules/box-commerce", label: "Modules" },
   { href: "/configurer", label: "Configurer" },
+  { href: "/visite", label: "Visite 3D" },
   { href: "/investir", label: "Investir" },
-  { href: "/notre-histoire", label: "Notre histoire" },
 ];
 
 const NAV_MESSAGE = "Bonjour Noéma, je souhaite un devis pour un module.";
