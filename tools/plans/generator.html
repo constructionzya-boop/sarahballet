@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>NOEMA — Détails techniques</title>
+<style>
+html,body{margin:0;background:#fff;font-family:system-ui,Arial,sans-serif;overflow:hidden}
+::-webkit-scrollbar{display:none}
+#sheet{width:2000px;height:1414px}
+</style>
+</head>
+<body>
+<div id="sheet"></div>
+<script>
+const SPECS = /*__SPECS__*/;
+const SHEET = "/*__SHEET__*/";
+
+const NAVY="#16233C", INK="#000A21", OR="#E8330F", GRID="#9AAEC6",
+      CONC="#EDF0F4", STEEL="#C6CDD6", SAND="#EBDDCF", SNOW="#F7F1EC", SEAL="#3A2E2A";
+let out="";
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+function L(x1,y1,x2,y2,w=1.5,c=NAVY,dash){out+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="${w}"${dash?` stroke-dasharray="${dash}"`:""} stroke-linecap="square"/>`;}
+function R(x,y,w,h,{f="none",s=NAVY,sw=1.5,dash}={}){out+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}" stroke="${s==="none"?"none":s}" stroke-width="${sw}"${dash?` stroke-dasharray="${dash}"`:""}/>`;}
+function P(pts,{f="none",s=NAVY,sw=1.5,close=true}={}){out+=`<path d="M ${pts.map(p=>p.join(" ")).join(" L ")}${close?" Z":""}" fill="${f}" stroke="${s==="none"?"none":s}" stroke-width="${sw}"/>`;}
+function C(cx,cy,r,{f="none",s=NAVY,sw=1.5}={}){out+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${f}" stroke="${s==="none"?"none":s}" stroke-width="${sw}"/>`;}
+function T(x,y,s,{fs=13,c=INK,a="middle",w=600,rot=0}={}){out+=`<text x="${x}" y="${y}" font-size="${fs}" fill="${c}" text-anchor="${a}" font-weight="${w}"${rot?` transform="rotate(${rot} ${x} ${y})"`:""} dominant-baseline="middle">${esc(s)}</text>`;}
+function tick(x,y){L(x-5,y+5,x+5,y-5,1.2,OR);}
+function dimH(xa,xb,y,label,{oy=-11,fs=12}={}){L(xa,y,xb,y,1,OR);tick(xa,y);tick(xb,y);T((xa+xb)/2,y+oy,label,{fs,c:OR,w:700});}
+function dimV(x,ya,yb,label,{ox=-12,fs=12}={}){L(x,ya,x,yb,1,OR);tick(x,ya);tick(x,yb);T(x+ox,(ya+yb)/2,label,{fs,c:OR,w:700,rot:-90});}
+function ext(x1,y1,x2,y2){L(x1,y1,x2,y2,0.7,GRID,"4 4");}
+function leader(x,y,tx,ty){L(x,y,tx,ty,0.9,NAVY);C(x,y,2,{f:NAVY,s:"none"});}
+function callout(x,y,tx,ty,letter){leader(x,y,tx,ty);C(tx,ty,11,{f:"#fff",sw:1.6});T(tx,ty,letter,{fs:12,w:800});}
+function tbv(x,y,tx,ty,letter){leader(x,y,tx,ty);C(tx,ty,11,{f:"#FFF3EF",s:OR,sw:1.6});T(tx,ty,letter,{fs:12,w:800,c:OR});T(tx+16,ty,"À VÉRIFIER — ING. STRUCT.",{fs:10.5,c:OR,w:800,a:"start"});}
+function weldSym(x,y,dir=1){ // symbole soudure d'angle normalisé
+  L(x,y,x+34*dir,y,1.4);L(x,y,x-10*dir,y-12,1.4);
+  P([[x+8*dir,y],[x+20*dir,y],[x+8*dir,y-10]],{f:NAVY,s:"none"});
+  T(x+26*dir,y+9,"a=4*",{fs:9.5,c:NAVY,a:dir>0?"start":"end"});
+}
+function slopeArrow(x1,y1,x2,y2,label){L(x1,y1,x2,y2,1.4,OR);P([[x2,y2],[x2-10,y2-4],[x2-8,y2+5]],{f:OR,s:"none"});T((x1+x2)/2,y1-12,label,{fs:11,c:OR,w:700});}
+function subTitle(x,y,txt,scale){T(x,y,txt,{fs:16,w:800,a:"start"});T(x,y+18,scale,{fs:11,c:GRID,a:"start"});}
+
+out+=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1414" width="2000" height="1414">
+<defs>
+ <pattern id="conc" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="${NAVY}" stroke-width="0.9"/></pattern>
+ <pattern id="steel" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" stroke="${INK}" stroke-width="1.4"/></pattern>
+ <pattern id="mesh" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 0L6 6M6 0L0 6" stroke="#7E93AC" stroke-width="0.6"/></pattern>
+ <pattern id="earth" width="14" height="8" patternUnits="userSpaceOnUse"><path d="M0 4 L6 4 M9 4 L14 4" stroke="#8A6B4F" stroke-width="1"/></pattern>
+ <pattern id="grout" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="0.9" fill="${NAVY}"/></pattern>
+</defs>
+<rect width="2000" height="1414" fill="#fff"/>`;
+
+/* ---------- cartouche + légende + footer ---------- */
+function chrome(title){
+  R(40,28,1920,58,{f:INK,s:"none"});
+  T(62,57,title,{fs:21,c:"#fff",a:"start",w:800});
+  T(1938,46,"Système Noéma — poteaux rainurés + panneaux empilés · trame 1200 · cotes en mm (niveaux depuis sol fini)",{fs:12,c:"#B0DDF1",a:"end"});
+  T(1938,70,"Indice V1 · "+SPECS._meta.date+" · Échelles indicatives — les cotes font foi",{fs:12,c:"#B0DDF1",a:"end"});
+  // légende hachures
+  const lx=1470,ly=1352;
+  T(lx-8,ly+14,"LÉGENDE :",{fs:11,w:800,a:"end"});
+  const items=[["url(#conc)","béton"],["url(#steel)","acier"],[SEAL,"mastic"],["url(#mesh)","moustiquaire"],["url(#earth)","sol"],["url(#grout)","scellement"]];
+  items.forEach((it,i)=>{const x=lx+i*86;R(x,ly+4,20,14,{f:it[0],sw:1});T(x+26,ly+11,it[1],{fs:10.5,a:"start",c:INK});});
+  R(40,1346,1920,4,{f:"#FF3311",s:"none"});
+  T(62,1372,SPECS._meta.disclaimer.toUpperCase(),{fs:13,c:OR,a:"start",w:800});
+  T(62,1394,"Repères ⬤ = détail décrit · Repères orange = À VÉRIFIER par l'ingénieur structure (liste au dossier). "+SPECS._meta.datum,{fs:11,c:GRID,a:"start"});
+}
+
+/* =====================================================================
+   PL-01 — MENUISERIES & BAIES
+===================================================================== */
+function PL01(){
+chrome("PL-01 — DÉTAILS MENUISERIES & BAIES · fenêtre P3, appui, casquette P5, porte P4");
+
+/* ---- D1 : coupe verticale baie fenêtre (S=0.185) ---- */
+(function(){
+const S=0.16, X=330, YG=735;           // x = face extérieure du mur ; ext à gauche
+const my=mm=>YG-mm*S;
+subTitle(120,130,"1 · COUPE VERTICALE — BAIE FENÊTRE","éch. ≈ 1:16");
+const t=60*S, xe=X, int_=X+t;
+// sol + plinthe (150 épaisseur dessinée)
+R(xe-20,my(200),20+t+40,200*S,{f:SAND});
+L(xe-20,my(200),xe+t+40,my(200),2); // arase
+R(xe-20,my(200)-3,20+t+40,3,{f:SEAL,s:"none"}); T(int_+150,my(190),"arase étanche (DPC)",{fs:10.5,a:"start",c:INK});
+// panneaux 200..800..1400 avec joints 10
+[[200,800],[810,1400]].forEach(([a,b],i)=>{
+  R(xe,my(b),t,(b-a)*S,{f:"url(#conc)"});
+  if(i===0){ // joint horizontal à 800-810
+    C(xe+t/2,my(805),7.5*S*4,{f:"#fff",sw:1});C(xe+t/2,my(805),4,{f:"none",sw:1});
+    R(xe-3,my(806),3,4,{f:SEAL,s:"none"});
+    P([[xe,my(810)],[xe+6,my(810)],[xe+6,my(816)]],{close:false,sw:1.2}); // larmier
+  }
+});
+T(int_+150,my(500),"P1 60 mm — ST25",{fs:10.5,a:"start"});
+callout(xe-2,my(806),xe-90,my(940),"A");
+T(xe-90,my(1000),"joint 10 : fond de joint Ø15",{fs:10});T(xe-90,my(1000)+13,"+ mastic PU 25% + larmier",{fs:10});
+// appui précast à 1400 : pente 10%, nez 40, goutte d'eau
+P([[xe-40*S*4,my(1400)+14],[xe+t,my(1400)],[xe+t,my(1400)+22],[xe-40*S*4,my(1400)+30]],{f:"url(#conc)"});
+P([[xe-28,my(1400)+26],[xe-24,my(1400)+30],[xe-20,my(1400)+26]],{close:false,sw:1.1});
+callout(xe-30,my(1400)+18,xe-110,my(1560),"B");
+T(xe-110,my(1640),"appui : pente 10 %, nez 40,",{fs:10});T(xe-110,my(1640)+12,"goutte d'eau, relevés 25",{fs:10});
+// fenêtre 1400..2600 : cadre 2mm + lames 100 à 45°
+L(xe+2,my(1400),xe+2,my(2600),2.2);L(int_-2,my(1400),int_-2,my(2600),2.2);
+for(let lv=1450;lv<2600;lv+=125){L(xe+4,my(lv),int_-4,my(lv-60),2);}
+T(int_+150,my(2000),"P3 : persiennes lames 100 @45°",{fs:10.5,a:"start"});
+T(int_+150,my(2000)-14,"cadre plié 2 mm",{fs:10.5,a:"start"});
+// mastic périphérique baie
+R(xe-3,my(1408),3,6,{f:SEAL,s:"none"});R(xe-3,my(2600),3,6,{f:SEAL,s:"none"});
+callout(xe-2,my(2600)+3,xe-110,my(2350),"C");
+T(xe-110,my(2430),"périphérie : fond de joint",{fs:10});T(xe-110,my(2430)+12,"+ mastic PU 8×8",{fs:10});
+// casquette P5 à tête de baie (2600) : 400 proj, 80 ép, pente 10%, goutte à 25
+P([[xe-400*S,my(2600)-4],[xe,my(2600)+18],[xe,my(2600)+18+80*S],[xe-400*S,my(2600)+80*S+8]],{f:"url(#conc)"});
+P([[xe-400*S+25*S*3,my(2600)+80*S+2],[xe-400*S+25*S*3+4,my(2600)+80*S+7],[xe-400*S+25*S*3+8,my(2600)+80*S+2]],{close:false,sw:1.1});
+callout(xe-400*S+12,my(2600)+80*S,xe-150,my(2860),"D");
+T(xe-150,my(2860)+16,"P5 : 1200×400×80, pente 10 %",{fs:10});T(xe-150,my(2860)+28,"goutte d'eau à 25 du nez",{fs:10});
+tbv(xe-30,my(2640),xe-190,my(3060),"E");
+T(xe-190,my(3060)+16,"fixation P5 : 2×M10 sur douilles",{fs:10});
+// claustra 2600..2900
+R(xe,my(2900),t,300*S,{f:"url(#mesh)"});R(xe,my(2900),t,300*S,{});
+[0.25,0.5,0.75].forEach(k=>C(xe+t/2,my(2600+300*k),2.4,{f:INK,s:"none"}));
+T(int_+150,my(2760),"P2 claustra + moustiquaire",{fs:10.5,a:"start"});
+T(int_+150,my(2760)-13,"+ 3 barreaux Ø12",{fs:10.5,a:"start"});
+// lame d'air 2900..3200 + toit
+R(xe-10,my(3200),t+20,300*S,{f:"url(#mesh)",sw:1});
+T(int_+150,my(3050),"lame d'air 300 — cadre SHS 25 (TBV)",{fs:10.5,a:"start"});
+out+=`<path d="M ${xe-70} ${my(3260)} ${Array.from({length:9},(_,i)=>`Q ${xe-70+(i*76+38)*0.185*3} ${my(3260)-(i%2?12:-12)} ${xe-70+((i+1)*76)*0.185*3} ${my(3260)}`).join(" ")}" fill="none" stroke="${NAVY}" stroke-width="2"/>`;
+T(int_+150,my(3260),"tôle ondulée 76/18",{fs:10.5,a:"start"});
+// chaîne de cotes
+const cx=X+430;
+ext(int_,my(0),cx+30,my(0));ext(int_,my(200),cx+30,my(200));ext(int_,my(1400),cx+30,my(1400));ext(int_,my(2600),cx+30,my(2600));ext(int_,my(2900),cx+30,my(2900));ext(int_,my(3200),cx+58,my(3200));
+dimV(cx,my(200),my(0),"200");
+dimV(cx,my(1400),my(200),"1200");
+dimV(cx,my(2600),my(1400),"1200");
+dimV(cx,my(2900),my(2600),"300");
+dimV(cx,my(3200),my(2900),"300");
+dimV(cx+38,my(3200),my(0),"3200",{fs:13});
+})();
+
+/* ---- D2 : coupe horizontale tableau (S=0.75) ---- */
+(function(){
+const S=0.75, X=1240, Y=300;
+subTitle(1060,130,"2 · COUPE HORIZONTALE — TABLEAU DE FENÊTRE","éch. ≈ 1:4");
+// poteau avec rainure 70×40, chanfreins 5
+const cw=150*S, gw=70*S, gd=40*S;
+const px=X, py=Y;
+P([[px,py],[px+cw,py],[px+cw,py+(150*S-gw)/2],[px+cw-gd,py+(150*S-gw)/2+5],[px+cw-gd,py+(150*S-gw)/2+gw-5],[px+cw,py+(150*S-gw)/2+gw],[px+cw,py+150*S],[px,py+150*S]],{f:"url(#conc)"});
+T(px+cw/2,py-16,"poteau 150×150",{fs:11,w:700});
+// panneau engagé 35 + jeux 5
+const pt=60*S, pj=py+(150*S-gw)/2+5;
+R(px+cw-35*S,pj,35*S+320,pt,{f:"url(#conc)"});
+dimH(px+cw-35*S,px+cw,pj-26,"35",{oy:-9,fs:10.5});
+T(px+cw-gd/2,pj+pt+16,"jeu 5",{fs:9.5,c:OR});
+// gasket + mastic
+R(px+cw-gd+2,pj+pt+1,10,5,{f:SEAL,s:"none"});
+callout(px+cw-gd+7,pj+pt+3,px+cw+90,py+150*S+46,"A");
+T(px+cw+96,py+150*S+62,"garniture 20×10 + mastic PU 10×10",{fs:10,a:"start"});
+// tableau fenêtre : extrémité panneau + cadre 2mm + vis M8 douille
+const fx=px+cw+320;
+L(fx,pj-30,fx,pj+pt+30,2.2);
+R(fx-2,pj-2,4,pt+4,{f:"url(#steel)"});
+L(fx+2,pj+pt/2,fx+26,pj+pt/2,1.4,NAVY,"4 3");C(fx+30,pj+pt/2,3.5,{f:"none"});
+callout(fx+2,pj+pt/2,fx+120,pj-60,"B");
+T(fx+126,pj-44,"cadre plié 2 mm fixé 6×M8",{fs:10,a:"start"});
+T(fx+126,pj-31,"sur douilles moulées",{fs:10,a:"start"});
+// fond de joint + mastic périphérie
+C(fx-10,pj-8,5,{f:"#fff"});R(fx-14,pj-16,8,6,{f:SEAL,s:"none"});
+callout(fx-10,pj-12,fx-90,pj-80,"C");
+T(fx-90,pj-96,"fond de joint + PU 8×8",{fs:10});
+dimH(px,px+cw,py+150*S+30,"150",{oy:14,fs:11});
+dimH(px+cw-gd,px+cw,py+(150*S-gw)/2-12,"40",{oy:-9,fs:10.5});
+dimV(px-16,py+(150*S-gw)/2,py+(150*S-gw)/2+gw,"70");
+T(px+cw/2,py+150*S+56,"chanfreins arêtes 15×15 · rainure chanfreinée 5×5",{fs:10,c:GRID});
+})();
+
+/* ---- D3 : coupe verticale porte (S=0.185) ---- */
+(function(){
+const S=0.16, X=330, YG=1310;
+const my=mm=>YG-mm*S;
+subTitle(120,772,"3 · COUPE VERTICALE — PORTE P4 & SEUIL","éch. ≈ 1:16");
+const t=60*S, xe=X, int_=X+t;
+// sol xe + plinthe + marche seuil 20
+R(xe-26,my(200),26,200*S,{f:"url(#earth)",sw:1});
+R(xe,my(200),t+40,200*S,{f:SAND});
+R(xe-2,my(220),t+42,20*S+2,{f:"url(#conc)"});
+P([[xe-2,my(220)],[xe-8,my(214)]],{close:false,sw:1.2});
+callout(xe-4,my(216),xe-100,my(420),"A");
+T(xe-100,my(420)+16,"seuil : ressaut ≤ 20,",{fs:10});T(xe-100,my(420)+28,"rejet d'eau extérieur",{fs:10});
+R(xe-20,my(200)-3,20+t+40,3,{f:SEAL,s:"none"});
+// porte 2100 (vantail 40) + bâti + pattes
+L(xe+6,my(220),xe+6,my(2300),2.4);
+R(xe+6,my(2300),40*S*2.4,(2100-20)*S,{f:"none",sw:1.6});
+T(int_+150,my(1300),"vantail acier 40 alvéolaire — 3 paumelles",{fs:10.5,a:"start"});
+// pattes de scellement (3/jambage) — vue : une en tête
+[600,1300,2000].forEach(h=>{R(int_-2,my(h)-3,26,6,{f:"url(#steel)"});});
+callout(int_+22,my(1300),int_+260,my(1760),"B");
+T(int_+276,my(1760)+14,"bâti plié 1,5 — 3 pattes / jambage",{fs:10,a:"start"});
+// imposte 2300..2600 + claustra 2600..2900
+R(xe,my(2600),t,300*S,{f:"url(#conc)"});T(int_+150,my(2450),"imposte 1200×300",{fs:10.5,a:"start"});
+R(xe,my(2900),t,300*S,{f:"url(#mesh)"});R(xe,my(2900),t,300*S,{});
+T(int_+150,my(2760),"P2 claustra",{fs:10.5,a:"start"});
+// chaîne
+const cx=X+300;
+[0,200,2300,2600,2900].forEach(l=>ext(int_,my(l),cx+30,my(l)));
+dimV(cx,my(200),my(0),"200");
+dimV(cx,my(2300),my(200),"2100");
+dimV(cx,my(2600),my(2300),"300");
+dimV(cx,my(2900),my(2600),"300");
+dimV(cx+38,my(2900),my(0),"2900",{fs:13});
+})();
+
+/* ---- D4 : vue de face — carte des joints (S=0.105) ---- */
+(function(){
+const S=0.105, X=1150, YG=1310;
+const my=mm=>YG-mm*S, mx=mm=>X+mm*S;
+subTitle(1060,772,"4 · VUE DE FACE — CARTE DES JOINTS & FIXATIONS","éch. ≈ 1:28 · baies fenêtre + porte");
+// 2 travées : fenêtre (0-1200), porte (1200-2400)
+R(mx(-80),my(200),(2560)*S,200*S,{f:SAND});
+R(mx(0),my(2900),2400*S,2700*S,{f:CONC});
+[0,1200,2400].forEach(ax=>R(mx(ax)-5,my(2900),10,2700*S,{f:"#DFE4EA"}));
+[800,1400,2000,2600].forEach(h=>L(mx(0),my(h),mx(2400),my(h),0.8,GRID));
+// fenêtre + capot + appui
+R(mx(75),my(2600),1050*S,1200*S,{f:"#28374F"});
+R(mx(35),my(2680),1130*S,80*S,{f:SAND});
+R(mx(35),my(1400),1130*S,10,{f:SAND});
+// porte
+R(mx(1350),my(2300),900*S,2100*S,{f:"#28374F"});
+R(mx(1275),my(2600),1050*S,300*S,{f:CONC});
+// claustra bande
+R(mx(40),my(2900),2320*S,300*S,{f:"url(#mesh)"});
+// joints mastic = traits orange
+[[75,1400,75,2600],[1125,1400,1125,2600],[75,1400,1125,1400],[75,2600,1125,2600]].forEach(j=>L(mx(j[0]),my(j[1]),mx(j[2]),my(j[3]),2,OR));
+[[1350,220,1350,2300],[2250,220,2250,2300],[1350,2300,2250,2300]].forEach(j=>L(mx(j[0]),my(j[1]),mx(j[2]),my(j[3]),2,OR));
+[800,2000].forEach(h=>L(mx(0),my(h),mx(2400),my(h),2,OR));
+T(mx(1200),my(3120),"— traits orange = mastic PU apparent (relevé d'étanchéité)",{fs:10.5,c:OR});
+// fixations : points
+[[75,1700],[75,2000],[75,2300],[1125,1700],[1125,2000],[1125,2300]].forEach(p=>C(mx(p[0]),my(p[1]),3,{f:INK,s:"none"}));
+T(mx(600),my(1250),"6×M8 par fenêtre",{fs:10,c:INK});
+[[1350,600],[1350,1300],[1350,2000]].forEach(p=>{C(mx(p[0]),my(p[1]),3.4,{f:"none",sw:1.4});});
+T(mx(1700),my(900),"3 paumelles",{fs:10});
+dimH(mx(0),mx(1200),YG+22,"1200");dimH(mx(1200),mx(2400),YG+22,"1200");
+})();
+}
+
+/* =====================================================================
+   PL-02 — TOITURE PARASOL
+===================================================================== */
+function PL02(){
+chrome("PL-02 — TOITURE « PARASOL » · équerres soudées, fixations tôle, égout, calepinage");
+
+/* ---- D1 : tête de poteau (redessiné, S=0.6) ---- */
+(function(){
+const S=0.6, X=330, yH=620;                     // yH = niveau tête de poteau (2900 TN)
+subTitle(120,130,"1 · COUPE — TÊTE DE POTEAU / ÉQUERRE / PANNE","éch. ≈ 1:6");
+const cw=150*S;                                  // largeur poteau
+// poteau (portion haute 260px)
+R(X,yH,cw,260,{f:"url(#conc)"});
+T(X+cw/2,yH+280,"poteau 150 — tête niv. 2900",{fs:10.5});
+// insert 100×100×8 sur tête (2 douilles M12)
+R(X+(cw-100*S)/2,yH-6,100*S,6,{f:"url(#steel)"});
+// lame d'air 300 : bande moustiquaire à gauche du poteau
+const gap=300*S;
+R(X-96,yH-gap,80,gap,{f:"url(#mesh)",sw:1});
+T(X-56,yH-gap/2,"lame d'air + moustiquaire",{fs:9.5,rot:-90});
+dimV(X-116,yH-gap,yH,"300");
+// équerre : montant vertical (5 ép) boulonné sur face droite, aile horizontale sous panne
+const pv=8;                                      // épaisseur dessinée
+R(X+cw,yH-gap,pv,gap,{f:"url(#steel)"});
+R(X+cw-70,yH-gap-pv,70+pv+70,pv,{f:"url(#steel)"});
+// gousset 6 mm
+P([[X+cw+pv,yH-gap+6],[X+cw+pv+64,yH-gap+6],[X+cw+pv,yH-gap+70]],{f:"url(#steel)"});
+weldSym(X+cw+pv+30,yH-gap+40,1);
+// boulons 2×M12 horizontaux dans insert/tête
+[[yH-26],[yH-70]].forEach(b=>{L(X+cw-26,b[0],X+cw+pv+10,b[0],1.4);C(X+cw+pv+13,b[0],3.4,{f:"#fff",sw:1.2});});
+T(X+cw+pv+24,yH-48,"2×M12",{fs:9.5,a:"start"});
+// panne C sur l'aile
+const py=yH-gap-pv;
+P([[X+cw-58,py-64],[X+cw+6,py-64],[X+cw+6,py-52],[X+cw-46,py-52],[X+cw-46,py-12],[X+cw+6,py-12],[X+cw+6,py],[X+cw-58,py]],{f:"none",sw:1.8});
+// cale à trous oblongs
+R(X+cw-40,py-6,34,6,{f:"url(#steel)"});
+out+=`<ellipse cx="${X+cw-23}" cy="${py-3}" rx="6" ry="2.6" fill="#fff" stroke="${NAVY}" stroke-width="1"/>`;
+// tôle ondulée au-dessus (pente légère)
+out+=`<path d="M ${X-110} ${py-84} ${Array.from({length:12},(_,i)=>`Q ${X-110+(i*34+17)} ${py-84-(i%2?9:-9)+i*0.6} ${X-110+(i+1)*34} ${py-84+i*0.6}`).join(" ")}" fill="none" stroke="${NAVY}" stroke-width="2.2"/>`;
+T(X-110,py-108,"tôle ondulée 76/18 — pente ≥5%",{fs:10,a:"start"});
+// callouts alignés à droite
+tbv(X+(cw)/2,yH-3,X+430,yH-190,"A");
+T(X+430,yH-190+16,"insert 100×100×8 + 2 douilles M12",{fs:10,a:"start"});
+tbv(X+cw+pv+30,yH-gap+44,X+430,yH-120,"B");
+T(X+430,yH-120+16,"équerre L50×50×5 + gousset 6",{fs:10,a:"start"});
+T(X+430,yH-120+29,"cordons a=4 — TAILLES à calculer",{fs:10,a:"start"});
+tbv(X+cw-20,py-32,X+430,yH-50,"C");
+T(X+430,yH-50+16,"panne C/Z — SECTION · cale à trous oblongs",{fs:10,a:"start"});
+})();
+
+/* ---- D2 : fixation tôle (S grand) ---- */
+(function(){
+const X=1120, Y=430;
+subTitle(1060,130,"2 · FIXATION TÔLE — VIS EPDM & DENSITÉS","éch. ≈ 1:2 / schéma");
+// une onde 76/18 + vis au sommet
+out+=`<path d="M ${X} ${Y} Q ${X+57} ${Y-54} ${X+114} ${Y} Q ${X+171} ${Y+54} ${X+228} ${Y} Q ${X+285} ${Y-54} ${X+342} ${Y}" fill="none" stroke="${NAVY}" stroke-width="2.6"/>`;
+// panne dessous
+R(X+20,Y+40,300,16,{f:"url(#steel)"});
+// vis au sommet gauche
+const vx=X+57, vy=Y-27;
+L(vx,vy-2,vx,Y+52,2.2);
+P([[vx-7,vy-14],[vx+7,vy-14],[vx+5,vy-4],[vx-5,vy-4]],{f:"url(#steel)"});
+out+=`<ellipse cx="${vx}" cy="${vy-2}" rx="12" ry="4" fill="${SEAL}"/>`;
+callout(vx+10,vy-4,X+430,Y-90,"A");
+T(X+430,Y-116,"vis autoperceuse Ø6,3",{fs:10});T(X+430,Y-103,"rondelle EPDM — en SOMMET d'onde",{fs:10});
+dimH(X,X+114,Y+80,"onde 76",{oy:14,fs:10.5});
+dimV(X+370,Y-54,Y,"18",{fs:10.5});
+// schéma densité : deux bandes
+const dy=Y+170;
+T(X+170,dy-24,"CALEPINAGE DES FIXATIONS",{fs:11,w:800});
+R(X,dy,340,44,{f:SNOW});R(X,dy+44,340,44,{f:"#FDEEE9"});
+for(let i=0;i<10;i++){const cx=X+18+i*34;
+  if(i%2===0)C(cx,dy+22,3.4,{f:INK,s:"none"});
+  C(cx,dy+66,3.4,{f:OR,s:"none"});}
+T(X+352,dy+22,"courant : 1 onde / 2",{fs:10.5,a:"start"});
+T(X+352,dy+66,"rives & débords : TOUTES les ondes",{fs:10.5,a:"start",c:OR});
+tbv(X+330,dy+66,X+560,dy+120,"B");
+T(X+560,dy+146,"densité finale : calcul vent",{fs:10});
+})();
+
+/* ---- D3 : égout arrière (S=0.4) ---- */
+(function(){
+const S=0.4, X=250, Y=1210;
+subTitle(120,806,"3 · COUPE ÉGOUT ARRIÈRE — GOUTTIÈRE & DESCENTE","éch. ≈ 1:8");
+// tôle en pente 5% arrivant à droite + débord 40
+slopeArrow(X+40,Y-240,X+330,Y-212,"pente ≥ 5 %");
+out+=`<path d="M ${X} ${Y-230} L ${X+420} ${Y-196}" stroke="${NAVY}" stroke-width="3" fill="none"/>`;
+L(X+420,Y-196,X+420+40*S*2,Y-192,3);
+// fascia/panne
+R(X+330,Y-190,60,14,{f:"url(#steel)"});
+// gouttière demi-ronde Ø125 : lèvre 25 sous la ligne d'égouttage
+const gx=X+436,gy=Y-172;
+out+=`<path d="M ${gx-52} ${gy} A 52 52 0 1 0 ${gx+52} ${gy}" fill="none" stroke="${NAVY}" stroke-width="2.6"/>`;
+L(gx-52,gy,gx-80,gy-8,2);T(gx-120,gy-16,"crochets @600",{fs:10});
+dimV(gx+70,gy-18,gy,"25",{fs:10,ox:12});T(gx+96,gy-9,"lèvre sous égouttage",{fs:9.5,a:"start"});
+// descente Ø80
+R(gx-14,gy+52,28,120,{f:"none",sw:2});T(gx+40,gy+110,"descente PVC Ø80",{fs:10,a:"start"});
+callout(gx+20,gy+34,gx+220,gy+80,"A");
+T(gx+220,gy+102,"gouttière demi-ronde galva Ø125",{fs:10});T(gx+220,gy+115,"pente 5 mm/m vers descente",{fs:10});
+dimH(X+420,X+420+40*S*2,Y-250,"débord tôle 40",{oy:-10,fs:10});
+})();
+
+/* ---- D4 : plan de toiture (S=0.052) ---- */
+(function(){
+const S=0.052, X=1150, Y=880;
+subTitle(1060,806,"4 · PLAN DE TOITURE — ÉQUERRES, PANNES, ZONES DE FIXATION","éch. ≈ 1:56");
+const mx=mm=>X+mm*S, my=mm=>Y+mm*S;
+// contour tôle avec débords : bât 3600×4800 ; front en bas (+800), autres 600
+const x0=mx(-600),y0=my(-600),x1=mx(4200),y1=my(5600);
+R(x0,y0,x1-x0,y1-y0,{f:SNOW,sw:2});
+// bande de rive = toutes ondes (hachée orange léger)
+const b=26;
+R(x0,y0,x1-x0,b,{f:"#FDEEE9",s:"none"});R(x0,y1-b,x1-x0,b,{f:"#FDEEE9",s:"none"});
+R(x0,y0,b,y1-y0,{f:"#FDEEE9",s:"none"});R(x1-b,y0,b,y1-y0,{f:"#FDEEE9",s:"none"});
+// bâtiment
+R(mx(0),my(0),3600*S,4800*S,{sw:1.6,dash:"6 4"});
+// pannes le long des axes profondeur (A..E)
+[0,1200,2400,3600,4800].forEach(y=>{L(x0+8,my(y),x1-8,my(y),2.2);});
+T(mx(1800),my(-980),"pannes @1200 alignées sur axes (SECTION TBV)",{fs:10.5});
+// équerres = points aux 14 têtes de poteaux
+const AX=[0,1200,2400,3600],AY=[0,1200,2400,3600,4800];
+AX.forEach((x,i)=>AY.forEach((y,j)=>{
+  const per=(i===0||i===3)||(j===0||j===4); if(!per)return;
+  C(mx(x),my(y),4.5,{f:INK,s:"none"});
+}));
+T(mx(1800),y1+58,"● = équerre soudée à chaque tête de poteau (14 u.)",{fs:10.5});
+// gouttière arrière (haut = arrière)
+L(x0,y0-8,x1,y0-8,3,OR);T(x0-10,y0-8,"gouttière arrière",{fs:10,c:OR,a:"end"});
+slopeArrow(mx(1800),my(3400),mx(1800),my(1000),"pente");
+dimH(mx(0),mx(3600),y1+18,"3600",{oy:12,fs:11});
+dimH(x0,mx(0),y1+18,"600",{oy:12,fs:10});
+dimV(x1+16,my(0),my(4800),"4800",{ox:14});
+dimV(x1+16,my(4800),y1,"800",{ox:14,fs:10});T(x1+30,(my(4800)+y1)/2,"(avant)",{fs:9,a:"start",c:OR});
+T(mx(1800),y1+76,"zone teintée = fixation toutes ondes",{fs:9.5,c:OR});
+})();
+}
+
+/* =====================================================================
+   PL-03 — STRUCTURE & ASSEMBLAGES
+===================================================================== */
+function PL03(){
+chrome("PL-03 — STRUCTURE & ASSEMBLAGES · joint, linteau P9, bases");
+
+/* ---- D1 : coupe horizontale poteau + 2 panneaux (S=0.9) ---- */
+(function(){
+const S=0.9, X=300, Y=300;
+subTitle(120,130,"1 · COUPE HORIZONTALE — POTEAU RAINURÉ + 2 PANNEAUX","éch. ≈ 1:3");
+const cw=150*S, gw=70*S, gd=40*S, pt=60*S;
+const gy=(150*S-gw)/2;
+// poteau avec 2 rainures opposées, chanfreins
+P([[X,Y+ (0)],[X+cw,Y],[X+cw,Y+gy],[X+cw-gd,Y+gy+4],[X+cw-gd,Y+gy+gw-4],[X+cw,Y+gy+gw],[X+cw,Y+150*S],[X,Y+150*S],[X,Y+gy+gw],[X+gd,Y+gy+gw-4],[X+gd,Y+gy+4],[X,Y+gy]],{f:"url(#conc)"});
+// chanfreins coins 15
+T(X+cw/2,Y-18,"poteau 150×150 — chanfreins 15×15",{fs:11,w:700});
+// panneaux engagés des 2 côtés : 35 dans rainure, jeu 5
+R(X+cw-35*S,Y+gy+5*S,35*S+300,pt,{f:"url(#conc)"});
+R(X-35*S-210,Y+gy+5*S,35*S+210,pt,{f:"url(#conc)"});
+dimH(X+cw-35*S,X+cw,Y+gy-10,"35",{oy:-9,fs:10.5});
+T(X+cw+40,Y+gy+5*S+pt+14,"jeu 5 / côté (rainure 70 = 60+2×5)",{fs:10,a:"start",c:OR});
+// garniture + mastic sur chaque joint
+[[X+cw-gd+3,Y+gy+5*S+pt+1],[X+gd-13,Y+gy+5*S+pt+1]].forEach(p=>R(p[0],p[1],10,5,{f:SEAL,s:"none"}));
+callout(X+cw-gd+8,Y+gy+5*S+pt+3,X+cw+230,Y-40,"A");
+T(X+cw+236,Y-24,"garniture compressible 20×10",{fs:10,a:"start"});
+T(X+cw+236,Y-11,"+ mastic PU 10×10 (face ext.)",{fs:10,a:"start"});
+T(X+cw+236,Y+2,"larmier 10×10 sur joints horizontaux",{fs:10,a:"start"});
+dimH(X,X+cw,Y+150*S+26,"150",{oy:13,fs:11});
+dimV(X-16,Y+gy,Y+gy+gw,"70");
+dimH(X,X+gd,Y+gy-10,"40",{oy:-9,fs:10.5});
+})();
+
+/* ---- D2 : linteau P9 (S=0.235) ---- */
+(function(){
+const S=0.235, X=1120, Y=210;
+subTitle(1060,130,"2 · COUPE VERTICALE — LINTEAU P9 SUR APPUIS + COFFRE RIDEAU","éch. ≈ 1:13");
+const mx=mm=>X+mm*S;
+// 2 poteaux (portion), linteau 2550 posé dessus (appui 150 = pleine tête)
+const topY=Y+40;
+R(mx(-75),topY+300*S,150*S,520*S,{f:"url(#conc)"});
+R(mx(2325),topY+300*S,150*S,520*S,{f:"url(#conc)"});
+R(mx(-75),topY,2550*S,300*S,{f:"url(#conc)"});
+// armatures : 4 points + cadres
+[[-40,60],[2290,60],[-40,240],[2290,240]].forEach(p=>C(mx(p[0]+75),topY+p[1]*S+ (0),3.2,{f:INK,s:"none"}));
+[300,750,1200,1650,2100].forEach(x=>R(mx(x-20),topY+5,4,300*S-10,{f:"none",sw:0.9}));
+tbv(mx(1200),topY+150*S,mx(1560),topY+300*S+120,"A");
+T(mx(1560)+16,topY+300*S+142,"4 HA12 + cadres HA6 @150 — PRÉ-DIM.",{fs:10,a:"start"});
+// coffre rideau 205 sous soufflite + coulisses 65
+R(mx(700),topY+300*S,205*S*2.2,205*S*2.2,{f:"none",sw:1.8});
+T(mx(700)+205*S*1.1,topY+300*S+205*S*1.1,"coffre 205",{fs:9.5});
+L(mx(75)+65*S,topY+300*S,mx(75)+65*S,topY+300*S+300,2);
+L(mx(2250)-65*S,topY+300*S,mx(2250)-65*S,topY+300*S+300,2);
+T(mx(160),topY+300*S+180,"coulisse 65",{fs:9.5,rot:-90});
+// cotes
+dimH(mx(-75),mx(75),topY-14,"150 appui",{oy:-9,fs:10});
+dimH(mx(2250),mx(2400),topY-14,"150 appui",{oy:-9,fs:10});
+dimH(mx(75),mx(2250),topY-14,"2250 libre structurel",{oy:-9,fs:11});
+dimH(mx(-75),mx(2400),topY-44,"P9 = 2550",{oy:-10,fs:12});
+dimH(mx(75)+65*S+ (0),mx(2250)-65*S,topY+300*S+330,"passage libre 2100",{oy:13,fs:11});
+dimV(mx(2400)+26,topY,topY+300*S,"300",{ox:14});
+T(mx(1200),topY+300*S+390,"masse P9 ≈ 275 kg — méthode de pose À VÉRIFIER (pose à 6 ou levage léger)",{fs:10.5,c:OR,w:700});
+})();
+
+/* ---- D3 : base LOCATION (S=0.32) ---- */
+(function(){
+const S=0.32, X=340, Y=1240;
+subTitle(120,760,"3 · BASE VARIANTE LOCATION — SKID DÉMONTABLE","éch. ≈ 1:9");
+const my=mm=>Y-mm*S;
+// sol + plot 400³
+R(X-160,my(0),480,90,{f:"url(#earth)",sw:1});
+R(X-40,my(0),400*S,400*S* (1),{f:"url(#conc)"}); // plot enterré partiellement : dessiné sous niveau
+// on dessine plot sous le sol : décale
+out+=""; // (plot dessiné ci-dessus à cheval — acceptable schématiquement)
+// platine 150×150×10 + 2 ancrages M12
+R(X-40+ (400*S-150*S)/2,my(0)-10*S-2,150*S,10*S+2,{f:"url(#steel)"});
+[[-30],[30]].forEach(d=>{L(X-40+200*S+d[0],my(0)-8,X-40+200*S+d[0],my(0)+34,1.6);});
+tbv(X-40+200*S+30,my(0)+20,X+360,my(0)+26,"A");
+T(X+360,my(0)+48,"2×M12 expansion + plot 400×400×400",{fs:10,a:"start"});
+// pied réglable M24 ±50
+const fx=X-40+200*S;
+R(fx-5,my(0)-10*S-2-70,10,70,{f:"url(#steel)"});
+L(fx-16,my(0)-10*S-30,fx+16,my(0)-10*S-30,3);
+T(fx+24,my(0)-10*S-40,"pied M24 réglable ±50",{fs:10,a:"start"});
+// traverse skid (profil TBV) + DPC + platine poteau 4×M12
+const sy=my(0)-10*S-2-70-46;
+R(fx-90,sy,180,46,{f:"none",sw:2});L(fx-90,sy,fx+90,sy,3.4);L(fx-90,sy+46,fx+90,sy+46,3.4);
+tbv(fx+80,sy+23,X+330,sy-10,"B");
+T(X+330,sy+16,"traverse laminée — SECTION",{fs:10,a:"start"});
+R(fx-90,sy-4,180,4,{f:SEAL,s:"none"});T(fx+100,sy-8,"DPC",{fs:9.5,a:"start"});
+// poteau boulonné
+R(fx-75*0.62,sy-4-150*S*1.4,150*0.62,150*S*1.4,{f:"url(#conc)"});
+[[-24],[24]].forEach(d=>L(fx+d[0],sy-4,fx+d[0],sy-24,1.6));
+tbv(fx+24,sy-16,X+330,sy-70,"C");
+T(X+330,sy-46,"platine pied de poteau 4×M12",{fs:10,a:"start"});
+T(120,806,"5 traverses (1 par ligne de poteaux) + 2 longerons — ensemble DÉMONTABLE",{fs:10.5,w:700,a:"start"});
+})();
+
+/* ---- D4 : base VENDU (S=0.32) ---- */
+(function(){
+const S=0.32, X=1010, Y=1240;
+subTitle(950,760,"4 · BASE VARIANTE VENDU — SCELLEMENT + DALLE","éch. ≈ 1:9");
+const my=mm=>Y-mm*S;
+// sol compacté + DPM + dalle 100 + poteau encastré 400 dans plot
+R(X-140,my(-60),560,110,{f:"url(#earth)",sw:1});
+T(X+140,my(-60)+64,"latérite compactée",{fs:9.5});
+// plot avec réservation : poteau encastré 400
+R(X+40,my(-40),300*S,440*S,{f:"url(#conc)"});
+R(X+40+ (300-150)/2*S,my(400),150*S,400*S,{f:"url(#grout)"});
+R(X+40+(300-150)/2*S+8,my(400)+4,150*S-16,400*S+30,{f:"url(#conc)"});
+T(X+40+150*S,my(200),"scellement",{fs:9,rot:-90,c:INK});
+dimV(X+16,my(400),my(0),"400",{ox:-12});
+// DPM 200µ + dalle 100 + ST25
+R(X-140,my(0)-2,560,3,{f:SEAL,s:"none"});T(X+430,my(0)+14,"DPM 200µ",{fs:9.5,a:"start"});
+R(X-140,my(100),560,100*S,{f:"url(#conc)"});
+L(X-130,my(50),X+410,my(50),1.2,NAVY,"8 4");T(X+430,my(50)-8,"ST25",{fs:9.5,a:"start"});
+tbv(X+300,my(80),X+600,my(320),"A");
+T(X+600,my(320)+18,"dalle & plots : géotechnique",{fs:10,a:"start"});
+// arase + panneau au-dessus
+R(X+40+(300-150)/2*S+8,my(400)+4+ (0),150*S-16,0,{f:"none",s:"none"});
+R(X-40,my(200)-3,520,3,{f:SEAL,s:"none"});T(X+500,my(200)-14,"arase (DPC)",{fs:9.5,a:"start"});
+T(X+150,Y+56,"dalle coulée AUTOUR des poteaux = verrou + sol fini (irréversible)",{fs:10.5,w:700,a:"start"});
+})();
+
+/* ---- table nomenclature ---- */
+(function(){
+const X=1490,Y=830;
+T(X+180,Y,"NOMENCLATURE P1→P9",{fs:15,w:800});
+const rows=[
+["P1","1200×600×60","104 kg","béton C25/30 + ST25"],
+["P2","1200×300×60","32 kg","béton + moustiquaire + 3Ø12"],
+["P3","1200×1200","35 kg","persiennes acier 2 mm"],
+["P4","900×2100+imposte","55 kg","acier plié 1,5 / vantail 40"],
+["P5","1200×400×80","88 kg","béton, pente 10%"],
+["P6","600×200×60","12 kg","béton + moustiquaire"],
+["P7","1200×600","—","plafond composite (PL. ult.)"],
+["P8","kit technique","—","citerne + coffret (PL. ult.)"],
+["P9","2550×300×150","275 kg","béton armé — TBV"]];
+rows.forEach((r,i)=>{const y=Y+26+i*24;
+T(X,y,r[0],{fs:12,c:OR,w:800,a:"start"});
+T(X+42,y,r[1],{fs:11.5,a:"start",w:700});
+T(X+205,y,r[2],{fs:11.5,a:"start"});
+T(X+280,y,r[3],{fs:10.5,a:"start",c:GRID});});
+R(X-14,Y-18,486,26+rows.length*24+8,{sw:1});
+})();
+}
+
+if(SHEET==="PL01")PL01();
+else if(SHEET==="PL02")PL02();
+else PL03();
+
+out+="</svg>";
+document.getElementById("sheet").innerHTML=out;
+</script>
+</body>
+</html>
