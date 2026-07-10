@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "./Logo";
 import { PRICE_DISCLAIMER } from "../lib/constants";
 
 const COLS = [
@@ -33,9 +34,13 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl rounded-3xl bg-night px-6 py-10 text-cream shadow-soft sm:px-10">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           <div className="max-w-xs">
-            <p className="text-xl font-black tracking-tight">NOÉMA CONSTRUCTION</p>
-            <p className="mt-2 text-sm text-cream/70">
+            <Logo variant="white" className="h-10" />
+            <p className="mt-4 text-sm text-cream/70">
               Modules préfabriqués béton, posés en un jour. Abidjan · Libreville.
+            </p>
+            <p className="mt-4 text-xs text-cream/50">
+              <span className="font-semibold text-dew">Réseau Noéma :</span> Étansol · Hydralis ·
+              Ventalis · Saniva
             </p>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">

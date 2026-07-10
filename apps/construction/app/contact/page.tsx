@@ -36,7 +36,7 @@ export default function ContactPage() {
 
         <section className="flex flex-col gap-4">
           <PhotoFrame label="Dépôt Abidjan — module showroom à visiter" ratio="4/3" />
-          <div className="rounded-3xl bg-dew/50 p-6">
+          <div className="rounded-3xl bg-sand p-6">
             <h2 className="text-lg font-bold text-night">Venez toucher le module</h2>
             <p className="mt-1 text-sm text-night/70">
               On croit au terrain : un module showroom se visite. Demandez l&apos;adresse sur

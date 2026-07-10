@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { cn } from "@noema/ui";
+import { Logo } from "./Logo";
 import { WhatsAppCTA } from "./WhatsAppCTA";
 
 const LINKS = [
@@ -14,24 +15,15 @@ const LINKS = [
 
 const NAV_MESSAGE = "Bonjour Noéma, je souhaite un devis pour un module.";
 
-function Logo() {
-  return (
-    <Link href="/" className="flex items-baseline gap-2 pl-1 text-cream">
-      <span className="text-lg font-black tracking-tight">NOÉMA</span>
-      <span className="text-[10px] font-semibold uppercase tracking-widest text-dew">
-        Construction
-      </span>
-    </Link>
-  );
-}
-
 export function PillNav() {
   const [open, setOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
       <nav className="mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-full bg-night px-3 py-2 shadow-soft sm:px-4">
-        <Logo />
+        <Link href="/" className="pl-1" aria-label="Noéma Construction — accueil">
+          <Logo variant="white" className="h-7" />
+        </Link>
 
         <ul className="hidden items-center gap-1 md:flex">
           {LINKS.map((link) => (

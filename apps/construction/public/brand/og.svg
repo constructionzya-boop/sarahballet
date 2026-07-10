@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Noéma Construction — Posé en 1 jour">
+  <!-- Image OpenGraph placeholder. Remplacer par un PNG 1200x630 pour le partage social définitif. -->
+  <rect width="1200" height="630" fill="#000A21"/>
+  <!-- Picto -->
+  <g transform="translate(430,150)">
+    <rect x="0" y="0" width="120" height="120" rx="10" fill="#FFFFFF"/>
+    <path d="M 8 34 Q 8 10 34 10 L 96 10 Q 112 10 112 26 L 112 44 Q 84 22 52 36 Q 26 47 8 40 Z" fill="#000A21"/>
+    <path d="M 112 86 Q 112 110 86 110 L 24 110 Q 8 110 8 94 L 8 76 Q 36 98 68 84 Q 94 73 112 80 Z" fill="#000A21"/>
+    <path d="M 18 52 Q 60 34 102 50 Q 104 51 102 54 Q 60 64 20 57 Q 16 55 18 52 Z" fill="#FF3311"/>
+    <path d="M 56 58 L 63 58 L 63 84 Q 63 89 59.5 89 Q 56 89 56 84 Z" fill="#FF3311"/>
+  </g>
+  <g font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" text-anchor="middle">
+    <text x="600" y="360" font-size="72" font-weight="800" fill="#FFFFFF" letter-spacing="-2">Noéma Construction</text>
+    <text x="600" y="430" font-size="34" font-weight="600" fill="#B0DDF1">Posé en 1 jour — Côte d'Ivoire &amp; Gabon</text>
+  </g>
+</svg>

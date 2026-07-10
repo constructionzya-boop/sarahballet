@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PhotoFrame } from "../components/PhotoFrame";
 import { GlassCard } from "../components/GlassCard";
+import { Logo } from "../components/Logo";
 import { WhatsAppCTA } from "../components/WhatsAppCTA";
 import { MODULES } from "../lib/modules";
 import { formatFcfa } from "../lib/pricing";
@@ -159,7 +160,7 @@ export default function HomePage() {
             <h2 className="text-3xl font-black tracking-tight text-night sm:text-4xl">
               Les modules
             </h2>
-            <Link href="/configurer" className="text-sm font-semibold text-orange">
+            <Link href="/configurer" className="text-sm font-semibold text-dawn hover:text-night">
               Tout configurer →
             </Link>
           </div>
@@ -216,6 +217,35 @@ export default function HomePage() {
                 <p className="mt-1 text-sm text-night/60">{s.d}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TOIT PARASOL */}
+      <section className="px-3 sm:px-4">
+        <div className="mx-auto grid max-w-6xl gap-6 rounded-3xl bg-night p-6 text-cream shadow-soft sm:p-10 lg:grid-cols-2">
+          <div className="flex flex-col justify-center gap-4">
+            <p className="text-xs font-semibold uppercase tracking-widest text-dew">
+              Pack climat tropical
+            </p>
+            <h2 className="text-3xl font-black tracking-tight sm:text-4xl">Le Toit Parasol</h2>
+            <p className="text-cream/70">
+              Toiture froide double peau ventilée + casquettes brise-soleil : le module reste 6 à 10
+              °C plus frais qu&apos;un box en tôle. On n&apos;isole pas — on ombrage et on ventile.
+            </p>
+            <div className="mt-2 flex items-center gap-3">
+              <span className="flex size-12 items-center justify-center rounded-xl bg-white p-1.5">
+                <Logo variant="mark" alt="" className="h-full" />
+              </span>
+              <p className="text-sm font-semibold text-dew">C&apos;est lui, dans notre logo.</p>
+            </div>
+          </div>
+          <div className="flex items-center">
+            <PhotoFrame
+              label="Schéma Toit Parasol — coupe toiture ventilée"
+              ratio="4/3"
+              className="w-full border-white/25 bg-white/5"
+            />
           </div>
         </div>
       </section>

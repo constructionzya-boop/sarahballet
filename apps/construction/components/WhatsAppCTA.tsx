@@ -23,7 +23,7 @@ export function WhatsAppCTA({
 }: WhatsAppCTAProps) {
   const variants = {
     orange: "bg-orange text-white hover:brightness-110 focus-visible:ring-orange",
-    green: "bg-[#25D366] text-white hover:brightness-105 focus-visible:ring-[#25D366]",
+    green: "bg-whatsapp text-white hover:brightness-105 focus-visible:ring-whatsapp",
   };
   const sizes = { md: "h-11 px-5 text-sm", lg: "h-14 px-7 text-base" };
   return (
