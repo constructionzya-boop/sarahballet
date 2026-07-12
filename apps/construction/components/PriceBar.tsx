@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { cn } from "@noema/ui";
 import type { ConfigInput, ConfigResult } from "../lib/pricing";
 import { formatEur, formatFcfa } from "../lib/pricing";
@@ -78,6 +79,14 @@ export function PriceBar({ input, result, className }: PriceBarProps) {
         </svg>
         Recevoir ce devis sur WhatsApp
       </a>
+      <Link
+        href={`/reserver?project=${input.project}&currency=${
+          input.financing === "diaspora" ? "eur" : "xof"
+        }`}
+        className="mt-2 flex h-12 w-full items-center justify-center gap-2 rounded-full border border-white/25 text-sm font-semibold text-cream transition-colors hover:bg-white/10"
+      >
+        Réserver avec 30 % d&apos;acompte →
+      </Link>
       <p className="mt-2 text-center text-[11px] text-cream/50">
         Prix indicatif — devis exact gratuit.
       </p>
