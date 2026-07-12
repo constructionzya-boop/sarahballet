@@ -77,6 +77,17 @@ describe("cost-plus", () => {
   it("rejette une marge ≥ 100 %", () => {
     expect(() => priceFromCost(100, 1)).toThrow();
   });
+
+  it("le prix de lancement colle au « à partir de » publié au catalogue", () => {
+    const expected: Record<string, number> = {
+      commerce: 3_200_000,
+      studio: 3_800_000,
+      "local-pro": 2_000_000,
+    };
+    for (const [project, price] of Object.entries(expected)) {
+      expect(modulePrice(project as keyof typeof MODULE_COST, 0).priceFcfa).toBe(price);
+    }
+  });
 });
 
 describe("early-adopter lock-in", () => {

@@ -33,24 +33,29 @@ export function costTotal(c: CostBreakdown): number {
  * Base : chiffrages internes ordre de grandeur ; marge de lancement calibrée
  * pour rester à peine au-dessus du point mort structure (volume-first).
  */
+//
+// Les totaux sont calibrés pour que le prix de LANCEMENT (marge 20 %, cf.
+// pricing_v2) tombe pile sur le « à partir de » publié au catalogue :
+//   commerce 2 560 000 → 3 200 000 · studio 3 040 000 → 3 800 000 ·
+//   local-pro 1 600 000 → 2 000 000. Cohérence prix affiché ↔ décomposition.
 export const MODULE_COST: Record<ProjectId, CostBreakdown> = {
   commerce: {
-    materialsFcfa: 1_450_000,
-    laborFcfa: 380_000,
+    materialsFcfa: 1_600_000,
+    laborFcfa: 400_000,
     logisticsFcfa: 300_000,
     equipmentFcfa: 260_000,
   },
   studio: {
-    materialsFcfa: 1_620_000,
-    laborFcfa: 420_000,
+    materialsFcfa: 1_850_000,
+    laborFcfa: 430_000,
     logisticsFcfa: 320_000,
-    equipmentFcfa: 480_000,
+    equipmentFcfa: 440_000,
   },
   "local-pro": {
-    materialsFcfa: 720_000,
-    laborFcfa: 210_000,
-    logisticsFcfa: 210_000,
-    equipmentFcfa: 190_000,
+    materialsFcfa: 950_000,
+    laborFcfa: 250_000,
+    logisticsFcfa: 220_000,
+    equipmentFcfa: 180_000,
   },
 };
 

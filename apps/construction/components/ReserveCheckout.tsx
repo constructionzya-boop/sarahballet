@@ -9,7 +9,7 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import type { ProjectId } from "../lib/pricing";
-import { modulePrice } from "../lib/pricing_v2";
+import { modulePrice, modulesUntilNextTier } from "../lib/pricing_v2";
 import { CURRENT_VOLUME } from "../lib/metrics";
 import {
   fcfaToMinor,
@@ -130,7 +130,14 @@ export function ReserveCheckout({
           </li>
         ))}
       </ul>
-      <p className="mt-3 text-xs text-night/50">
+      {modulesUntilNextTier(CURRENT_VOLUME) !== null ? (
+        <p className="mt-3 flex items-center gap-2 text-xs font-semibold text-orange">
+          <span className="flex size-2 rounded-full bg-orange" />
+          Prix de lancement verrouillé — plus que {modulesUntilNextTier(CURRENT_VOLUME)} modules
+          avant le palier suivant.
+        </p>
+      ) : null}
+      <p className="mt-2 text-xs text-night/50">
         Prix indicatif (grille V2, palier de lancement). Aucune pose sous 70 % encaissé.
       </p>
     </div>
