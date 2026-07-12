@@ -16,15 +16,20 @@ où le business en a besoin, chaque phase est utilisable seule.
 
 **Livrables : `apps/construction` + `apps/holding` (réduit) + capture leads.**
 
-- [ ] Site construction : accueil, 5 fiches offres, /technologie, /realisations,
-      /financement (contenu), /devis (formulaire court), guides SEO (5 articles).
-- [ ] Simulateur de mensualités (statique, matrice de prix v1 en JSON).
-- [ ] CTA WhatsApp partout (deep links payload), numéro Business vérifié.
+- [x] Site construction : accueil, fiches offres, configurateur, visite 3D.
+- [x] Simulateur de mensualités (matrice de prix versionnée, PRICING_V1).
+- [x] **Guides SEO (10 articles)** longue traîne + JSON-LD + maillage interne.
+- [x] CTA WhatsApp partout (deep links), à brancher sur le numéro Business vérifié.
+- [x] **Preuve sociale** (témoignages + compteur branché sur METRICS).
+- [x] **Manifeste /vision** + **programme ambassadeurs** (parrainage tracké).
 - [ ] Holding one-page + fiches marques (placeholder marques annexes).
-- [ ] Leads → Google Sheet/Airtable temporaire + notification WhatsApp interne
-      (l'API attendra la phase 2 — zéro dépendance bloquante pour vendre).
+- [ ] Leads → CRM temporaire + notification WhatsApp interne (`/api/lead` livré,
+      persistance Connect en phase 2).
 
 **Critère de sortie : premier devis envoyé à un prospect réel depuis le site.**
+
+> Ajouté session « plateforme financière » : pricing_v2 (cost-plus volume-first
+> + lock-in), calculateur win-win public, dashboard interne `/office/economics`.
 
 ## Phase 2 — Configurateur & API (semaines 9-16)
 
@@ -37,11 +42,18 @@ où le business en a besoin, chaque phase est utilisable seule.
 
 ## Phase 3 — Contrats & paiements (semaines 17-24) 🎯 encaisser
 
+- [~] **Checkout CB Stripe livré en avance** (mode test) : PaymentIntents par
+      jalons 30/40/30, 3DS2/SCA, Apple/Google Pay, webhooks idempotents signés,
+      machine à états COMMANDE→…→LIVRÉ (gardes encaissement/pose). Reste : clés
+      prod, persistance DB (`orders`, `processed_webhook_events`), reçus.
 - [ ] Contrats générés + e-signature OTP + CGV vente/location/accession.
-- [ ] Intégration CinetPay (acomptes, échéances) + webhooks + réconciliation.
+- [ ] Intégration CinetPay (mobile money) + webhooks + réconciliation (2e rail).
 - [ ] Échéanciers location & rent-to-own (equity_ratio, reçus PDF).
 - [ ] Espace client `/app` : dossiers, timeline, paiements, documents.
 - [ ] Notifications WhatsApp templates (devis, échéance, reçu).
+
+> Critère de sortie : premier acompte réel encaissé en ligne (CB ou mobile money)
+> avec dossier passé à ACOMPTE_OK et reçu envoyé.
 
 ## Phase 4 — Opérations (semaines 25-32) 🎯 produire & poser
 
@@ -57,6 +69,32 @@ où le business en a besoin, chaque phase est utilisable seule.
 - [ ] Catalogue central + Meilisearch + comptes pro (prix masqués).
 - [ ] Panier de devis B2B → même pipeline CRM.
 - [ ] Puis Hydralis, Ventalis, Saniva (1 semaine/marque une fois le template prêt).
+
+## Phase 6 — Plateforme financière (transverse, séquencée) 🎯 financer
+
+Transformer le site en **plateforme financière du bâtiment** : tout devient
+accessible par carte ou mobile money. Séquencée pour rester légale à chaque pas.
+
+- [~] **6.1 Checkout universel CB** (base livrée) : brancher les clés prod,
+      persister les dossiers, activer les reçus WhatsApp/email par jalon.
+      *Critère : 10 acomptes encaissés en ligne sans intervention manuelle.*
+- [~] **6.2 Noéma Impact — mode Pionniers** (livré, à activer avec clés) : dons
+      avec contreparties + prévente, double rail CB + mobile money sur la même
+      barre de progression, mur des bâtisseurs, rapports photo (timeline Connect).
+      *Critère : 1 projet à impact intégralement financé et livré.*
+- [~] **6.3 Manifestation d'intérêt investisseurs** (livré) : `/investisseurs`
+      + data room qualifiante → CRM scoring. *Critère : 20 leads qualifiés, 3 RDV
+      fonds/family office.*
+- [ ] **6.4 Licence / partenariat PSFP** : signer un partenariat marque blanche
+      avec une plateforme PSFP agréée (chemin le plus rapide vers la légalité) —
+      ou porter l'agrément. *Critère : contrat signé + KYC/AML en place.*
+- [ ] **6.5 Produits d'investissement régulés** (mode `regule`, désactivé
+      aujourd'hui) : SPV par projet, obligations/royalties, escrow, plafonds.
+      *Critère : `REGULATED_ENABLED=true` après validation des 6 points de
+      `docs/10-invest-compliance.md`.*
+
+> Discipline : ne jamais activer `regule` avant licence/partenariat. Les modes
+> Pionniers et Intérêt sont légaux partout et se déploient dès maintenant.
 
 ## V3+ (opportuniste)
 

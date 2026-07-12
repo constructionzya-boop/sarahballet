@@ -1,7 +1,12 @@
 import type { ProjectId } from "../lib/pricing";
 import { formatFcfa } from "../lib/pricing";
 import { MODULE_VALUE } from "../lib/economics";
-import { modulePrice, computeWinWin, tierForVolume } from "../lib/pricing_v2";
+import {
+  modulePrice,
+  computeWinWin,
+  tierForVolume,
+  modulesUntilNextTier,
+} from "../lib/pricing_v2";
 import { CURRENT_VOLUME } from "../lib/metrics";
 
 /**
@@ -14,6 +19,7 @@ export function WinWinPanel({ project }: { project: ProjectId }) {
   const value = MODULE_VALUE[project];
   const w = computeWinWin(project, price, value.monthlyValueFcfa, value.valueLabel);
   const tier = tierForVolume(CURRENT_VOLUME);
+  const untilNext = modulesUntilNextTier(CURRENT_VOLUME);
 
   const segments = [
     { pct: w.noema.materialsPct, c: "bg-night", l: "Matériaux" },
@@ -89,11 +95,19 @@ export function WinWinPanel({ project }: { project: ProjectId }) {
           ))}
         </ul>
 
-        <p className="mt-auto rounded-xl bg-snow p-3 text-xs text-night/60">
-          <span className="font-semibold text-night">Prix de lancement.</span> Il augmentera avec
-          notre notoriété — <span className="font-semibold text-night">jamais</span> pour une
-          commande déjà signée. Commander tôt verrouille votre prix.
-        </p>
+        <div className="mt-auto flex flex-col gap-2">
+          {untilNext !== null ? (
+            <p className="flex items-center gap-2 text-xs font-semibold text-orange">
+              <span className="flex size-2 rounded-full bg-orange" />
+              Plus que {untilNext} modules à ce prix avant le palier suivant.
+            </p>
+          ) : null}
+          <p className="rounded-xl bg-snow p-3 text-xs text-night/60">
+            <span className="font-semibold text-night">Prix de lancement.</span> Il augmentera avec
+            notre notoriété — <span className="font-semibold text-night">jamais</span> pour une
+            commande déjà signée. Commander tôt verrouille votre prix.
+          </p>
+        </div>
       </div>
     </section>
   );

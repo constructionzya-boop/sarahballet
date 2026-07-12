@@ -2,7 +2,7 @@
 
 > **Document maître unique.** Toute l'information et le contexte du projet,
 > classés. C'est CE fichier qu'une session Claude (terminal ou web) doit lire
-> pour tout connaître. Mis à jour : 2026-07-09.
+> pour tout connaître. Mis à jour : 2026-07-12.
 > Propriétaire : Jeremy (constructionzya@gmail.com) · Langue : français.
 > Repo : `constructionzya-boop/sarahballet` · Branche : `claude/noema-construction-group-pndut3`.
 
@@ -363,6 +363,26 @@ sans accent, ou « solution préfabriquée »).
 ## 11. DÉCISIONS ACTÉES & PROCHAINES ÉTAPES
 
 ### Décisions actées (ne pas rouvrir sans raison forte)
+0-bis. **Le site devient une PLATEFORME FINANCIÈRE du bâtiment** (session
+   2026-07-12). Tout est accessible par carte ou mobile money. Piliers livrés :
+   - **Tarification cost-plus volume-first** (`lib/pricing_v2.ts`) : marge de
+     lancement basse (20 %), paliers pilotés par le volume signé (croissance
+     27 %, établi 32 %), **early-adopter lock-in** (jamais de hausse sur commande
+     signée). Unit economics dans `lib/economics.ts` + dashboard interne
+     `/office/economics`. Transparence radicale = marketing (panneau win-win).
+   - **Checkout CB Stripe** (mode test) : jalons **30/40/30**, 3DS2/SCA,
+     webhooks idempotents, machine à états `COMMANDE→…→LIVRÉ` (pas de production
+     sans acompte, **pas de pose sous 70 % encaissé**).
+   - **Noéma Impact** : financement participatif **légal d'abord** — feature-flag
+     `INVEST_MODE` (mode *pionniers* = don avec contreparties + prévente, actif ;
+     *intérêt* = pipeline investisseurs ; *régulé* = **désactivé**, structure
+     prête, cf. `docs/10-invest-compliance.md`). **Aucune promesse de rendement
+     en V1.** Chemin légal privilégié : **partenariat PSFP en marque blanche**.
+   - **Espace investisseurs** `/investisseurs` (thèse, TAM/SAM/SOM, levées,
+     data room qualifiante) ; **/vision** (manifeste 2030) ; **10 guides SEO** ;
+     **programme ambassadeurs** (100 €/filleul livré) ; **preuve sociale**.
+   - Sourcing Chine documenté (`docs/11-sourcing-chine.md`), roadmap Phase 6
+     ajoutée (`docs/08-roadmap.md`). Chiffres = hypothèses V1 indicatives.
 0. **Création d'une SAS française « Noéma Diaspora »** (décision 2026-07-10) :
    entité UE encaissant les ventes diaspora en EUR (Stripe, puis Alma/Oney/
    Younited), vendant le module avec paiement échelonné ; production et pose

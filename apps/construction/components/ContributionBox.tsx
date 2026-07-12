@@ -6,6 +6,7 @@ import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-
 import { formatFcfa } from "../lib/pricing";
 import { REWARD_TIERS, tierForAmount } from "../lib/invest";
 import { STRIPE_PUBLISHABLE_KEY, isCheckoutConfigured } from "../lib/stripe/config";
+import { whatsappHref } from "../lib/whatsapp";
 
 const PRESETS = [25_000, 100_000, 500_000];
 
@@ -154,17 +155,19 @@ export function ContributionBox({ projectSlug }: { projectSlug: string }) {
               Paiement carte en préparation (Stripe). En attendant, contribuez via WhatsApp.
             </div>
           )}
-          <button
-            type="button"
-            title="Orange Money · MTN MoMo · Wave · Moov — bientôt"
-            className="flex h-12 items-center justify-center gap-2 rounded-full border border-night/15 text-sm font-semibold text-night/70"
-            disabled
+          <a
+            href={whatsappHref(
+              `Bonjour Noéma, je veux contribuer ${formatFcfa(effective)} au projet ${projectSlug} par mobile money (Orange/MTN/Wave/Moov).`,
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex h-12 items-center justify-center gap-2 rounded-full border border-night/15 text-sm font-semibold text-night transition-colors hover:bg-snow"
           >
             Mobile Money (Orange · MTN · Wave · Moov)
             <span className="rounded-full bg-dew px-2 py-0.5 text-[10px] font-bold text-night">
-              bientôt
+              via WhatsApp
             </span>
-          </button>
+          </a>
           <p className="text-center text-[11px] text-night/50">
             Les deux rails alimentent la même barre de progression.
           </p>
