@@ -9,18 +9,60 @@ const RATIO: Record<string, string> = {
 export type PhotoFrameProps = {
   /** Légende de l'emplacement, ex. « Rendu Box Commerce — façade avant ». */
   label: string;
+  /**
+   * Chemin public de l'image (ex. « /renders/box-commerce-3quart-1.webp »).
+   * Si absent, le composant reste un placeholder en attente de rendu.
+   */
+  src?: string;
   ratio?: "16/9" | "4/3" | "1/1";
   /** Remplit le parent (pour les fonds hero) au lieu d'imposer un ratio. */
   fill?: boolean;
+  /** Charge l'image en priorité (hero au-dessus de la ligne de flottaison). */
+  priority?: boolean;
+  /** object-position CSS, ex. « center 40% ». */
+  objectPosition?: string;
   className?: string;
 };
 
 /**
- * Emplacement d'image en attente de rendu réel. TOUTES les images du site
- * passent par ce composant : il suffit de remplacer son contenu au fur et à
+ * Emplacement d'image du site. Si `src` est fourni, affiche le rendu (recadré
+ * en `object-cover`) ; sinon, reste un placeholder discret. Toutes les images
+ * du site passent par ce composant : il suffit d'ajouter une `src` au fur et à
  * mesure que les rendus arrivent.
  */
-export function PhotoFrame({ label, ratio = "4/3", fill = false, className }: PhotoFrameProps) {
+export function PhotoFrame({
+  label,
+  src,
+  ratio = "4/3",
+  fill = false,
+  priority = false,
+  objectPosition,
+  className,
+}: PhotoFrameProps) {
+  if (src) {
+    return (
+      <div
+        role="img"
+        aria-label={label}
+        className={cn(
+          "overflow-hidden rounded-2xl bg-snow",
+          fill ? "h-full w-full" : RATIO[ratio],
+          className,
+        )}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt={label}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          className="h-full w-full object-cover"
+          style={objectPosition ? { objectPosition } : undefined}
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       role="img"

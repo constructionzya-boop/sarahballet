@@ -13,6 +13,10 @@ export type ModuleDef = {
   description: string;
   /** Projet du configurateur pré-réglé, si applicable. */
   configurable: ProjectId | null;
+  /** Rendu produit principal (vignette + hero fiche). Absent = placeholder. */
+  image?: string;
+  /** Galerie de la fiche : jusqu'à 3 vues. Complétée par des placeholders. */
+  gallery?: { src: string; label: string }[];
 };
 
 export const MODULES: readonly ModuleDef[] = [
@@ -27,6 +31,12 @@ export const MODULES: readonly ModuleDef[] = [
     description:
       "Local commercial prêt à l'emploi : électricité pré-câblée, façade vitrée à jalousies, casquettes brise-soleil. Idéal épicerie, boutique télécom, kiosque.",
     configurable: "commerce",
+    image: "/renders/box-commerce-3quart-1.webp",
+    gallery: [
+      { src: "/renders/box-commerce-situation-1.webp", label: "Box Commerce en activité, rue d'Abidjan" },
+      { src: "/renders/box-commerce-face-1.webp", label: "Box Commerce — façade avant, rideau ouvert" },
+      { src: "/renders/box-commerce-ferme-1.webp", label: "Box Commerce — rideau fermé, sécurisé" },
+    ],
   },
   {
     slug: "sanitaire-public",
@@ -51,6 +61,10 @@ export const MODULES: readonly ModuleDef[] = [
     description:
       "Logement d'une pièce eau + électricité : cellule sanitaire 1,2 × 2,4 m et coin cuisine. Pour la location résidentielle, la diaspora ou une annexe.",
     configurable: "studio",
+    image: "/renders/studio-3quart-1.webp",
+    gallery: [
+      { src: "/renders/studio-3quart-2.webp", label: "Studio — variante toiture tôle ondulée" },
+    ],
   },
   {
     slug: "poste-gardiennage",

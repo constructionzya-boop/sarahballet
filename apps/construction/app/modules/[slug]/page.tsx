@@ -71,6 +71,8 @@ export default async function ModulePage({ params }: { params: Promise<{ slug: s
           <div className="lg:col-span-3">
             <PhotoFrame
               label={`Rendu ${m.name} — vue 3/4 façade`}
+              src={m.image}
+              priority
               ratio="4/3"
               className="rounded-3xl"
             />
@@ -116,11 +118,20 @@ export default async function ModulePage({ params }: { params: Promise<{ slug: s
           </div>
         </section>
 
-        {/* Galerie */}
+        {/* Galerie — images de m.gallery, complétées par des placeholders */}
         <section className="grid gap-4 sm:grid-cols-3">
-          <PhotoFrame label={`${m.name} — intérieur`} ratio="1/1" />
-          <PhotoFrame label={`${m.name} — détail toiture ventilée`} ratio="1/1" />
-          <PhotoFrame label={`${m.name} — pose sur site`} ratio="1/1" />
+          {[
+            m.gallery?.[0] ?? { label: `${m.name} — intérieur` },
+            m.gallery?.[1] ?? { label: `${m.name} — détail toiture ventilée` },
+            m.gallery?.[2] ?? { label: `${m.name} — pose sur site` },
+          ].map((slot, i) => (
+            <PhotoFrame
+              key={i}
+              label={slot.label}
+              src={"src" in slot ? slot.src : undefined}
+              ratio="1/1"
+            />
+          ))}
         </section>
 
         {/* Visite 3D */}

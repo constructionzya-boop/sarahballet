@@ -28,6 +28,11 @@ const PROJECT_TAGLINE: Record<ProjectId, string> = {
   "local-pro": "Poste de gardiennage / bureau 5,8 m².",
 };
 
+const PROJECT_RENDER: Partial<Record<ProjectId, string>> = {
+  commerce: "/renders/box-commerce-3quart-1.webp",
+  studio: "/renders/studio-3quart-1.webp",
+};
+
 type State = {
   project: ProjectId | null;
   extraTravees: number;
@@ -66,7 +71,7 @@ function ProjectChoice({ onSelect }: { onSelect: (id: ProjectId) => void }) {
                 {p.offer}
               </span>
             </div>
-            <PhotoFrame label={`Rendu ${p.offer} — vignette`} ratio="4/3" />
+            <PhotoFrame label={`Rendu ${p.offer} — vignette`} src={PROJECT_RENDER[id]} ratio="4/3" />
             <div>
               <p className="text-lg font-black tracking-tight text-night">{p.name}</p>
               <p className="mt-1 text-sm text-night/60">{PROJECT_TAGLINE[id]}</p>

@@ -159,7 +159,11 @@ export default function InvestirPage() {
               Configurer un Box Commerce →
             </Link>
           </div>
-          <PhotoFrame label="Rendu Box Commerce — configuration diaspora" ratio="4/3" />
+          <PhotoFrame
+            label="Rendu Box Commerce — configuration diaspora"
+            src="/renders/box-commerce-3quart-2.webp"
+            ratio="4/3"
+          />
         </section>
 
         {/* Verrous de confiance */}

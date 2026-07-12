@@ -60,7 +60,7 @@ function ModuleMiniCard({ slug }: { slug: string }) {
         </span>
         <span className="text-xs font-semibold uppercase tracking-widest text-dawn">{m.area}</span>
       </div>
-      <PhotoFrame label={`Rendu ${m.name} — façade avant`} ratio="4/3" />
+      <PhotoFrame label={`Rendu ${m.name} — façade avant`} src={m.image} ratio="4/3" />
       <div>
         <h3 className="text-lg font-black tracking-tight text-night">{m.name}</h3>
         <p className="mt-1 text-sm text-night/60">{m.tagline}</p>
@@ -97,7 +97,10 @@ export default function HomePage() {
         <div className="relative mx-auto h-[80vh] min-h-[540px] w-full max-w-6xl overflow-hidden rounded-[32px] shadow-soft-lg">
           <PhotoFrame
             fill
-            label="Vidéo hero — Box Commerce posé en 1 jour, rue d'Abidjan (16/9, ~15 s)"
+            priority
+            src="/renders/box-commerce-situation-1.webp"
+            objectPosition="center 60%"
+            label="Box Commerce Noéma installé dans une rue d'Abidjan, posé en 1 jour"
             className="absolute inset-0 rounded-[32px] border-0"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-night/80 via-night/25 to-night/10" />
