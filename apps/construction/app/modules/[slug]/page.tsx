@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PhotoFrame } from "../../../components/PhotoFrame";
 import { WhatsAppCTA } from "../../../components/WhatsAppCTA";
 import { Tour3DPoster } from "../../../components/three/Tour3DPoster";
+import { WinWinPanel } from "../../../components/WinWinPanel";
 import { getModule, MODULES } from "../../../lib/modules";
 import { EUR_XOF } from "../../../lib/constants";
 import { formatEur, formatFcfa } from "../../../lib/pricing";
@@ -133,6 +134,16 @@ export default async function ModulePage({ params }: { params: Promise<{ slug: s
             />
           ))}
         </section>
+
+        {/* Win-win : ce que vous gagnez / où va votre argent */}
+        {m.configurable ? (
+          <section className="flex flex-col gap-4">
+            <h2 className="text-2xl font-black tracking-tight text-night sm:text-3xl">
+              Gagnant-gagnant, en toute transparence
+            </h2>
+            <WinWinPanel project={m.configurable} />
+          </section>
+        ) : null}
 
         {/* Visite 3D */}
         {m.configurable ? (
