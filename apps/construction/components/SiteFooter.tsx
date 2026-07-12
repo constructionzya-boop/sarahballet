@@ -15,8 +15,11 @@ const COLS = [
   {
     title: "Financer",
     links: [
-      { href: "/investir", label: "Investir / Diaspora" },
       { href: "/configurer", label: "Achat · Location · Accession" },
+      { href: "/reserver", label: "Réserver (30 % en ligne)" },
+      { href: "/impact", label: "Noéma Impact" },
+      { href: "/investisseurs", label: "Investisseurs" },
+      { href: "/investir", label: "Diaspora" },
     ],
   },
   {
