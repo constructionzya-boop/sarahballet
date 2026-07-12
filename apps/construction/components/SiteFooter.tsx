@@ -25,8 +25,18 @@ const COLS = [
   {
     title: "Noéma",
     links: [
+      { href: "/vision", label: "Notre vision" },
       { href: "/notre-histoire", label: "Notre histoire" },
+      { href: "/ambassadeurs", label: "Ambassadeurs" },
       { href: "/contact", label: "Contact" },
+    ],
+  },
+  {
+    title: "Ressources",
+    links: [
+      { href: "/guides", label: "Guides" },
+      { href: "/impact", label: "Projets à impact" },
+      { href: "/investisseurs", label: "Investisseurs" },
     ],
   },
 ];

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PhotoFrame } from "../components/PhotoFrame";
+import { SocialProof } from "../components/SocialProof";
 import { GlassCard } from "../components/GlassCard";
 import { Logo } from "../components/Logo";
 import { WhatsAppCTA } from "../components/WhatsAppCTA";
@@ -200,6 +201,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* PREUVE SOCIALE */}
+      <SocialProof />
 
       {/* COMMENT ÇA MARCHE */}
       <section className="px-3 sm:px-4">
