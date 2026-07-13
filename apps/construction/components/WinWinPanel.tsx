@@ -26,7 +26,7 @@ export function WinWinPanel({ project }: { project: ProjectId }) {
     { pct: w.noema.laborPct, c: "bg-dawn", l: "Main-d'œuvre usine" },
     { pct: w.noema.logisticsPct, c: "bg-dew", l: "Transport + pose" },
     { pct: w.noema.equipmentPct, c: "bg-sand", l: "Kit technique" },
-    { pct: w.noema.marginPct, c: "bg-orange", l: "Notre marge" },
+    { pct: w.noema.marginPct, c: "bg-orange", l: "Marge de contribution" },
   ];
 
   return (
@@ -68,7 +68,7 @@ export function WinWinPanel({ project }: { project: ProjectId }) {
             Où va votre argent
           </p>
           <span className="rounded-full bg-orange/10 px-3 py-1 text-[11px] font-bold text-orange">
-            {tier.label} · marge {w.noema.marginPct} %
+            {tier.label} · contribution {w.noema.marginPct} %
           </span>
         </div>
 
@@ -94,6 +94,13 @@ export function WinWinPanel({ project }: { project: ProjectId }) {
             </li>
           ))}
         </ul>
+
+        <p className="text-xs text-night/50">
+          Cette « marge de contribution » finance encore la structure fixe
+          (salaires atelier, amortissement des moules, dépôt) : la marge nette
+          réelle est nettement plus basse — c&apos;est le prix de la stratégie
+          volume d&apos;abord.
+        </p>
 
         <div className="mt-auto flex flex-col gap-2">
           {untilNext !== null ? (

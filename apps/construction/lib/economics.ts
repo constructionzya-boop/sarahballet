@@ -13,7 +13,12 @@ import { EUR_XOF } from "./constants";
 
 /** Décomposition du coût de revient variable d'un module (par unité produite). */
 export interface CostBreakdown {
-  /** Béton, aciers, moules (part amortie/unité), panneaux P1-P8. */
+  /**
+   * Béton, aciers, panneaux P1-P8 et consommables de coulage — coût VARIABLE
+   * pur. ⚠️ N'inclut PAS l'amortissement des moules : celui-ci est une charge
+   * FIXE mensuelle (`ATELIER_FIXED.moldsAmortFcfa`), une seule source de vérité,
+   * pour ne pas le compter deux fois (cf. docs/11-sourcing-chine.md §2).
+   */
   materialsFcfa: number;
   /** Main-d'œuvre atelier (coffrage, coulage, finitions, contrôle qualité). */
   laborFcfa: number;
@@ -127,8 +132,11 @@ export const LTV_PARAMS = {
   extensionProbability: 0.35,
   /** Filleuls livrés attendus par client satisfait. */
   referralsPerClient: 0.4,
-  /** Marge moyenne récupérée sur un filleul (≈ marge de contribution moyenne). */
-  referralMarginPerFilleulFcfa: 640_000,
+  /**
+   * Marge moyenne récupérée sur un filleul = moyenne des marges de contribution
+   * de lancement des 3 offres : (640k + 760k + 400k) / 3 = 600 000.
+   */
+  referralMarginPerFilleulFcfa: 600_000,
 } as const;
 
 /** LTV détaillée d'un client pour une offre et un prix donnés. */

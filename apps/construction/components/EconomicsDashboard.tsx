@@ -19,7 +19,9 @@ import {
   PRICING_TIERS,
   modulePrice,
   computeWinWin,
+  tierForVolume,
 } from "../lib/pricing_v2";
+import { CURRENT_VOLUME } from "../lib/metrics";
 
 const PROJECTS: ProjectId[] = ["commerce", "studio", "local-pro"];
 const LABELS: Record<ProjectId, string> = {
@@ -38,7 +40,10 @@ export function EconomicsDashboard() {
   const [volume, setVolume] = useState(0); // -0.5 .. +0.5
   const [baseVolume, setBaseVolume] = useState(8); // modules/mois
 
-  const price = useMemo(() => modulePrice(project, 0).priceFcfa, [project]);
+  // Dashboard interne aligné sur le VOLUME COURANT (comme le site public), pas
+  // figé sur le palier de lancement : évite un prix/marge faux passé 50 modules.
+  const currentTier = tierForVolume(CURRENT_VOLUME);
+  const price = useMemo(() => modulePrice(project, CURRENT_VOLUME).priceFcfa, [project]);
   const cost = MODULE_COST[project];
   const totalCost = costTotal(cost);
   const contribution = contributionMargin(project, price);
@@ -54,7 +59,7 @@ export function EconomicsDashboard() {
 
   const avgContribution = useMemo(() => {
     const sum = PROJECTS.reduce(
-      (s, p) => s + contributionMargin(p, modulePrice(p, 0).priceFcfa),
+      (s, p) => s + contributionMargin(p, modulePrice(p, CURRENT_VOLUME).priceFcfa),
       0,
     );
     return Math.round(sum / PROJECTS.length);
@@ -83,7 +88,11 @@ export function EconomicsDashboard() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
           { t: "Coût de revient", v: formatFcfa(totalCost), s: "variable / module" },
-          { t: "Prix lancement", v: formatFcfa(price), s: "marge 20 %" },
+          {
+            t: `Prix · ${currentTier.label}`,
+            v: formatFcfa(price),
+            s: `vol. ${CURRENT_VOLUME} · marge cible ${Math.round(currentTier.grossMarginTarget * 100)} %`,
+          },
           { t: "Marge contribution", v: formatFcfa(contribution), s: `${win.noema.marginPct} % du prix` },
           { t: "LTV / CAC", v: `${ratio}×`, s: `CAC ${formatFcfa(CAC_TARGET_FCFA)}` },
         ].map((k) => (
