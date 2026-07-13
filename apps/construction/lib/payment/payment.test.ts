@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { toMinor, fromMinor, fcfaToMinor, formatMinor } from "./money";
-import { splitMilestones, milestonesFor, paidRatio, MILESTONES } from "./milestones";
+import { splitMilestones, milestonesFor, paidRatio } from "./milestones";
 import {
   createOrder,
   transition,
