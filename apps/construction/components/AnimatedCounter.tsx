@@ -9,14 +9,20 @@ import { useEffect, useRef, useState } from "react";
 export function AnimatedCounter({
   value,
   durationMs = 1200,
-  format = (n: number) => n.toLocaleString("fr-FR"),
+  decimals = 0,
+  format,
   className,
 }: {
   value: number;
   durationMs?: number;
+  /** Décimales conservées pendant l'animation (ex. 1 pour 38,4). */
+  decimals?: number;
   format?: (n: number) => string;
   className?: string;
 }) {
+  const fmt =
+    format ?? ((n: number) => n.toLocaleString("fr-FR", { maximumFractionDigits: decimals }));
+  const factor = Math.pow(10, decimals);
   const [display, setDisplay] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
@@ -24,6 +30,10 @@ export function AnimatedCounter({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // La valeur (ou la durée) a changé : on ré-arme l'animation, sinon `run()`
+    // sortirait immédiatement et le compteur resterait figé sur l'ancienne valeur.
+    started.current = false;
 
     const reduce =
       typeof window !== "undefined" &&
@@ -41,7 +51,7 @@ export function AnimatedCounter({
         const t = Math.min(1, (now - start) / durationMs);
         // easeOutCubic
         const eased = 1 - Math.pow(1 - t, 3);
-        setDisplay(Math.round(value * eased));
+        setDisplay(Math.round(value * eased * factor) / factor);
         if (t < 1) requestAnimationFrame(tick);
       };
       requestAnimationFrame(tick);
@@ -57,11 +67,11 @@ export function AnimatedCounter({
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [value, durationMs]);
+  }, [value, durationMs, factor]);
 
   return (
     <span ref={ref} className={className}>
-      {format(display)}
+      {fmt(display)}
     </span>
   );
 }

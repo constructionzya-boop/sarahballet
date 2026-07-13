@@ -17,7 +17,6 @@ export const metadata: Metadata = {
 };
 
 const STATUS_STYLE: Record<string, string> = {
-  franchi: "bg-dew text-night",
   "en cours": "bg-orange text-white",
   "à venir": "bg-snow text-night/60",
 };
@@ -43,15 +42,18 @@ export default function InvestisseursPage() {
       <section className="mx-auto w-full max-w-5xl">
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           {[
-            { v: METRICS.modulesSigned, l: "modules signés", suffix: "" },
-            { v: METRICS.modulesDelivered, l: "modules livrés", suffix: "" },
-            { v: METRICS.m2Built, l: "m² construits", suffix: "" },
-            { v: Math.round(METRICS.backlogFcfa / 1_000_000), l: "M FCFA de carnet", suffix: "" },
+            { v: METRICS.modulesSigned, l: "modules signés", decimals: 0 },
+            { v: METRICS.modulesDelivered, l: "modules livrés", decimals: 0 },
+            { v: METRICS.m2Built, l: "m² construits", decimals: 0 },
+            {
+              v: Math.round(METRICS.backlogFcfa / 100_000) / 10,
+              l: "M FCFA de carnet",
+              decimals: 1,
+            },
           ].map((k) => (
             <div key={k.l} className="rounded-3xl bg-white p-5 shadow-soft">
               <p className="text-3xl font-black tabular-nums text-night sm:text-4xl">
-                <AnimatedCounter value={k.v} />
-                {k.suffix}
+                <AnimatedCounter value={k.v} decimals={k.decimals} />
               </p>
               <p className="mt-1 text-sm text-night/60">{k.l}</p>
             </div>
@@ -195,9 +197,17 @@ export default function InvestisseursPage() {
               demande qualifiée — nous revenons sous 48 h ouvrées.
             </p>
             <p className="text-sm text-cream/50">
-              Pitch deck (PDF) transmis après qualification. Ceci n&apos;est pas une offre de
-              titres financiers.
+              Deck complet et modèle financier transmis après qualification. Ceci n&apos;est pas une
+              offre de titres financiers.
             </p>
+            <a
+              href="/noema-teaser-investisseurs.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-fit rounded-full border border-cream/30 px-5 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-cream/10"
+            >
+              Télécharger le teaser (PDF)
+            </a>
           </div>
           <div id="dataroom">
             <InterestForm kind="dataroom" submitLabel="Demander l'accès data room" />

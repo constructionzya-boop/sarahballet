@@ -105,17 +105,17 @@ export interface TeamMember {
 export const TEAM: readonly TeamMember[] = [
   {
     name: "Jeremy Gracia",
-    role: "Fondateur",
-    note: "Vision produit + plateforme, sourcing Chine, pied-à-terre familial en Côte d'Ivoire.",
+    role: "Fondateur & CEO",
+    note: "Vision produit et plateforme, sourcing Chine, attaches familiales en Côte d'Ivoire. Développement accéléré par un outillage IA (diagnostic technique, veille réglementaire, génération visuelle) qui tient l'entreprise en phase d'amorçage à effectif réduit.",
   },
   {
-    name: "Équipe d'agents IA",
-    role: "Ingénierie · Stratégie · Dev",
-    note: "Diagnostic technique, veille réglementaire, génération visuelle, développement continu.",
+    name: "Ingénieur structure agréé — partenariat en cours",
+    role: "Validation technique",
+    note: "Contre-vérification des hypothèses V1 et note de calcul avant fabrication en série (bureau de contrôle CI).",
   },
   {
-    name: "Partenaires terrain (en cours)",
-    role: "Ingénieur structure agréé · bureau de contrôle CI",
-    note: "Validation des hypothèses V1 avant fabrication en série.",
+    name: "Recrutements prioritaires (au seed)",
+    role: "Directeur de production · Responsable commercial CI",
+    note: "Postes clés financés par la levée seed : industrialisation de l'atelier et déploiement commercial terrain.",
   },
 ];

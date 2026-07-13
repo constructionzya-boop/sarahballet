@@ -42,6 +42,9 @@ export function InterestForm({
           ticketEur: Number.isFinite(ticket) && ticket > 0 ? Math.round(ticket) : undefined,
           horizon: String(form.get("horizon") ?? "") || undefined,
           message: String(form.get("message") ?? "") || undefined,
+          consent: form.get("consent") === "on",
+          // Honeypot : rempli uniquement par les bots — laissé vide par les humains.
+          company_url: String(form.get("company_url") ?? ""),
         }),
       });
       if (!res.ok) throw new Error();
@@ -119,6 +122,24 @@ export function InterestForm({
         placeholder="Un mot (optionnel)"
         className="rounded-xl border border-night/15 px-4 py-3 text-sm outline-none focus:border-night/40"
       />
+
+      {/* Honeypot anti-spam : masqué aux humains, ignoré des lecteurs d'écran. */}
+      <input
+        type="text"
+        name="company_url"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute left-[-9999px] h-0 w-0 opacity-0"
+      />
+
+      <label className="flex items-start gap-2 text-[12px] text-night/60">
+        <input type="checkbox" name="consent" required className="mt-0.5 accent-orange" />
+        <span>
+          J&apos;accepte que Noéma conserve ces informations pour me recontacter au sujet de
+          l&apos;investissement. Aucune cession à des tiers.
+        </span>
+      </label>
 
       {status === "error" ? (
         <p className="text-sm font-medium text-orange">Envoi impossible — réessayez.</p>

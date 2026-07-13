@@ -16,6 +16,10 @@ const Body = z.object({
   ticketEur: z.number().int().min(0).optional(),
   horizon: z.string().max(60).optional(),
   message: z.string().max(2000).optional(),
+  // Consentement RGPD (requis pour les formulaires collectant des données).
+  consent: z.boolean().optional(),
+  // Honeypot anti-spam : rempli uniquement par les bots (traité côté handler).
+  company_url: z.string().optional(),
 });
 
 export type LeadInput = z.infer<typeof Body>;
@@ -44,8 +48,25 @@ export async function POST(req: Request) {
     );
   }
   const lead = parsed.data;
+
+  // Honeypot rempli → bot : on répond 200 (ne pas signaler la détection) sans
+  // rien enregistrer.
+  if (lead.company_url && lead.company_url.trim().length > 0) {
+    return NextResponse.json({ received: true });
+  }
+
+  // Consentement RGPD requis pour les formulaires investisseurs/data room.
+  if ((lead.kind === "interet" || lead.kind === "dataroom") && lead.consent !== true) {
+    return NextResponse.json({ error: "Consentement requis." }, { status: 422 });
+  }
+
   const score = scoreLead(lead);
-  // Placeholder CRM — remplacé en Phase 2 par Connect + WhatsApp interne.
-  console.log(`[lead] ${lead.kind} score=${score} email=${lead.email}`, lead);
-  return NextResponse.json({ received: true, score });
+  // Placeholder CRM — remplacé en Phase 2 par Connect + WhatsApp interne. On
+  // journalise le lead qualifié (score + canal) pour reprise manuelle immédiate.
+  const priority = score >= 60 ? "HOT" : score >= 40 ? "WARM" : "COLD";
+  console.log(
+    `[lead] ${lead.kind} priorité=${priority} score=${score} profil=${lead.profile ?? "-"} ` +
+      `ticket=${lead.ticketEur ?? "-"}€ email=${lead.email}`,
+  );
+  return NextResponse.json({ received: true, score, priority });
 }
