@@ -3,6 +3,8 @@
 // 100 € de crédit par filleul LIVRÉ (pas seulement inscrit) — le crédit se
 // déclenche à la livraison pour aligner l'incitation sur la valeur réelle.
 
+import { SITE_URL } from "./constants";
+
 export const REFERRAL_CREDIT_EUR = 100;
 
 /** Hash déterministe (djb2) → base36, pour un code stable sans état serveur. */
@@ -32,7 +34,7 @@ export function makeReferralCode(name: string): string {
 }
 
 /** Lien de parrainage partageable. */
-export function referralLink(code: string, origin = "https://noema-construction.com"): string {
+export function referralLink(code: string, origin = SITE_URL): string {
   return `${origin}/configurer?ref=${encodeURIComponent(code)}`;
 }
 

@@ -1,16 +1,46 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { GUIDES } from "../../lib/guides";
+import { SITE_URL } from "../../lib/constants";
 
 export const metadata: Metadata = {
   title: "Guides — construire, financer, investir en Côte d'Ivoire",
   description:
     "Prix, normes, financement, climat : nos guides pratiques pour construire et investir en modulaire préfabriqué en Afrique de l'Ouest.",
+  alternates: { canonical: "/guides" },
 };
 
 export default function GuidesIndex() {
+  // ItemList des guides (SEO) : aide Google à comprendre la collection.
+  const itemListLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: GUIDES.map((g, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `${SITE_URL}/guides/${g.slug}`,
+      name: g.title,
+    })),
+  };
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Guides", item: `${SITE_URL}/guides` },
+    ],
+  };
+
   return (
     <main className="mx-auto flex max-w-5xl flex-col gap-8 px-3 py-10 sm:px-4">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
       <header>
         <p className="text-xs font-semibold uppercase tracking-widest text-dawn">Guides</p>
         <h1 className="mt-2 text-4xl font-black tracking-tight text-night sm:text-5xl">

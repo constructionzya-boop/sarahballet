@@ -10,12 +10,16 @@ export const runtime = "nodejs";
 const Body = z.object({
   kind: z.enum(["interet", "dataroom", "ambassadeur"]),
   name: z.string().min(2).max(120),
-  email: z.string().email(),
+  // Email requis pour les leads investisseurs (contrôlé côté handler) ; optionnel
+  // pour l'inscription ambassadeur, où le code suffit à créer l'enregistrement.
+  email: z.string().email().optional(),
   // Champs optionnels selon le type de lead.
   profile: z.enum(["fonds", "family-office", "business-angel", "autre"]).optional(),
   ticketEur: z.number().int().min(0).optional(),
   horizon: z.string().max(60).optional(),
   message: z.string().max(2000).optional(),
+  /** Code de parrainage (lead ambassadeur). */
+  code: z.string().max(32).optional(),
   // Consentement RGPD (requis pour les formulaires collectant des données).
   consent: z.boolean().optional(),
   // Honeypot anti-spam : rempli uniquement par les bots (traité côté handler).
@@ -55,9 +59,14 @@ export async function POST(req: Request) {
     return NextResponse.json({ received: true });
   }
 
-  // Consentement RGPD requis pour les formulaires investisseurs/data room.
-  if ((lead.kind === "interet" || lead.kind === "dataroom") && lead.consent !== true) {
-    return NextResponse.json({ error: "Consentement requis." }, { status: 422 });
+  // Consentement RGPD + email requis pour les formulaires investisseurs/data room.
+  if (lead.kind === "interet" || lead.kind === "dataroom") {
+    if (lead.consent !== true) {
+      return NextResponse.json({ error: "Consentement requis." }, { status: 422 });
+    }
+    if (!lead.email) {
+      return NextResponse.json({ error: "Email requis." }, { status: 422 });
+    }
   }
 
   const score = scoreLead(lead);
@@ -66,7 +75,7 @@ export async function POST(req: Request) {
   const priority = score >= 60 ? "HOT" : score >= 40 ? "WARM" : "COLD";
   console.log(
     `[lead] ${lead.kind} priorité=${priority} score=${score} profil=${lead.profile ?? "-"} ` +
-      `ticket=${lead.ticketEur ?? "-"}€ email=${lead.email}`,
+      `ticket=${lead.ticketEur ?? "-"}€ code=${lead.code ?? "-"} email=${lead.email ?? "-"}`,
   );
   return NextResponse.json({ received: true, score, priority });
 }

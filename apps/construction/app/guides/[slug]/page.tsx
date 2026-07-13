@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { WhatsAppCTA } from "../../../components/WhatsAppCTA";
 import { GUIDES, getGuide } from "../../../lib/guides";
+import { SITE_URL, CONTENT_UPDATED_AT } from "../../../lib/constants";
 
 export function generateStaticParams() {
   return GUIDES.map((g) => ({ slug: g.slug }));
@@ -30,14 +31,28 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
 
   const related = g.related.map(getGuide).filter((x): x is NonNullable<typeof x> => Boolean(x));
 
+  const url = `${SITE_URL}/guides/${g.slug}`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: g.title,
     description: g.description,
     inLanguage: "fr",
-    author: { "@type": "Organization", name: "Noéma Construction" },
-    publisher: { "@type": "Organization", name: "Noéma Construction" },
+    url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    image: `${SITE_URL}/og.png`,
+    datePublished: "2026-06-01",
+    dateModified: CONTENT_UPDATED_AT,
+    author: {
+      "@type": "Organization",
+      name: "Noéma Construction",
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Noéma Construction",
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/icon.png` },
+    },
   };
 
   return (
