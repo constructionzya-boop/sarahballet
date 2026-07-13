@@ -1,24 +1,14 @@
 import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getStripe, getWebhookSecret } from "../../../../lib/stripe/server";
-import type { OrderEvent } from "../../../../lib/payment/order";
-import type { MilestoneId } from "../../../../lib/payment/milestones";
+import { mapStripeEvent } from "../../../../lib/payment/webhook";
 
 export const runtime = "nodejs";
 
 // Idempotence en mémoire (best-effort). En production, remplacer par une table
-// `processed_webhook_events` (unique sur event.id) — cf. docs/07-integrations.md.
+// `processed_webhook_events` (unique sur event.id) partagée entre instances —
+// cf. docs/07-integrations.md et le champ Order.processedEventIds prévu à cet effet.
 const processed = new Set<string>();
-
-/** Traduit un événement Stripe en événement métier du dossier. */
-function toOrderEvent(event: Stripe.Event): OrderEvent | null {
-  if (event.type === "payment_intent.succeeded") {
-    const pi = event.data.object as Stripe.PaymentIntent;
-    const milestone = pi.metadata?.milestone as MilestoneId | undefined;
-    if (milestone) return { type: "PAYMENT_CONFIRMED", milestone };
-  }
-  return null;
-}
 
 export async function POST(req: Request) {
   const stripe = getStripe();
@@ -46,18 +36,42 @@ export async function POST(req: Request) {
   if (processed.has(event.id)) {
     return NextResponse.json({ received: true, duplicate: true });
   }
-  processed.add(event.id);
 
-  const orderEvent = toOrderEvent(event);
-  if (orderEvent) {
-    const pi = event.data.object as Stripe.PaymentIntent;
-    // TODO Phase 2 : charger le dossier (DB), appliquer applyWebhookEvent(),
-    // persister, puis envoyer reçu WhatsApp/email et débloquer la production.
-    console.log(
-      `[stripe] ${event.type} order=${pi.metadata?.orderId} → ${orderEvent.type}`,
-      orderEvent,
-    );
+  try {
+    const outcome = mapStripeEvent(event);
+
+    switch (outcome.kind) {
+      case "order":
+        // TODO Phase 2 : charger le dossier (DB), applyWebhookEvent(order, event.id,
+        // outcome.event), persister, puis reçu WhatsApp/email + déblocage production.
+        console.log(
+          `[stripe] order=${outcome.orderId} jalon=${outcome.milestone} → ${outcome.event.type}`,
+        );
+        break;
+      case "impact":
+        // TODO Phase 2 : incrémenter collecté + contributeurs du projet en base,
+        // rafraîchir la barre de progression, ajouter au mur des bâtisseurs.
+        console.log(
+          `[stripe] impact projet=${outcome.projectSlug} +${outcome.amountMinor} ${outcome.currency}`,
+        );
+        break;
+      case "signal":
+        // Échec / remboursement / litige : trace comptable & anti-fraude.
+        console.warn(
+          `[stripe] signal=${outcome.signal} ref=${outcome.reference} order=${outcome.orderId ?? "-"}`,
+        );
+        break;
+      case "ignore":
+        break;
+    }
+
+    // On ne marque l'event traité qu'APRÈS un traitement sans exception : une
+    // erreur transitoire laisse Stripe rejouer l'event (au lieu de le perdre).
+    processed.add(event.id);
+    return NextResponse.json({ received: true, handled: outcome.kind });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Traitement échoué.";
+    // 500 → Stripe retentera. On NE marque PAS l'event comme traité.
+    return NextResponse.json({ error: message }, { status: 500 });
   }
-
-  return NextResponse.json({ received: true });
 }

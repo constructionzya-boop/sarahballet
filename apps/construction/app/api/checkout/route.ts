@@ -59,23 +59,29 @@ export async function POST(req: Request) {
   const force3ds = part.amountMinor >= force3dsThreshold(currency);
 
   try {
-    const intent = await stripe.paymentIntents.create({
-      amount: part.amountMinor,
-      currency,
-      // Apple Pay / Google Pay / cartes : méthodes automatiques.
-      automatic_payment_methods: { enabled: true },
-      description: `Noéma — ${project} — jalon ${milestone} (${part.share * 100} %)`,
-      metadata: {
-        orderId,
-        project,
-        milestone,
-        pricingVersion: "2",
-        totalMinor: String(totalMinor),
+    const intent = await stripe.paymentIntents.create(
+      {
+        amount: part.amountMinor,
+        currency,
+        // Apple Pay / Google Pay / cartes : méthodes automatiques.
+        automatic_payment_methods: { enabled: true },
+        description: `Noéma — ${project} — jalon ${milestone} (${part.share * 100} %)`,
+        metadata: {
+          orderId,
+          project,
+          milestone,
+          kind: "order",
+          pricingVersion: "2",
+          totalMinor: String(totalMinor),
+        },
+        ...(force3ds
+          ? { payment_method_options: { card: { request_three_d_secure: "any" } } }
+          : {}),
       },
-      ...(force3ds
-        ? { payment_method_options: { card: { request_three_d_secure: "any" } } }
-        : {}),
-    });
+      // Idempotence Stripe : un même (dossier, jalon) ne crée jamais deux intents,
+      // même en cas de double-clic ou de retry réseau côté client.
+      { idempotencyKey: `order:${orderId}:${milestone}` },
+    );
 
     return NextResponse.json({
       clientSecret: intent.client_secret,

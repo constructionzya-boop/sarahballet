@@ -4,6 +4,7 @@ import { ReserveCheckout } from "../../components/ReserveCheckout";
 import { WhatsAppCTA } from "../../components/WhatsAppCTA";
 import type { ProjectId } from "../../lib/pricing";
 import type { Currency } from "../../lib/payment/money";
+import { stripeMode } from "../../lib/stripe/server";
 
 export const metadata: Metadata = {
   title: "Réserver mon module — Noéma Construction",
@@ -29,6 +30,9 @@ export default async function ReserverPage({
   const sp = await searchParams;
   const project = parseProject(sp.project);
   const currency = parseCurrency(sp.currency);
+  const mode = stripeMode();
+  const modeLabel =
+    mode === "live" ? "" : mode === "test" ? " (mode test)" : " (paiement non configuré)";
 
   return (
     <main className="mx-auto flex max-w-3xl flex-col gap-6 px-3 py-8 sm:px-4">
@@ -77,7 +81,7 @@ export default async function ReserverPage({
       </div>
 
       <p className="text-xs text-night/50">
-        Paiements traités par Stripe (mode test). Montants indicatifs. Les ventes diaspora sont
+        Paiements traités par Stripe{modeLabel}. Montants indicatifs. Les ventes diaspora sont
         encaissées en EUR par la SAS française Noéma Diaspora ; production et pose assurées par
         l&apos;entité ivoirienne (convention intra-groupe).
       </p>
