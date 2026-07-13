@@ -21,6 +21,35 @@ export const INVEST_MODE: InvestMode =
 /** Le mode régulé n'est JAMAIS actif tant que la licence n'est pas obtenue. */
 export const REGULATED_ENABLED = false;
 
+/**
+ * Capacités RÉELLEMENT activées selon le mode — le flag ne pilote pas qu'un
+ * texte, il gate les sections (don, manifestation d'intérêt, offre régulée).
+ *  - `donation`  : checkout de don avec contreparties (mode pionniers).
+ *  - `interest`  : formulaire de manifestation d'intérêt → CRM (toujours utile).
+ *  - `regulated` : offre de titres — jamais sans REGULATED_ENABLED (licence).
+ */
+export interface InvestCapabilities {
+  donation: boolean;
+  interest: boolean;
+  regulated: boolean;
+}
+
+export function capabilitiesFor(mode: InvestMode): InvestCapabilities {
+  switch (mode) {
+    case "pionniers":
+      return { donation: true, interest: true, regulated: false };
+    case "interet":
+      return { donation: false, interest: true, regulated: false };
+    case "regule":
+      // Même en mode « regule », rien n'est offert tant que la licence
+      // (REGULATED_ENABLED) n'est pas obtenue — fail-closed réglementaire.
+      return { donation: false, interest: true, regulated: REGULATED_ENABLED };
+  }
+}
+
+/** Capacités du mode courant, calculées une fois. */
+export const INVEST_CAPS: InvestCapabilities = capabilitiesFor(INVEST_MODE);
+
 export type ImpactCategory = "ecole" | "sanitaire" | "logement";
 
 export interface ImpactProject {
@@ -38,8 +67,10 @@ export interface ImpactProject {
   tagline: string;
   /** Récit du projet (problème réel → réponse Noéma). */
   story: string;
-  /** Métriques d'impact affichées. */
-  impact: { m2: number; label: string; value: string }[];
+  /** Surface bâtie du projet (m²) — métrique d'impact affichée. */
+  m2Built: number;
+  /** Métriques d'impact affichées (label → valeur). */
+  impact: { label: string; value: string }[];
   /** Illustration (public/renders/...), sinon placeholder. */
   image?: string;
 }
@@ -105,10 +136,11 @@ export const IMPACT_PROJECTS: readonly ImpactProject[] = [
     tagline: "3 salles de classe posées en une semaine, à la rentrée.",
     story:
       "À Abobo, des classes sous tôle montent à 38 °C l'après-midi. Nous posons 3 salles modulaires ventilées (pack climat tropical) en une semaine, à la rentrée. Chaque contribution finance des panneaux, une toiture froide, un tableau.",
+    m2Built: 60,
     impact: [
-      { m2: 52, label: "Élèves accueillis", value: "120" },
-      { m2: 0, label: "Salles de classe", value: "3" },
-      { m2: 0, label: "Gain thermique", value: "−8 °C" },
+      { label: "Élèves accueillis", value: "120" },
+      { label: "Salles de classe", value: "3" },
+      { label: "Gain thermique", value: "−8 °C" },
     ],
   },
   {
@@ -122,10 +154,11 @@ export const IMPACT_PROJECTS: readonly ImpactProject[] = [
     tagline: "2 blocs H/F, eau et citerne, pour 2 000 commerçantes.",
     story:
       "Le marché d'Adjamé manque de sanitaires dignes. Deux blocs modulaires (2 cabines H/F, citerne, puisard) desservent les allées les plus fréquentées — hygiène, dignité, entretien simple.",
+    m2Built: 20,
     impact: [
-      { m2: 17, label: "Personnes desservies/jour", value: "2 000" },
-      { m2: 0, label: "Cabines", value: "4" },
-      { m2: 0, label: "Autonomie eau", value: "1 000 L" },
+      { label: "Personnes desservies/jour", value: "2 000" },
+      { label: "Cabines", value: "4" },
+      { label: "Autonomie eau", value: "1 000 L" },
     ],
   },
   {
@@ -139,10 +172,11 @@ export const IMPACT_PROJECTS: readonly ImpactProject[] = [
     tagline: "4 studios eau+élec pour familles en relogement.",
     story:
       "Quatre studios modulaires eau + électricité pour des familles en relogement d'urgence. Démontables et récupérables : si le terrain change, le logement suit. Loyer social encadré, entretien Noéma.",
+    m2Built: 72,
     impact: [
-      { m2: 69, label: "Familles logées", value: "4" },
-      { m2: 0, label: "Délai de pose", value: "4 jours" },
-      { m2: 0, label: "Récupérable", value: "100 %" },
+      { label: "Familles logées", value: "4" },
+      { label: "Délai de pose", value: "4 jours" },
+      { label: "Récupérable", value: "100 %" },
     ],
     image: "/renders/studio-3quart-1.webp",
   },
@@ -159,9 +193,10 @@ export function impactTotals() {
       raisedFcfa: acc.raisedFcfa + p.raisedFcfa,
       goalFcfa: acc.goalFcfa + p.goalFcfa,
       contributors: acc.contributors + p.contributors,
+      m2Built: acc.m2Built + p.m2Built,
       projects: acc.projects + 1,
     }),
-    { raisedFcfa: 0, goalFcfa: 0, contributors: 0, projects: 0 },
+    { raisedFcfa: 0, goalFcfa: 0, contributors: 0, m2Built: 0, projects: 0 },
   );
 }
 

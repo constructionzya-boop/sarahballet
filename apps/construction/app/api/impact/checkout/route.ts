@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getStripe } from "../../../../lib/stripe/server";
+import { force3dsThreshold } from "../../../../lib/stripe/config";
 import { getImpactProject, tierForAmount } from "../../../../lib/invest";
 import { fcfaToMinor, type Currency } from "../../../../lib/payment/money";
 
@@ -34,6 +35,8 @@ export async function POST(req: Request) {
 
   const amountMinor = fcfaToMinor(currency, amountFcfa);
   const tier = tierForAmount(amountFcfa);
+  // Force 3DS (SCA) au-delà du seuil de réassurance, comme le checkout commande.
+  const force3ds = amountMinor >= force3dsThreshold(currency);
 
   try {
     const intent = await stripe.paymentIntents.create({
@@ -46,9 +49,12 @@ export async function POST(req: Request) {
         projectSlug,
         amountFcfa: String(amountFcfa),
         tier: tier?.title ?? "libre",
-        name: name ?? "",
+        contributorName: name ?? "",
         email: email ?? "",
       },
+      ...(force3ds
+        ? { payment_method_options: { card: { request_three_d_secure: "any" } } }
+        : {}),
     });
     return NextResponse.json({
       clientSecret: intent.client_secret,

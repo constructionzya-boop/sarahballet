@@ -8,6 +8,7 @@ import {
   IMPACT_PROJECTS,
   CATEGORY_LABEL,
   INVEST_MODE,
+  INVEST_CAPS,
   INVEST_DISCLAIMER,
   progressPct,
   impactTotals,
@@ -54,7 +55,7 @@ export default function ImpactPage() {
           {[
             { v: formatFcfa(totals.raisedFcfa), l: "collectés" },
             { v: `${totals.contributors}`, l: "contributeurs" },
-            { v: `${totals.projects}`, l: "projets" },
+            { v: `${totals.m2Built} m²`, l: "construits" },
             { v: `${progressPct({ raisedFcfa: totals.raisedFcfa, goalFcfa: totals.goalFcfa })} %`, l: "de l'objectif global" },
           ].map((k) => (
             <div key={k.l}>
@@ -136,7 +137,8 @@ export default function ImpactPage() {
         </div>
       </section>
 
-      {/* Manifestation d'intérêt (investisseurs financiers) */}
+      {/* Manifestation d'intérêt (investisseurs financiers) — gaté par le mode */}
+      {INVEST_CAPS.interest ? (
       <section className="mx-auto w-full max-w-5xl">
         <div className="grid gap-6 lg:grid-cols-2">
           <div>
@@ -159,6 +161,7 @@ export default function ImpactPage() {
           <InterestForm kind="interet" />
         </div>
       </section>
+      ) : null}
 
       {/* Disclaimer légal */}
       <section className="mx-auto w-full max-w-5xl">

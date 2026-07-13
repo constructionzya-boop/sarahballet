@@ -4,12 +4,14 @@ import { notFound } from "next/navigation";
 import { PhotoFrame } from "../../../components/PhotoFrame";
 import { ContributionBox } from "../../../components/ContributionBox";
 import { formatFcfa } from "../../../lib/pricing";
+import { WhatsAppCTA } from "../../../components/WhatsAppCTA";
 import {
   IMPACT_PROJECTS,
   getImpactProject,
   CATEGORY_LABEL,
   REWARD_TIERS,
   INVEST_MODE,
+  INVEST_CAPS,
   INVEST_DISCLAIMER,
   progressPct,
 } from "../../../lib/invest";
@@ -65,8 +67,12 @@ export default async function ImpactProjectPage({
           <h1 className="text-3xl font-black tracking-tight text-night sm:text-4xl">{p.title}</h1>
           <p className="text-night/70">{p.story}</p>
 
-          {/* Métriques d'impact */}
-          <div className="grid grid-cols-3 gap-3">
+          {/* Métriques d'impact (m² construits + indicateurs projet) */}
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div className="rounded-2xl bg-white p-4 text-center shadow-soft">
+              <p className="text-2xl font-black tabular-nums text-night">{p.m2Built} m²</p>
+              <p className="text-xs text-night/60">construits</p>
+            </div>
             {p.impact.map((m) => (
               <div key={m.label} className="rounded-2xl bg-white p-4 text-center shadow-soft">
                 <p className="text-2xl font-black tabular-nums text-night">{m.value}</p>
@@ -94,24 +100,41 @@ export default async function ImpactProjectPage({
             </div>
           </div>
 
-          <ContributionBox projectSlug={p.slug} />
+          {INVEST_CAPS.donation ? (
+            <>
+              <ContributionBox projectSlug={p.slug} />
 
-          {/* Paliers de contrepartie */}
-          <div className="rounded-3xl bg-white p-6 shadow-soft">
-            <p className="text-xs font-semibold uppercase tracking-widest text-dawn">
-              Vos contreparties
-            </p>
-            <ul className="mt-3 flex flex-col gap-3">
-              {REWARD_TIERS.map((t) => (
-                <li key={t.title} className="border-l-2 border-orange pl-3">
-                  <p className="text-sm font-bold text-night">
-                    {t.title} · dès {formatFcfa(t.minFcfa)}
-                  </p>
-                  <p className="text-sm text-night/60">{t.reward}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
+              {/* Paliers de contrepartie */}
+              <div className="rounded-3xl bg-white p-6 shadow-soft">
+                <p className="text-xs font-semibold uppercase tracking-widest text-dawn">
+                  Vos contreparties
+                </p>
+                <ul className="mt-3 flex flex-col gap-3">
+                  {REWARD_TIERS.map((t) => (
+                    <li key={t.title} className="border-l-2 border-orange pl-3">
+                      <p className="text-sm font-bold text-night">
+                        {t.title} · dès {formatFcfa(t.minFcfa)}
+                      </p>
+                      <p className="text-sm text-night/60">{t.reward}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          ) : (
+            <div className="rounded-3xl bg-white p-6 shadow-soft">
+              <p className="text-sm font-semibold text-night">Contributions bientôt ouvertes</p>
+              <p className="mt-1 text-sm text-night/60">
+                La collecte par don n&apos;est pas active dans ce mode. Écrivez-nous pour être
+                prévenu de l&apos;ouverture ou soutenir dès maintenant le projet.
+              </p>
+              <WhatsAppCTA
+                message={`Bonjour Noéma, je veux soutenir le projet « ${p.title} ».`}
+                variant="green"
+                className="mt-3 w-fit"
+              />
+            </div>
+          )}
         </div>
       </div>
 

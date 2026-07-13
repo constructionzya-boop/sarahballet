@@ -7,6 +7,7 @@ import {
   impactTotals,
   IMPACT_PROJECTS,
   INVEST_DISCLAIMER,
+  capabilitiesFor,
 } from "./invest";
 import { makeReferralCode, referralLink, LEADERBOARD, REFERRAL_CREDIT_EUR } from "./referral";
 import { t } from "./i18n";
@@ -19,6 +20,18 @@ describe("garde-fou légal", () => {
     for (const key of ["pionniers", "interet", "regule"] as const) {
       expect(INVEST_DISCLAIMER[key].length).toBeGreaterThan(20);
     }
+  });
+  it("le mode régulé n'active JAMAIS l'offre régulée sans licence", () => {
+    // Tant que REGULATED_ENABLED est false, aucun mode ne peut ouvrir le régulé.
+    expect(capabilitiesFor("regule").regulated).toBe(REGULATED_ENABLED);
+    expect(capabilitiesFor("regule").regulated).toBe(false);
+    expect(capabilitiesFor("pionniers").regulated).toBe(false);
+    expect(capabilitiesFor("interet").regulated).toBe(false);
+  });
+  it("les capacités gatent réellement don et intérêt selon le mode", () => {
+    expect(capabilitiesFor("pionniers")).toMatchObject({ donation: true, interest: true });
+    expect(capabilitiesFor("interet")).toMatchObject({ donation: false, interest: true });
+    expect(capabilitiesFor("regule").donation).toBe(false);
   });
 });
 

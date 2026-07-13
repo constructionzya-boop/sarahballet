@@ -88,7 +88,7 @@ export function mapStripeEvent(event: MinimalStripeEvent): WebhookOutcome {
           projectSlug: meta.projectSlug ?? meta.slug ?? "",
           amountMinor: pi.amount,
           currency: pi.currency,
-          contributorName: meta.contributorName || undefined,
+          contributorName: meta.contributorName || meta.name || undefined,
         };
       }
 

@@ -137,7 +137,7 @@ export function ContributionBox({ projectSlug }: { projectSlug: string }) {
         )}
       </div>
 
-      {/* Double rail : CB + mobile money — même contribution */}
+      {/* Deux canaux : CB (confirmée automatiquement) + mobile money (relais WhatsApp) */}
       {!clientSecret ? (
         <div className="mt-4 flex flex-col gap-2">
           {error ? <p className="text-sm font-medium text-orange">{error}</p> : null}
@@ -169,7 +169,8 @@ export function ContributionBox({ projectSlug }: { projectSlug: string }) {
             </span>
           </a>
           <p className="text-center text-[11px] text-night/50">
-            Les deux rails alimentent la même barre de progression.
+            Carte bancaire : contribution confirmée automatiquement. Mobile money :
+            enregistrée après échange WhatsApp (intégration CinetPay prévue).
           </p>
         </div>
       ) : (
