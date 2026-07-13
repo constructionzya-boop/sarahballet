@@ -75,12 +75,16 @@ où le business en a besoin, chaque phase est utilisable seule.
 Transformer le site en **plateforme financière du bâtiment** : tout devient
 accessible par carte ou mobile money. Séquencée pour rester légale à chaque pas.
 
-- [~] **6.1 Checkout universel CB** (base livrée) : brancher les clés prod,
-      persister les dossiers, activer les reçus WhatsApp/email par jalon.
-      *Critère : 10 acomptes encaissés en ligne sans intervention manuelle.*
+- [~] **6.1 Checkout universel CB** = **généralisation du socle livré en Phase 3**
+      (mêmes PaymentIntents jalonnés, state machine, webhooks). Ici on industrialise :
+      clés prod, persistance des dossiers, reçus WhatsApp/email par jalon, extension
+      du checkout à tous les produits du configurateur. Le critère de sortie chiffré
+      de ce socle est porté ICI (Phase 3 = premier acompte de preuve ; 6.1 = mise à
+      l'échelle). *Critère : 10 acomptes encaissés en ligne sans intervention manuelle.*
 - [~] **6.2 Noéma Impact — mode Pionniers** (livré, à activer avec clés) : dons
-      avec contreparties + prévente, double rail CB + mobile money sur la même
-      barre de progression, mur des bâtisseurs, rapports photo (timeline Connect).
+      avec contreparties + prévente. Rail CB confirmé automatiquement ; le mobile
+      money reste un relais WhatsApp tant que l'intégration CinetPay (6.1/Phase 3)
+      n'est pas branchée. Mur des bâtisseurs, rapports photo (timeline Connect).
       *Critère : 1 projet à impact intégralement financé et livré.*
 - [~] **6.3 Manifestation d'intérêt investisseurs** (livré) : `/investisseurs`
       + data room qualifiante → CRM scoring. *Critère : 20 leads qualifiés, 3 RDV

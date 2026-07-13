@@ -14,7 +14,7 @@ dédouanement Abidjan maîtrisé. Le volume viendra après.
 
 | Critère | **LCL** (groupage) | **FCL 20′** (conteneur complet) |
 |---|---|---|
-| Quand | Petits volumes, test, < ~12-14 m³ | Dès qu'on remplit ~2/3 d'un 20′ |
+| Quand | Petits volumes, test, < ~10 m³ | Dès qu'on remplit ~2/3 d'un 20′ |
 | Coût | Payé au m³/tonne + frais fixes portuaires élevés | Forfait conteneur, moins cher au m³ |
 | Risque | Manutention multiple, délais variables | Scellé départ→arrivée, moins de casse |
 | Seuil de bascule | — | **~10-12 m³** : au-delà, le FCL 20′ devient moins cher au m³ |

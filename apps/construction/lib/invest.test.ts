@@ -97,7 +97,12 @@ describe("i18n", () => {
   it("renvoie le français par défaut", () => {
     expect(t("nav.modules")).toBe("Modules");
   });
-  it("retombe sur le français si la clé anglaise manque", () => {
-    expect(t("price.launch", "en")).toBe("Prix de lancement");
+  it("renvoie la traduction anglaise quand elle existe", () => {
+    expect(t("price.launch", "en")).toBe("Launch price");
+    expect(t("cta.reserve", "en")).toBe("Reserve with a 30% deposit");
+  });
+  it("retombe sur le français puis la clé si la traduction manque", () => {
+    // @ts-expect-error — clé volontairement inexistante pour tester le repli.
+    expect(t("cle.inexistante", "en")).toBe("cle.inexistante");
   });
 });
