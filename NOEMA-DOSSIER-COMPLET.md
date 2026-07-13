@@ -363,6 +363,26 @@ sans accent, ou « solution préfabriquée »).
 ## 11. DÉCISIONS ACTÉES & PROCHAINES ÉTAPES
 
 ### Décisions actées (ne pas rouvrir sans raison forte)
+0-ter. **Passe 2 de durcissement de la plateforme financière** (session
+   2026-07-13). Audit multi-agents des 7 chantiers puis corrections. Décisions
+   confirmées / actées :
+   - **Transparence honnête** : le panneau public affiche « marge de
+     **contribution** » (pas « marge nette ») et précise qu'elle finance encore
+     la structure fixe — la vraie marge nette est bien plus basse. Levée du
+     double comptage de l'amortissement des moules (charge FIXE uniquement).
+   - **Sécurité** : l'espace interne `/office/*` est protégé par Basic Auth
+     (middleware, **fail-closed** sans identifiants) — plus jamais accessible en
+     devinant l'URL.
+   - **`INVEST_MODE` réellement opérant** : `capabilitiesFor()` gate les sections
+     (don / manifestation d'intérêt / régulé) et consomme `REGULATED_ENABLED`
+     (fail-closed réglementaire : aucune offre régulée sans licence).
+   - **Honnêteté des rails de paiement** : le mobile money est un **relais
+     WhatsApp** tant que CinetPay n'est pas intégré — la copie ne prétend plus à
+     un rail automatisé. CB confirmée automatiquement (webhook durci, idempotent,
+     mapping des échecs/remboursements/litiges).
+   - **Conformité formulaires** : consentement RGPD + honeypot anti-spam sur les
+     leads investisseurs ; email requis seulement pour l'investissement.
+   - État vérifié : **89 tests**, typecheck/lint/build **verts** (41 routes).
 0-bis. **Le site devient une PLATEFORME FINANCIÈRE du bâtiment** (session
    2026-07-12). Tout est accessible par carte ou mobile money. Piliers livrés :
    - **Tarification cost-plus volume-first** (`lib/pricing_v2.ts`) : marge de
