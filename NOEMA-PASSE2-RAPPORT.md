@@ -6,8 +6,8 @@ passe 2 est une revue **audit → correction → vérification** : 4 agents d'au
 en lecture seule ont cartographié les défauts par chantier, puis chaque chantier
 a été durci et re-testé, avec un commit par jalon.
 
-**État final vérifié** : typecheck ✅ · **89 tests** ✅ · lint ✅ · build ✅
-(41 routes, middleware `/office` actif). Baseline d'entrée : 69 tests → +20.
+**État final vérifié** : typecheck ✅ · **94 tests** ✅ · lint ✅ · build ✅
+(41 routes, middleware `/office` actif). Baseline d'entrée : 69 tests → +25.
 
 ---
 
@@ -65,6 +65,18 @@ a été durci et re-testé, avec un commit par jalon.
   publisher.logo) ; index guides doté d'`ItemList` + `BreadcrumbList` + canonical.
 - Constantes `SITE_URL` / `CONTENT_UPDATED_AT` (source unique).
 
+### Passe 3 — câblage de la state machine  (`OrderStore`)
+- La machine à états `Order` était écrite et testée mais **jamais câblée** (finding
+  #1 sévère, transverse aux audits C2/C3). Créé `lib/payment/store.ts` :
+  interface `OrderStore` + `InMemoryOrderStore` (référence) + `fulfillOrderEvent()`
+  qui **matérialise le dossier au premier acompte**, applique la transition de
+  façon **idempotente et retry-safe**, et refuse proprement les transitions hors
+  séquence (ACK 200 au lieu d'un retry Stripe infini).
+- Route webhook `order` réellement câblée sur le store (seed depuis les metadata
+  du PaymentIntent). Le stockage en mémoire est le **point d'ancrage explicite**
+  pour brancher une table SQL en Phase 2, sans toucher au reste. **+5 tests**
+  end-to-end (création, idempotence, hors-séquence, parcours complet → LIVRE).
+
 ### C6 + C7 + transverse  (`033a352`)
 - `docs/11-sourcing-chine` : seuil LCL→FCL rendu cohérent (une seule valeur).
 - `docs/08-roadmap` : chevauchement checkout Phase 3 / 6.1 clarifié ; 6.2 corrige
@@ -101,6 +113,6 @@ a été durci et re-testé, avec un commit par jalon.
 
 ## Vérification
 ```
-typecheck : OK        tests : 89 passed (7 fichiers)
+typecheck : OK        tests : 94 passed (8 fichiers)
 lint      : OK        build : OK (41 routes, middleware 34,5 kB)
 ```

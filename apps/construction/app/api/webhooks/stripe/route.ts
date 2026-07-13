@@ -2,13 +2,17 @@ import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getStripe, getWebhookSecret } from "../../../../lib/stripe/server";
 import { mapStripeEvent } from "../../../../lib/payment/webhook";
+import { getOrderStore, fulfillOrderEvent } from "../../../../lib/payment/store";
+import type { Currency } from "../../../../lib/payment/money";
 
 export const runtime = "nodejs";
 
-// Idempotence en mémoire (best-effort). En production, remplacer par une table
-// `processed_webhook_events` (unique sur event.id) partagée entre instances —
-// cf. docs/07-integrations.md et le champ Order.processedEventIds prévu à cet effet.
+// Idempotence de bord en mémoire (best-effort, court-circuit rapide). La source
+// de vérité idempotente est `Order.processedEventIds` via le store. En prod,
+// remplacer le store en mémoire par une table SQL partagée entre instances —
+// cf. docs/07-integrations.md.
 const processed = new Set<string>();
+const orderStore = getOrderStore();
 
 export async function POST(req: Request) {
   const stripe = getStripe();
@@ -41,13 +45,37 @@ export async function POST(req: Request) {
     const outcome = mapStripeEvent(event);
 
     switch (outcome.kind) {
-      case "order":
-        // TODO Phase 2 : charger le dossier (DB), applyWebhookEvent(order, event.id,
-        // outcome.event), persister, puis reçu WhatsApp/email + déblocage production.
-        console.log(
-          `[stripe] order=${outcome.orderId} jalon=${outcome.milestone} → ${outcome.event.type}`,
+      case "order": {
+        // Matérialise/charge le dossier et applique la transition métier (pure,
+        // idempotente, retry-safe). Le seed (devise + total) permet de créer le
+        // dossier au premier acompte à partir des metadata du PaymentIntent.
+        const pi = event.data.object as Stripe.PaymentIntent;
+        const totalMinorRaw = Number(pi.metadata?.totalMinor);
+        const seed =
+          Number.isFinite(totalMinorRaw) && totalMinorRaw > 0
+            ? { currency: pi.currency as Currency, totalMinor: totalMinorRaw }
+            : undefined;
+        const res = await fulfillOrderEvent(
+          orderStore,
+          outcome.orderId,
+          event.id,
+          outcome.event,
+          seed,
         );
+        if (res.rejected) {
+          // Hors séquence : on ACK 200 (ne pas faire retenter Stripe indéfiniment).
+          console.warn(
+            `[stripe] order=${outcome.orderId} jalon=${outcome.milestone} REFUSÉ: ${res.rejected}`,
+          );
+        } else {
+          // TODO Phase 2 : reçu WhatsApp/email + déblocage production selon res.order.status.
+          console.log(
+            `[stripe] order=${outcome.orderId} jalon=${outcome.milestone} → ${res.order.status}` +
+              (res.applied ? "" : " (déjà traité)"),
+          );
+        }
         break;
+      }
       case "impact":
         // TODO Phase 2 : incrémenter collecté + contributeurs du projet en base,
         // rafraîchir la barre de progression, ajouter au mur des bâtisseurs.

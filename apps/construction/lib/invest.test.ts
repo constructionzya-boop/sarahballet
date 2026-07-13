@@ -102,7 +102,7 @@ describe("i18n", () => {
     expect(t("cta.reserve", "en")).toBe("Reserve with a 30% deposit");
   });
   it("retombe sur le français puis la clé si la traduction manque", () => {
-    // @ts-expect-error — clé volontairement inexistante pour tester le repli.
+    // Clé volontairement inexistante pour tester le repli terminal sur la clé.
     expect(t("cle.inexistante", "en")).toBe("cle.inexistante");
   });
 });
