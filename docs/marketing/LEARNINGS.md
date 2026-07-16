@@ -106,6 +106,26 @@ grilles radio/affichage officielles · tarifs WhatsApp API BSP · série remitta
 
 ---
 
+## 2026-07-16 — PROJECTION-001 : entonnoir captation & devis (S1, S1+S2)
+
+Source : [PROJECTION-001.md](./PROJECTION-001.md). Statut : **100 % hypothèses [HYP]** — modèle
+d'entonnoir à recalibrer sur la 1ʳᵉ vidéo réelle. Aucune promesse.
+
+- **Scénario base (« marche bien »), S1 seul, 90 j, 300 €** : ~70 000 auditeurs captés → ~210
+  conversations WhatsApp (0,30 % de la portée) → ~85 demandes de devis (40 %) → ~8 signatures potentielles
+  (10 %). Le scénario prudent (40 conversations) franchit déjà le KPI plancher (≥20).
+- **Moteur combiné S1+S2 base** : ~130 devis, ~15 signatures potentielles / 90 j.
+- **Enseignement structurant** : au-delà du point mort (6/mois), **le goulot passe de la demande au
+  CASH** — 15 modules = ~24 M XOF de BFR. Réponses : acompte 30 % via mobile money, liste d'attente
+  assumée (Tesla), ne jamais survendre le délai (V1). Confirme le séquençage cash de l'Étage 1.
+- **Rendement/€ base [HYP]** : S1 ~37 €/signature, S2 ~114 €/signature (75 k XOF < CAC 120 k).
+- Décision : **projeter, puis MESURER** — remplacer ces taux par les vrais dès la 1ʳᵉ vidéo (PROJECTION-002).
+- Briefs opérationnels prêts-à-tourner produits (PDF, dossier Documents) : **S1 Chantier-Spectacle**
+  (story-board, plan de tournage, scripts) et **S2 Poseurs-Prescripteurs** (recrutement, grille de
+  commission, scripts, tracking). Versionnables dans le repo sur demande.
+
+---
+
 ## Modèle d'entrée (à copier pour les prochaines sessions)
 
 ```
