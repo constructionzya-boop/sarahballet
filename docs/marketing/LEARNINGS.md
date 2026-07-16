@@ -129,6 +129,10 @@ d'entonnoir à recalibrer sur la 1ʳᵉ vidéo réelle. Aucune promesse.
   Pionniers/zéro rendement en tête, dispositif de preuve hebdo + jalons, parcours Pionnier, ciblage
   France + activation saisonnière juin-août/déc-janv, micro-influenceurs diaspora). **Les 5 briefs
   opérationnels sont désormais complets** (PDF, dossier Documents), versionnables dans le repo sur demande.
+- **Plan de démarrage 30 j** produit (PDF) : séquence S1 (lancement) + amorçage S2 sur 5 semaines, verrou
+  n°0 (WhatsApp + module) en porte A, décaissement cumulé ~420 € (275 502 XOF), 4 portes go/no-go,
+  tableau de bord dès J1, rôles (Jeremy / relais CI / vidéaste / équipe pose / animateur). Prochaine
+  étape réelle = lever le n° WhatsApp Business (Décision 1) pour franchir la porte A.
 
 ---
 
