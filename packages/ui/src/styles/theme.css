@@ -30,9 +30,46 @@
   /* Typographie */
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* Rayons */
+  /* Rayons — la DA « vitrine minimale » vit dans de grandes cartes arrondies. */
   --radius-md: 0.5rem;
   --radius-lg: 0.875rem;
+
+  /*
+   * Ombres douces, larges et diffuses (jamais dures) — signature de la DA.
+   * Génère les utilitaires `shadow-soft`, `shadow-soft-lg`, `shadow-float`.
+   */
+  --shadow-soft: 0 8px 40px rgba(0, 10, 33, 0.08);
+  --shadow-soft-lg: 0 18px 60px rgba(0, 10, 33, 0.14);
+  --shadow-float: 0 24px 70px rgba(0, 10, 33, 0.18);
+}
+
+/*
+ * Keyframes réutilisables du design system (Marquee, etc.). Les animations
+ * pilotées par le scroll/hover passent par Framer Motion (composants clients) ;
+ * ce défilement infini reste en CSS pur (GPU, pas de JS, pas de reflow).
+ */
+@keyframes noema-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer utilities {
+  /* Piste du composant <Marquee>. La durée se règle via --marquee-duration. */
+  .marquee-track {
+    animation: noema-marquee var(--marquee-duration, 34s) linear infinite;
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
 }
 
 /*
