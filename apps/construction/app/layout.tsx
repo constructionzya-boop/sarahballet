@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { MotionProvider, WhatsAppFAB } from "@noema/ui";
 import "./globals.css";
 import { PillNav } from "../components/PillNav";
 import { SiteFooter } from "../components/SiteFooter";
+import { PLACEHOLDER_WHATSAPP } from "../lib/constants";
+import { whatsappHref } from "../lib/whatsapp";
+
+const FAB_MESSAGE = "Bonjour Noéma, je souhaite des informations sur vos modules.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://noema-construction.com"),
@@ -27,9 +32,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="fr">
       <body>
-        <PillNav />
-        {children}
-        <SiteFooter />
+        <MotionProvider>
+          <PillNav />
+          {children}
+          <SiteFooter />
+          <WhatsAppFAB href={whatsappHref(FAB_MESSAGE, PLACEHOLDER_WHATSAPP)} />
+        </MotionProvider>
       </body>
     </html>
   );
