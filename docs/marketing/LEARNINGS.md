@@ -62,6 +62,50 @@ testé chez Noéma.
 
 ---
 
+## 2026-07-16 — MISSION-MKT-002 : diagnostic, marché & 5 stratégies à 2 000 € (STRATEGIE-001)
+
+Source : [STRATEGIE-001.md](./STRATEGIE-001.md). Statut : diagnostic **prouvé chez nous** (unit
+economics du repo) + marché **[FAIT] sourcé web** + stratégies = **hypothèses à tester**.
+
+### Ce qui est établi (solide)
+- **La location est notre pire piège de trésorerie** : 1 module en location pure immobilise ~2,56 M XOF
+  pendant **~26 mois** (récup. coût variable) à ~36 mois (prix plein). Calcul sur le vrai moteur
+  (`economics.ts` : loyer = prix/36, caution 3 loyers). → **On vend le récit de la location, on encaisse
+  sur l'accession (30 % d'apport)** ; location pure plafonnée à 1-2 modules-vitrine autofinancés.
+- **Point mort atelier ≈ 6 modules/mois** (charges fixes 3,5 M XOF/mois) — le volume prime, marge de
+  lancement volontairement basse (20 %).
+- **Positionnement « béton préfabriqué posé en 1 jour » = VACANT à Abidjan** [FAIT] : concurrence =
+  conteneur turc/occasion (2,3-5,1 M FCFA, image « provisoire »). Le **« statut du dur »** est un levier
+  culturel sourçable (Choplin/UNIGE 2020). C'est notre axe le plus défendable.
+- **Segment tête de pont = C1 commerçant d'Abidjan / Box Commerce.** Insight central : *« un vrai local,
+  du dur, sans avancer le pas-de-porte, repris si ça ne marche pas ».*
+- **Diaspora : le frein est la peur de l'arnaque, pas l'argent** (cas 1,27 M€/97 victimes) [FAIT]. On vend
+  la **preuve** (suivi hebdo + jalons + module standardisé = prix ferme), jamais le rendement. Cible
+  France (51 %), pics juin-août + déc-janv.
+- **Canaux petit budget gagnants** [FAIT] : WhatsApp Business (0 €), Meta/TikTok géociblés (CPM 200-800
+  FCFA), micro-influenceurs (76-305 €/post). À fuir en amorçage : radio nationale, affichage 4×3, stand
+  Archibat (avalent le budget, tarifs [TBV]).
+- **Gabon = 2e marché en séquence (~18-24 mois)** : PIB/hab. ~3× la CI mais marché étroit + transition
+  2023 à éprouver.
+
+### Les 5 stratégies (mécaniques nommées)
+S1 Chantier-Spectacle (pose publique filmée, 300 €, viral) · S2 Poseurs-Prescripteurs (réseau payé à la
+perf, 800 €, C1) · S3 Jumeau Diaspora (chantier prouvé à distance, 1 800 €, C3) · S4 Sanitaire-
+Démonstrateur (cheval de Troie institutionnel, 1 500 €, C2) · S5 Compose Ton Module (configurateur-jeu,
+800 €, C1 digital).
+
+- Décision : **AMPLIFIER en séquence** — lancer **S1 en premier** (crée l'actif vidéo que les 4 autres
+  réutilisent), puis ouvrir S2→S5→S4→S3 sur signal KPI. Portefeuille jamais engagé d'un bloc.
+- Prochaine action : lever les 2 prérequis (n° WhatsApp réel + module showroom) pour démarrer S1.
+- Garde-fous tenus : anti-invention ([FAIT]/[HYP]/[TBV]), prix indicatifs, ligne rouge diaspora
+  (Pionniers, zéro rendement), perfs = hypothèses V1, budget marketing ne paie pas le béton.
+
+### À vérifier terrain ([TBV] restants)
+Prix kiosque bois/tôle nu · délai exact maçonnerie 15-20 m² · devis stand Archibat 2027 (Axes Marketing) ·
+grilles radio/affichage officielles · tarifs WhatsApp API BSP · série remittances CI consolidée (data.worldbank).
+
+---
+
 ## Modèle d'entrée (à copier pour les prochaines sessions)
 
 ```
