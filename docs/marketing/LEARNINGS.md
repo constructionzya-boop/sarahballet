@@ -125,8 +125,10 @@ d'entonnoir à recalibrer sur la 1ʳᵉ vidéo réelle. Aucune promesse.
   commission, scripts, tracking) et **S5 Compose Ton Module** (parcours 3 clics, deep link wa.me,
   landing pages usage×ville, dispositif Meta/TikTok, UTM/retargeting) et **S4 Sanitaire-Démonstrateur**
   (comptes cibles C2, dossier de preuve, BANT, portes-ouvertes décideurs, séquence outbound, argumentaires
-  par persona maire/DAF/dir. travaux/ONG WASH, objections). Versionnables dans le repo sur demande.
-  Reste à décliner au même format : **S3 (Jumeau Diaspora)**.
+  par persona maire/DAF/dir. travaux/ONG WASH, objections) et **S3 Jumeau Diaspora** (ligne rouge
+  Pionniers/zéro rendement en tête, dispositif de preuve hebdo + jalons, parcours Pionnier, ciblage
+  France + activation saisonnière juin-août/déc-janv, micro-influenceurs diaspora). **Les 5 briefs
+  opérationnels sont désormais complets** (PDF, dossier Documents), versionnables dans le repo sur demande.
 
 ---
 
