@@ -44,6 +44,24 @@ agents Wave/Orange · programmes d'équipement Solibra CI · conditions exactes 
 
 ---
 
+## 2026-07-16 — Grille comparative T6 produite (Vague 0, non bloquée)
+
+Source : [GRILLE-COMPARATIVE-T6.md](./GRILLE-COMPARATIVE-T6.md). Statut : **hypothèse externe** —
+angle validé par le benchmark (Cemex/Kwikspace : vendre le coût total, pas le prix affiché), pas encore
+testé chez Noéma.
+- Ce qui a marché : identifié la **seule tactique Vague 0 exécutable sans les 3 décisions** de Jeremy →
+  produite entièrement (grille maître + spec web + brief visuel + message WhatsApp prêt).
+- Angle assumé : *« Le container est moins cher à poser. Le béton est moins cher à vivre. »* On ne cache
+  pas le désavantage prix d'entrée ; on l'oppose au coût sur la durée + statut + récupérabilité.
+- Garde-fous respectés : aucun prix ferme (tout `[HYP]`/`[TBV]` avec méthode), pas de dénigrement
+  nominatif, perfs techniques = hypothèses V1, message WhatsApp à n'activer qu'après Décision 1.
+- Décision : **AMPLIFIER** — recommandation : publier dès maintenant la **version qualitative sans
+  chiffres** (déjà vraie), enrichir des chiffres au fur et à mesure du relevé terrain.
+- Prochaine action (dès Décision 1 tranchée) : intégrer le bloc dans `apps/construction` (page offres)
+  + commander le visuel à NOEMA_VISUAL_AGENT + brancher le tag de source dans le lien `wa.me`.
+
+---
+
 ## Modèle d'entrée (à copier pour les prochaines sessions)
 
 ```
