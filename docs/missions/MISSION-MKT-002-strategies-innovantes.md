@@ -60,8 +60,10 @@ Contraintes de conception :
 - Chacune doit s'appuyer sur un actif que NOUS avons déjà (pose en 1 jour
   filmable, module démontable, trame LEGO P1-P9, configurateur web, suivi
   WhatsApp, double implantation Chine-Afrique) — pas sur un budget média.
-- Coût de lancement ≤ 500 000 XOF [HYP] par stratégie, ou financé par le
-  client/partenaire (précommandes, sponsoring, troc de visibilité).
+- Coût de lancement ≤ 2 000 € par stratégie (≈ 1 310 000 XOF, taux fixe
+  1 € = 655,957 FCFA), et/ou financé par le client/partenaire
+  (précommandes, sponsoring, troc de visibilité). Le plafond est un budget
+  MAXIMUM, pas un objectif : si la mécanique tient à 300 €, tant mieux.
 - Au moins UNE stratégie orientée prospection premium C2, au moins UNE
   orientée diaspora C3, au moins UNE purement organique/virale.
 
@@ -71,7 +73,8 @@ Format OBLIGATOIRE par stratégie (1 page max chacune) :
 3. **La mécanique** pas à pas (qui fait quoi, où, avec quoi).
 4. **Inspiration multinationale** : de qui c'est adapté et ce qu'on change.
 5. **Pourquoi ça marche ICI** : l'insight ivoirien/gabonais exploité.
-6. **Budget** de lancement + coût de croisière [HYP], en XOF.
+6. **Budget** de lancement + coût de croisière [HYP], en € ET en XOF
+   (plafond 2 000 € de lancement par stratégie).
 7. **KPI de vérité** (un seul chiffre qui dit si ça marche) + seuil d'arrêt.
 8. **Risques & garde-fous** (réglementaire, réputation, capacité de prod).
 9. **Premier pas exécutable sous 14 jours** avec ce qu'on a aujourd'hui.
