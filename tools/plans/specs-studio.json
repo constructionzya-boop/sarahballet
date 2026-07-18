@@ -1,0 +1,72 @@
+{
+  "_meta": {
+    "module": "studio",
+    "index": "V1",
+    "note": "Spec MEP du module Studio 3600×4800 (M3). Fichier séparé de specs.json (source de vérité structure, non modifiée). Composition façades = HYP dossier SketchUp.",
+    "disclaimer": "DOCUMENT NON CONTRACTUEL — à valider par ingénieur structure agréé, électricien agréé CIE et plombier"
+  },
+  "level": "M3",
+  "footprint": [3600, 4800],
+  "baysW": 3,
+  "baysD": 4,
+  "axesW": 4,
+  "axesD": 5,
+  "ceiling": 2700,
+  "sdb": {
+    "x": 0, "y": 3000, "w": 1800, "d": 1800,
+    "partitionHeight": 2400,
+    "rule": "cloisons non structurelles sur sous-module 600, arrêtées sous la ligne claustra"
+  },
+  "kitchenette": { "wall": "arrière", "xFrom": 1800, "xTo": 3600, "depth": 600 },
+  "principles": {
+    "noChasing": "SAIGNÉES INTERDITES dans poteaux et panneaux — réseaux APPARENTS (goulotte/IRL/plinthe technique)",
+    "drilling": "perçage de fixation autorisé ≤ Ø8, prof. ≤ 40 (chevilles nylon) — jamais dans les rainures ni à <60 des bords",
+    "wallCrossings": "élec : par la bande claustra P2 (ajourée, AUCUNE réservation) · fluides : par réservations MOULÉES dans les éléments de plinthe (jamais de carottage site)",
+    "techFacade": "TOUTES les traversées fluides sur la façade ARRIÈRE (mur technique, sous débord 600)"
+  },
+  "elec": {
+    "supply": "230 V mono — arrivée en fourreau Ø63 moulé plinthe (R5), origine réseau CIE ou solaire [TBV]",
+    "board": { "location": "mur arrière int., côté kitchenette", "x": 2000, "height": 1300, "modules": 13 },
+    "trunking": { "height": 2450, "type": "goulotte PVC 2 compartiments, périphérique séjour", "lengthMl": 15 },
+    "drops": "tube IRL Ø20 apparent, descentes verticales uniquement",
+    "claustraCrossing": { "level": 2650, "note": "passage ext↔int par claustra ajouré — zéro réservation" },
+    "heights": { "pc": 300, "pcPlan": 1100, "switch": 1100, "board": 1300, "trunking": 2450, "applique": 2300, "split": 2500 },
+    "earth": "piquet acier galva + barrette + conducteur 16 mm² [TBV mesure]",
+    "ddr": "interrupteur différentiel 63 A / 30 mA type AC [TBV]",
+    "sdbRule": "SDB : 1 hublot IP44 hors volumes, AUCUNE prise, liaison équipotentielle",
+    "circuits": [
+      { "id": "C1", "name": "éclairage (2 LED séjour + hublot SDB + applique ext.)", "section": 1.5, "breaker": 10, "points": 4 },
+      { "id": "C2", "name": "prises séjour", "section": 2.5, "breaker": 16, "points": 4 },
+      { "id": "C3", "name": "prises kitchenette", "section": 2.5, "breaker": 16, "points": 3 },
+      { "id": "C4", "name": "attente surpresseur / ECS", "section": 2.5, "breaker": 16, "points": 1 },
+      { "id": "C5", "name": "attente split (mur pignon)", "section": 2.5, "breaker": 16, "points": 1 },
+      { "id": "C6", "name": "brasseur d'air plafond", "section": 1.5, "breaker": 10, "points": 1 }
+    ],
+    "maxPoints": { "1.5": 8, "2.5": 12 }
+  },
+  "plumbing": {
+    "tank": { "volume": 500, "standHeight": 1800, "location": "mur arrière ext., x 2100-2700, sous débord" },
+    "supply": { "pipe": "PER Ø16 sous goulotte de plinthe", "entrySleeve": "R4 Ø25", "valve": "vanne 1/4 tour + filtre + clapet AR", "manifold": 3 },
+    "fixtures": [
+      { "id": "douche",    "tapHeight": 1000, "drainDia": 40,  "x": 450,  "y": 3450 },
+      { "id": "lavemains", "tapHeight": 850,  "drainDia": 32,  "x": 1500, "y": 3900 },
+      { "id": "wc",        "tapHeight": 800,  "drainDia": 100, "x": 600,  "y": 4500 },
+      { "id": "evier",     "tapHeight": 900,  "drainDia": 40,  "x": 2700, "y": 4740 }
+    ],
+    "pressure": {
+      "minComfortHead": 3000,
+      "boosterOption": "surpresseur 230 V 0,3-1,0 bar sur attente C4 — OPTION confort douche [TBV]"
+    },
+    "slopesPct": { "interior": 2, "exterior": 2 },
+    "collector": { "dia": 100, "route": "extérieur, pied de façade arrière, sous débord", "runMm": 6000, "to": "regard 400×400 puis puisard Ø1000 [TBV selon site]" },
+    "airAdmittanceValve": "clapet aérateur à membrane sur branchement WC (pas de ventilation primaire en toiture — module démontable)",
+    "reservations": [
+      { "id": "R1", "dia": 110, "for": "EU WC Ø100",        "x": 600,  "axis": 100 },
+      { "id": "R2", "dia": 50,  "for": "EU douche + LM Ø40", "x": 300,  "axis": 100 },
+      { "id": "R3", "dia": 50,  "for": "EU évier Ø40",       "x": 2700, "axis": 100 },
+      { "id": "R4", "dia": 25,  "for": "EF entrée Ø16",      "x": 2400, "axis": 100 },
+      { "id": "R5", "dia": 63,  "for": "fourreau élec",      "x": 2000, "axis": 100 }
+    ],
+    "minGuard": 40
+  }
+}
