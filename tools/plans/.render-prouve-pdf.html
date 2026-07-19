@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>NOÉMA — Étude Prouvé × Bioclimatique V1</title>
+<style>
+  @page { size: A4 portrait; margin: 16mm 15mm 18mm 15mm; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Georgia, 'Times New Roman', serif; color: #000A21;
+         font-size: 10.2pt; line-height: 1.5; background: #fff; }
+  .sans { font-family: Arial, Helvetica, sans-serif; }
+  h1, h2, h3 { font-family: Arial, Helvetica, sans-serif; color: #000A21; }
+  h1 { font-size: 20pt; margin: 0 0 2mm; }
+  h2 { font-size: 13.5pt; border-bottom: 2.5px solid #FF3311; padding-bottom: 1.5mm;
+       margin: 8mm 0 3mm; page-break-after: avoid; }
+  h3 { font-size: 11pt; color: #385772; margin: 5mm 0 2mm; page-break-after: avoid; }
+  p { margin: 0 0 2.5mm; text-align: justify; }
+  .cover { background: #000A21; color: #FAF6EB; padding: 12mm; border-radius: 3mm; margin-bottom: 6mm; }
+  .cover h1 { color: #FAF6EB; }
+  .cover .accent { color: #FF3311; }
+  .cover p { color: #B0DDF1; text-align: left; }
+  .meta { font-family: Arial; font-size: 8.5pt; color: #B0DDF1; margin-top: 4mm; }
+  .warn { background: #F7F1EC; border-left: 4px solid #FF3311; padding: 3mm 4mm;
+          font-size: 9pt; font-family: Arial; margin: 4mm 0; }
+  table { border-collapse: collapse; width: 100%; font-family: Arial; font-size: 8.6pt;
+          margin: 3mm 0; page-break-inside: avoid; }
+  th { background: #000A21; color: #FAF6EB; text-align: left; padding: 1.8mm 2.2mm; }
+  td { border: 0.5px solid #B0DDF1; padding: 1.6mm 2.2mm; vertical-align: top; }
+  tr:nth-child(even) td { background: #FAF6EB; }
+  .verdict-ok { color: #0a7a2f; font-weight: bold; }
+  .verdict-v2 { color: #b06000; font-weight: bold; }
+  .verdict-no { color: #b3000c; font-weight: bold; }
+  figure { margin: 4mm 0; page-break-inside: avoid; }
+  figure img { width: 100%; max-height: 105mm; object-fit: cover; border-radius: 1.5mm;
+               display: block; }
+  figure.half { width: 48.5%; display: inline-block; vertical-align: top; }
+  figure.half + figure.half { margin-left: 2%; }
+  figure.half img { max-height: 78mm; }
+  figcaption { font-family: Arial; font-size: 7.6pt; color: #385772; margin-top: 1.2mm;
+               line-height: 1.35; }
+  figcaption a { color: #385772; word-break: break-all; }
+  .grid2 { width: 100%; }
+  a { color: #385772; }
+  ul { margin: 0 0 2.5mm 5mm; padding: 0; }
+  li { margin-bottom: 1.2mm; }
+  .pb { page-break-before: always; }
+  .kicker { font-family: Arial; font-size: 9pt; letter-spacing: 2px; text-transform: uppercase;
+            color: #FF3311; margin-bottom: 1mm; }
+  .fait { font-family: Arial; font-size: 8pt; color: #385772; }
+  blockquote { border-left: 3px solid #B0DDF1; margin: 3mm 0 3mm 2mm; padding: 1mm 4mm;
+               color: #385772; font-style: italic; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="kicker">Noéma Construction · Bureau d'études · Mission ARCHI-001</div>
+  <h1>Prouvé, bioclimatique &amp; héritages<br><span class="accent">ce qui manque à Noéma</span></h1>
+  <p>Étude de références V1 — Jean Prouvé &amp; la Maison Tropicale · l'architecture coloniale
+  à véranda · l'habitat ancestral du golfe de Guinée · la synthèse bioclimatique chaud-humide —
+  et le chapitre de fusion <b>PROUVÉ × NOÉMA</b> avec verdicts INTÉGRER V1 / OPTION V2 / ÉCARTER.</p>
+  <p class="meta">Recherche web effectuée le 2026-07-19 (≥ 30 min, journal en annexe du fichier
+  ETUDE-PROUVE-BIOCLIMATIQUE-V1.md) · Devise : « on ne crée rien, tout se transforme » ·
+  Climat de référence : Abidjan / Libreville (chaud-humide, pluies battantes, vents d'orage) ·
+  ⚠️ Hypothèse V1 — à valider par ingénieur structure agréé. Kéré (climat sec) hors périmètre.</p>
+</div>
+
+<h2>La réponse en 5 lignes</h2>
+<ul>
+  <li><b>Noéma est déjà « prouvéen » sans le savoir</b> : kit d'usine, trame fixe, catalogue fermé,
+  assemblage à sec démontable, toit parasol, claustra, imposte, surélévation — et le système corrige
+  une à une les causes de l'échec commercial de Prouvé.</li>
+  <li><b>Le manquant n° 1 a un nom : la VÉRANDA.</b> Le débord avant 800 est une véranda qui
+  s'ignore ; il faut l'assumer, l'équiper et la vendre.</li>
+  <li><b>Le manquant n° 2 est une signature</b> : le hublot bleu moulé dans un P1 — « l'œil Noéma »,
+  même moule, un simple insert.</li>
+  <li><b>Le point critique inertie/béton est tranché favorablement</b> : un P1 de 60 mm (144 kg/m²)
+  intégralement ombragé et ventilé 24 h/24 est compatible chaud-humide — à condition du pack climat
+  complet (jamais de module « nu » en zone côtière) + essai E10 de monitoring.</li>
+  <li><b>Un produit caché sort des archives de 1951</b> : « vendre seulement les éléments de
+  toiture » → le kit surtoiture parasol pour boxes existants (OPTION V2).</li>
+</ul>
+
+<h2>Axe A — Jean Prouvé et la Maison Tropicale (1949-1951)</h2>
+<p>Trois prototypes seulement : Niamey (1949) et Brazzaville (2 en 1951, bureaux de l'Aluminium
+français). Portique <b>axial</b> en tôle d'acier <b>pliée</b> (le pli donne la rigidité), tout le
+reste en aluminium ; assemblage <b>boulonné</b>, tolérances de montage acceptées, démontage complet.
+Noyau habitable 6 × 12 m ceinturé d'une galerie de 2 m (côtés) et 1 m (façade). Panneaux de façade
+294,5 × 95,5 × 5 cm — module ≈ 1 m (Noéma : 1,20 m). Kit expédié à plat par avion-cargo, monté en
+quelques jours sans main-d'œuvre spécialisée. <span class="fait">[Sources : ArchEyes ; Galerie
+Patrick Seguin ; jeanprouve.com ; WikiArquitectura — liens en annexe du .md]</span></p>
+
+<figure>
+  <img src="../../docs/references/img-prouve/01-maison-tropicale-brazzaville-in-situ.jpg" alt="">
+  <figcaption><b>La Maison Tropicale de Brazzaville</b> (1951), remontée quai de Seine à Paris en 2006
+  avant sa vente chez Christie's : surélévation sur pilotis, panneau central à hublots, bandeau
+  brise-soleil filant, débord du toit parasol. Photo jean-michel gobet · CC BY-SA 3.0 ·
+  <a href="https://commons.wikimedia.org/wiki/File:Maison_tropicale_de_brazzaville_-_jean_prouv%C3%A9_-_panoramio.jpg">commons.wikimedia.org</a></figcaption>
+</figure>
+
+<div class="grid2">
+<figure class="half">
+  <img src="../../docs/references/img-prouve/03-maison-tropicale-londres-tate.jpg" alt="">
+  <figcaption><b>Tate Modern, Londres 2008</b> : la double toiture débordante, la ceinture de
+  brise-soleil et les rangées de hublots. Photo Jim Linwood · CC BY 2.0 ·
+  <a href="https://commons.wikimedia.org/wiki/File:Prouv%C3%A9_La_Maison_Tropicale.jpg">commons.wikimedia.org</a></figcaption>
+</figure>
+<figure class="half">
+  <img src="../../docs/references/img-prouve/02-maison-tropicale-nancy-exterieur.jpg" alt="">
+  <figcaption><b>La maison de Niamey remontée à Nancy</b> (jardin du musée des Beaux-Arts).
+  Photo Jean-Pierre Dalbéra · CC BY 2.0 ·
+  <a href="https://commons.wikimedia.org/wiki/File:La_maison_tropicale_de_Jean_Prouv%C3%A9_(Nancy)_(7899627842).jpg">commons.wikimedia.org</a></figcaption>
+</figure>
+</div>
+
+<div class="grid2">
+<figure class="half">
+  <img src="../../docs/references/img-prouve/04-detail-panneaux-hublots-1.jpg" alt="">
+  <figcaption><b>Les hublots bleus</b> : double verre dont une face bleue anti-éblouissement/UV,
+  moulés dans les panneaux aluminium (beige dehors, vert dedans). Photo Patrick.charpiat · CC BY 3.0 ·
+  <a href="https://commons.wikimedia.org/wiki/File:Prouv%C3%A97.JPG">commons.wikimedia.org</a></figcaption>
+</figure>
+<figure class="half">
+  <img src="../../docs/references/img-prouve/05-detail-panneaux-hublots-2.jpg" alt="">
+  <figcaption><b>Détail panneau + hublots</b> — la signature visuelle Prouvé, vendue aujourd'hui
+  à l'unité en galerie d'art. Photo Patrick.charpiat · CC BY 3.0 ·
+  <a href="https://commons.wikimedia.org/wiki/File:Prouv%C3%A98.JPG">commons.wikimedia.org</a></figcaption>
+</figure>
+</div>
+
+<h3>Ses dispositifs climatiques (1949) et leurs équivalents Noéma</h3>
+<table>
+<tr><th>Dispositif Prouvé</th><th>Description</th><th>Noéma 2026</th></tr>
+<tr><td><b>Double toiture parasol</b></td><td>toit léger décollé, lame d'air, poutre faîtière surélevée créant le tirage</td><td>✅ toit parasol + bandeau 300 + P7</td></tr>
+<tr><td><b>Hublots bleus</b></td><td>double vitrage à face bleue anti-UV dans les panneaux</td><td>❌ manquant → proposition F.2</td></tr>
+<tr><td><b>Brise-soleil ajourés coulissants</b></td><td>écrans alu perforés ; nervures verticales à Brazzaville pour drainer la pluie</td><td>casquettes P5 fixes (coulissant : écarté F.4)</td></tr>
+<tr><td><b>Véranda périphérique</b></td><td>galerie ombrée 1-2 m, « première peau »</td><td>⚠️ débord 800 = véranda qui s'ignore → F.1</td></tr>
+<tr><td><b>Surélévation</b></td><td>plancher décollé du sol (humidité, insectes)</td><td>✅ plinthe 200 + skid → assumer (F.7)</td></tr>
+<tr><td><b>Ventilation traversante réglable</b></td><td>entrées/sorties alignées sur la trame</td><td>✅ P6 → P2, permanente (choix assumé F.5)</td></tr>
+<tr><td><b>Ouïes réglables</b></td><td>volets d'aération dans les panneaux</td><td>délibérément non repris (rien à casser)</td></tr>
+</table>
+
+<h3>Doctrine, échec, postérité</h3>
+<p><b>Doctrine</b> : « il n'y a pas de différence entre la construction d'un meuble et d'une
+maison » ; « je suis un homme d'usine » (Maxéville, 200 ouvriers, meubles ET maisons). Il
+<b>meublait</b> ses maisons — la Standard Chair (1934) est toujours produite par Vitra.</p>
+<p><b>L'échec commercial</b> (autopsie d'après les Cahiers du LHAC n°3, ENSA Nancy) : « le principe
+est bon mais <b>trop cher</b> » (note de Prouvé, nov. 1951) ; le béton avait déjà gagné Brazzaville
+(« l'usage du béton triomphe ») ; kit jugé trop rigide par les professionnels locaux ; client =
+administration coloniale dont la commande s'effondre en 1952 ; montage industriel bancal avec le
+cartel de l'aluminium (« un désastre », dira Prouvé) ; rejet culturel (« objets étrangers »).</p>
+<p><b>Postérité</b> : la maison de Brazzaville, récupérée en 2000, restaurée, est vendue
+<b>4,97 M$ chez Christie's</b> (New York, juin 2007, acheteur André Balazs) puis exposée au Centre
+Pompidou et à la Tate Modern. Une préfabrication dessinée avec rigueur devient un objet de
+collection : l'argument patrimonial de l'« actif mobile » Noéma a un précédent à 5 M$.</p>
+
+<table>
+<tr><th>Cause d'échec Prouvé</th><th>Correction Noéma (déjà actée)</th></tr>
+<tr><td>Aluminium importé par avion, trop cher</td><td>Béton produit localement, moules importés une fois</td></tr>
+<tr><td>Le béton local avait gagné culturellement</td><td>Noéma EST en béton — on épouse le vainqueur</td></tr>
+<tr><td>Client = administration coloniale (boom-bust FIDES)</td><td>Client = commerçant local, privé d'abord</td></tr>
+<tr><td>Dépendance à un cartel industriel</td><td>Intégration verticale usine → pose → location</td></tr>
+<tr><td>Kit rigide, pas d'appropriation</td><td>Catalogue fermé MAIS 5 offres + 3 modes de paiement</td></tr>
+<tr><td>« Objet étranger »</td><td>Matériau familier + showroom à toucher</td></tr>
+</table>
+
+<h2 class="pb">Axe B — L'architecture coloniale : le climat avant la clim</h2>
+<p>La véranda fonctionne « à trois niveaux : elle protège les murs contre les rayons directs, elle
+évite l'entrée des rayons dans les locaux et elle atténue la luminosité excessive du ciel »
+(congrès de l'urbanisme colonial, 1931/1936 — cité par le LHAC). La galerie est la pièce tampon
+thermique ; les persiennes-jalousies donnent l'air sans le soleil ni la pluie ; l'<b>imposte
+ventilée</b> au-dessus des portes évacue l'air chaud ; le soubassement surélevé coupe humidité et
+termites.</p>
+<p><b>Tri critique</b> : la galerie, les jalousies, l'imposte et la surélévation marchaient
+vraiment ; les plafonds 3,5-4 m sont efficaces mais chers (Noéma obtient l'effet par le plénum du
+bandeau 300 sans payer la hauteur de mur). Et l'époque elle-même a critiqué la « <b>véranda
+panacée</b> » : Prouvé note en 1951 que la galerie apporte « de la chaleur par conduction dans le
+plancher » → toute véranda Noéma aura son <b>plancher désolidarisé</b> de la dalle intérieure.</p>
+
+<figure>
+  <img src="../../docs/references/img-prouve/08-brazzaville-hotel-commissaire-veranda.jpg" alt="">
+  <figcaption><b>Brazzaville ~1905</b> — Hôtel du Commissaire spécial du Gouvernement : la véranda
+  périphérique double hauteur sur les quatre faces, silhouette que Prouvé reprendra en 1949.
+  Photo Jean Audema · domaine public ·
+  <a href="https://commons.wikimedia.org/wiki/File:H%C3%B4tel_du_Commissaire_sp%C3%A9cial_du_Gouvernement_%C3%A0_Brazzaville_(Congo_Fran%C3%A7ais_et_D%C3%A9pendances).jpg">commons.wikimedia.org</a></figcaption>
+</figure>
+
+<div class="grid2">
+<figure class="half">
+  <img src="../../docs/references/img-prouve/06-grand-bassam-rue-de-france-1900.jpg" alt="">
+  <figcaption><b>Grand-Bassam ~1900</b>, rue de France : galeries et vérandas du quartier France,
+  inscrit au patrimoine mondial UNESCO en 2012. Coll. L. Météyer · domaine public ·
+  <a href="https://commons.wikimedia.org/wiki/File:Grand_Bassam_-_Rue_de_France_(Collection_L._Meteyer,_a_Grand-Bassam).jpg">commons.wikimedia.org</a></figcaption>
+</figure>
+<figure class="half">
+  <img src="../../docs/references/img-prouve/07-grand-bassam-batiment-colonial.jpg" alt="">
+  <figcaption><b>Grand-Bassam aujourd'hui</b> — ancienne banque B.C.A : persiennes cintrées sur
+  toutes les baies, soubassement haut. Photo Ariel Palmon · CC BY-SA 4.0 ·
+  <a href="https://commons.wikimedia.org/wiki/File:Grand_Bassam_ap_008.jpg">commons.wikimedia.org</a></figcaption>
+</figure>
+</div>
+
+<div class="grid2">
+<figure class="half">
+  <img src="../../docs/references/img-prouve/09-varangue-creole-reunion.jpg" alt="">
+  <figcaption><b>La varangue créole</b> (La Réunion) : ni dedans ni dehors, le cœur social de la
+  maison tropicale. Photo Procruste974 · CC BY-SA 3.0 ·
+  <a href="https://commons.wikimedia.org/wiki/File:Varangue.jpg">commons.wikimedia.org</a></figcaption>
+</figure>
+<figure class="half">
+  <img src="../../docs/references/img-prouve/10-maison-creole-galerie-martinique.jpg" alt="">
+  <figcaption><b>Maison créole à galerie</b> (Habitation Clément, Martinique) : toiture débordante,
+  galerie périphérique, jalousies. Photo Thérèse Gaigé · CC0 ·
+  <a href="https://commons.wikimedia.org/wiki/File:Habitation_Cl%C3%A9ment_(Le_Fran%C3%A7ois,_Martinique)_-_06.jpg">commons.wikimedia.org</a></figcaption>
+</figure>
+</div>
+
+<p>Précédent historique exact du couple P2 + P3 : à Douala (immeuble BAO, années 1950), galeries à
+double peau « claustra béton brise-soleil extérieur + menuiseries persiennées intérieures,
+facilitant la ventilation des pièces traversantes » (LHAC n°3). Argument commercial : <i>le pack
+climat Noéma est la version industrialisée de ce que Bassam faisait il y a 120 ans — un patrimoine
+ivoirien, pas une importation.</i></p>
+
+<h2 class="pb">Axe C — L'habitat ancestral du golfe de Guinée</h2>
+<p><b>Akan/Baoulé (CI)</b> : la cour centrale et l'<b>apatam</b> — l'auvent où se passent repas,
+repos et réception. La vie se déroule SOUS LE TOIT, pas entre les murs. À noter aussi la maison
+annulaire à impluvium des Dida (ORSTOM/Persée, 1964). <b>Fang (Gabon)</b> : village-rue de cases
+en écorce et raphia, fermé par les <b>corps de garde</b> — le bâtiment social ouvert ; murs
+respirants, auvents de palmes. <b>Ganvié (lac Nokoué)</b> : pilotis en bois durs ; la surélévation
+« limite les remontées capillaires… l'air circule sous le plancher, limitant la surchauffe et
+évacuant l'humidité ».</p>
+
+<div class="grid2">
+<figure class="half">
+  <img src="../../docs/references/img-prouve/12-village-cases-gabon-1900.jpg" alt="">
+  <figcaption><b>Village de cases, Gabon ~1900</b> (fonds BnF, Agence Rol) : toitures débordantes
+  en palmes, murs légers respirants. Domaine public ·
+  <a href="https://commons.wikimedia.org/wiki/File:Village_de_cases,_Gabon_-_btv1b6917566s.jpg">commons.wikimedia.org</a></figcaption>
+</figure>
+<figure class="half">
+  <img src="../../docs/references/img-prouve/11-ganvie-pilotis-benin.jpg" alt="">
+  <figcaption><b>Ganvié (Bénin)</b> : l'habitat lagunaire sur pilotis — la surélévation comme
+  gestion de l'eau ET ventilation. Photo jbdodane · CC BY 2.0 ·
+  <a href="https://commons.wikimedia.org/wiki/File:Ganvi%C3%A9_Pilotis_House.jpg">commons.wikimedia.org</a></figcaption>
+</figure>
+</div>
+
+<p><b>Principes transversaux → verdicts Noéma</b> : ① l'ombre avant le mur (✅ toit parasol,
+débords, casquettes) ; ② le toit avant la façade — le produit minimal ancestral est un toit sur
+poteaux (→ véranda F.1, kit surtoiture F.8) ; ③ l'air traverse TOUJOURS — jamais d'obturation
+(✅ P2/P6 non fermables : à ne pas remettre en cause) ; ④ la surélévation gère l'eau (✅ plinthe
+200 + skid → à assumer esthétiquement, F.7).</p>
+
+<h2>Axe D — Bioclimatique moderne chaud-humide</h2>
+<p><b>Règles de l'art</b> : la ventilation traversante est la stratégie passive n°1 (~4 °C ressentis
+gagnés par la vitesse d'air — A. Perrau, La Réunion) ; porosité de façade de référence ~25 %
+(optimum 30 % au vent / 40 % sous le vent) ; masque solaire total ; et <b>inertie FAIBLE
+recherchée</b> — contrairement au chaud-sec — car l'amplitude jour/nuit ≤ 6 °C et les nuits chaudes
+font restituer la masse au mauvais moment (YourHome, gouv. australien).</p>
+<p><b>Références contemporaines (hors Kéré)</b> : <b>Îlet du Centre</b> (Perrau + Reynaud, La
+Réunion, 2008) — 66 logements + bureaux <b>sans aucune climatisation</b> en centre-ville tropical ;
+<b>VTN Architects / Vo Trong Nghia</b> (Vietnam) — maisons urbaines sans clim par claustras
+terracotta et doubles peaux (le claustra comme langage premium contemporain) ; <b>Green School</b>
+(Bali, 2008) — salles de classe entièrement ouvertes sous grands toits : le « toit avant façade »
+validé pour un équipement public équatorial.</p>
+
+<figure>
+  <img src="../../docs/references/img-prouve/13-fenetre-jalousies-lames.jpg" alt="">
+  <figcaption><b>La fenêtre à jalousies</b> (lames orientables) : 2× plus d'air qu'un coulissant,
+  l'air sans le soleil ni la pluie — le principe exact du P3 Noéma. Photo Warren LeMay · CC0 ·
+  <a href="https://commons.wikimedia.org/wiki/File:Jalousie_Window,_Wilkesdale_Baptist_Church,_Sylva,_NC_(32756545118).jpg">commons.wikimedia.org</a></figcaption>
+</figure>
+
+<h3>Le point critique tranché : le béton Noéma en climat à « inertie interdite » ?</h3>
+<p>Le P1 60 mm pèse <b>144 kg/m²</b> — un des murs béton les plus légers du marché (parpaing 20
+enduit : ~400-450 kg/m²). La règle « inertie faible » condamne le mur massif QUI PREND LE SOLEIL ;
+or dans le système Noéma le rayonnement direct ne touche pratiquement jamais les panneaux (toit
+parasol + débords 600-800 + casquettes P5 + orientation N-S) et la ventilation est permanente et
+non obturable : la restitution nocturne du voile mince (constante de temps ~2-4 h [CALCUL]) est
+évacuée au fil de l'eau. <b>Verdict : compatible chaud-humide À CONDITION du pack climat complet</b>
+— le pack n'est pas une option marketing, c'est la condition physique de validité du matériau.
+Vigilances : façade OUEST (règle d'implantation obligatoire : services/pièce d'eau en bouclier —
+déjà le mémento de Prouvé : « protection très grande à l'ouest ») ; teintes claires ; et ajout d'un
+<b>essai E10 — monitoring thermique 72 h</b> du prototype (sondes int/ext + surfaces est/ouest,
+critère [HYP] : T° surface intérieure ≤ T° air ext + 2 °C à 22 h). La variante « 2ᵉ rang claustra »
+(étude opti-panneaux) devient aussi un levier thermique.</p>
+
+<h2 class="pb">PROUVÉ × NOÉMA : la fusion</h2>
+
+<h3>Noéma était déjà prouvéen — pièce par pièce</h3>
+<table>
+<tr><th>Principe Prouvé 1949</th><th>Noéma 2026</th><th>État</th></tr>
+<tr><td>Kit complet fabriqué à l'atelier</td><td>« La pièce finie, montée, branchée »</td><td class="verdict-ok">identique</td></tr>
+<tr><td>Trame fixe (~1 m)</td><td>Trame 1 200, tout multiple</td><td class="verdict-ok">identique</td></tr>
+<tr><td>Catalogue fermé de composants répétés</td><td>P1-P9, dérogations tracées</td><td class="verdict-ok">identique</td></tr>
+<tr><td>Boulonné à sec, tolérances, démontable</td><td>Rainure 70, à sec, skid démontable</td><td class="verdict-ok">+ actif mobile</td></tr>
+<tr><td>Montage en quelques jours sans spécialiste</td><td><b>1 jour</b>, manuporté à 4</td><td class="verdict-ok">Noéma fait mieux</td></tr>
+<tr><td>Double toiture parasol (1949)</td><td>Toit parasol + bandeau 300 + P7</td><td class="verdict-ok">identique</td></tr>
+<tr><td>Brise-soleil / persiennes / panneaux ajourés</td><td>P2 + P3 + P5</td><td class="verdict-ok">identique</td></tr>
+<tr><td>Imposte au-dessus des portes</td><td>P4 = porte + imposte 300</td><td class="verdict-ok">identique</td></tr>
+<tr><td>Surélévation anti-humidité</td><td>Plinthe 200 + arase + skid</td><td class="verdict-ok">identique</td></tr>
+<tr><td>Véranda périphérique vécue</td><td>Débord avant 800 (auvent)</td><td class="verdict-v2">embryon → F.1</td></tr>
+<tr><td>Signature visuelle instantanée (hublots bleus)</td><td>—</td><td class="verdict-no">manquant → F.2</td></tr>
+<tr><td>Mobilier conçu avec la maison</td><td>—</td><td class="verdict-no">manquant → F.6</td></tr>
+</table>
+
+<h3>Le manquant et les propositions — verdicts</h3>
+<table>
+<tr><th>#</th><th>Proposition (croquis de principe)</th><th>Compatibilité</th><th>Coût</th><th>Verdict</th></tr>
+<tr><td>F.1a</td><td><b>Le seuil Noéma</b> : bande de sol finie prof. 1200 sous le débord avant —
+2 caillebotis = P1 réemployés au sol (Location) ou dalle débordante (Vendu) + 2 douilles M10 en
+sous-face de bandeau (enseigne/store) + banc préfa optionnel</td>
+<td>trame ✅ · catalogue ✅ (réemploi P1) · manuporté ✅ · zéro coupe ✅</td><td>faible [HYP]</td><td class="verdict-ok">INTÉGRER V1</td></tr>
+<tr><td>F.1b</td><td><b>Véranda travée</b> : extension du toit parasol d'1 travée (1200) sur 2
+poteaux standards + pannes rallongées, sol en P1, plancher désolidarisé (leçon Prouvé 1951)</td>
+<td>trame ✅ · vent à recalculer (+25 % de toiture) [TBV]</td><td>moyen [HYP]</td><td class="verdict-v2">OPTION V2</td></tr>
+<tr><td>F.2</td><td><b>L'œil Noéma</b> : réservation circulaire Ø300 moulée dans un P1 (insert de
+moule, comme le guichet du gardiennage) + hublot fixe verre/polycarbonate <b>bleu</b> sur joint
+EPDM, 1 par module près de la porte, axe ~1550. Fixe = zéro risque pluie. −10 kg</td>
+<td>trame ✅ · insert moule ✅ · treillis à dévier [TBV STRUCT]</td><td>faible [HYP]</td><td class="verdict-ok">INTÉGRER V1</td></tr>
+<tr><td>F.3</td><td><b>Imposte P4 toujours claustra ventilé</b> (règle de configuration — jamais un
+P1 plein au-dessus d'une porte)</td><td>✅ règle, aucun composant</td><td>nul</td><td class="verdict-ok">INTÉGRER V1</td></tr>
+<tr><td>F.4</td><td>Persiennes coulissantes de façade (rails, quincaillerie mobile en zone
+côtière ; fonction déjà tenue par P2+P3+P5 et volet P9)</td><td>⚠️ corrosion, maintenance</td><td>moyen</td><td class="verdict-no">ÉCARTER</td></tr>
+<tr><td>F.5</td><td>Ouïes réglables façon Prouvé — contraire au principe ancestral « l'air traverse
+toujours » et au produit sans entretien</td><td>—</td><td>—</td><td class="verdict-no">ÉCARTER (choix documenté)</td></tr>
+<tr><td>F.6</td><td><b>Pack meublé</b> sur douilles M10 déjà moulées (pas 1200 = module du
+mobilier) : tablette-bureau rabattable 1200×400, étagère 1200, banc/lit. Zéro percement site.
+Fabrication métallique locale sous-traitée</td><td>trame ✅ · douilles existantes ✅</td><td>faible-moyen [HYP]</td><td class="verdict-ok">INTÉGRER V1 (Studio &amp; Box)</td></tr>
+<tr><td>F.7</td><td><b>Surélévation assumée</b> : skid peint Night #000A21, ligne d'ombre visible,
+pas de jupe pleine (air + termites) — le module « flotte », lecture immédiate de la réversibilité</td>
+<td>✅ spec de finition</td><td>quasi nul [HYP]</td><td class="verdict-ok">INTÉGRER V1</td></tr>
+<tr><td>F.8</td><td><b>Kit surtoiture parasol</b> pour boxes/containers existants — le conseil fait
+à Prouvé en 1951 (« vendre seulement les éléments de toiture »), jamais exécuté. Produit d'appel
+−6 à −10 °C, porte d'entrée vers la location. Structure canopy dédiée SANS le lest du module</td>
+<td>[TBV vent canopy isolé — ne pas réutiliser les équerres telles quelles]</td><td>étude</td><td class="verdict-v2">OPTION V2</td></tr>
+<tr><td>F.9</td><td><b>La couleur par le verre</b> : le bleu Prouvé entre par le hublot (≈ Dew
+#B0DDF1 en transparence) ; liseré peint optionnel sur le bandeau 300 ; Orange réservé aux CTA ;
+béton brut clair partout ailleurs</td><td>✅</td><td>faible</td><td class="verdict-ok">V1 (hublot) · <span class="verdict-v2">V2 (liseré)</span></td></tr>
+<tr><td>D.3</td><td><b>Essai E10</b> — monitoring thermique 72 h du prototype (2 enregistreurs,
+critère de restitution nocturne)</td><td>—</td><td>~50 k XOF [HYP]</td><td class="verdict-ok">INTÉGRER V1 (essais)</td></tr>
+</table>
+
+<h3>La signature visuelle Noéma</h3>
+<p>Cinq traits — aucun moule nouveau — pour être reconnaissable comme un Prouvé :
+<b>① le toit qui flotte</b> (tôle blanche détachée par la ligne d'ombre du bandeau 300) ·
+<b>② la ligne d'air</b> (bande claustra P2 continue, qui s'allume en pointillés la nuit) ·
+<b>③ l'œil bleu</b> (hublot Ø300 près de la porte — aucun concurrent ne l'a) ·
+<b>④ le rythme 1200</b> (poteaux rainurés et joints lisibles = la précision d'usine affichée) ·
+<b>⑤ le socle noir</b> (ligne Night du skid : posé, réversible, récupérable).</p>
+<blockquote>Silhouette-mémo : un trait blanc, un pointillé, un rond bleu, quatre verticales, un
+trait noir. Dessinable en dix secondes — donc mémorisable, donc une marque.</blockquote>
+
+<div class="warn"><b>⚠️ Avis du bureau d'études IA — document de travail V1.</b> Faits historiques
+sourcés (liens complets et journal des ~25 requêtes dans
+<i>docs/references/ETUDE-PROUVE-BIOCLIMATIQUE-V1.md</i>) ; dimensions et coûts [HYP]. Validation
+requise : ingénieur structure agréé + architecte (F.1b vent, F.2 réservation Ø300, F.8 canopy
+isolé, protocole E10). Ce document ne modifie ni specs.json ni les planches existantes —
+recommandations pour décision de Jeremy. Sources images : Wikimedia Commons, licences libres
+créditées sous chaque photo.</div>
+
+</body>
+</html>
