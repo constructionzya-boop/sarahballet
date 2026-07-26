@@ -15,10 +15,17 @@ Langue de travail : **français**.
 - **3 niveaux d'équipement** : M1 basique · M2 électricité · M3 eau+électricité.
 - **5 offres** : Box Commerce, Sanitaire public, Studio, Poste de gardiennage,
   Module brut.
-- **4 modes de vente** : achat, **location (module démontable et récupérable =
-  actif mobile)**, location-accession (rent-to-own), location de terrain.
-- **2 variantes d'assise** : « Vendu » (dalle coulée) / « Location » (skid
-  démontable boulonné).
+- **DÉCISION 2026-07-19 — fin du démontage** : tous les modules sont
+  DÉFINITIFS (« en dur »). Montage inchangé (empilage à sec manuporté,
+  1 jour), puis **rainures coulissées au mortier** = ouvrage définitif.
+  Plus AUCUNE reprise/récupération de module. Voir
+  `docs/decisions/2026-07-19-fin-demontage.md`.
+- **Modes de vente** : achat · location-accession et location = crédit/bail
+  classique SANS reprise d'actif (**cadre juridique à refondre — juriste
+  TBV**) · location de terrain.
+- **Assise unique** : scellement 400 + dalle coulée. La variante skid est
+  SUPPRIMÉE du catalogue (le détail skid des planches PL-03/PL-07 est
+  obsolète, à réviser en V2).
 - **Marques annexes B2B** (négoce import Chine, JAMAIS de travaux) :
   Étansol (étanchéité), Hydralis (plomberie/eau), Ventalis (ventilation),
   Saniva (sanitaire).
