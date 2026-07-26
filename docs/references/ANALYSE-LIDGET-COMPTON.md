@@ -91,3 +91,42 @@
 ⚠️ Analyse concurrentielle — document de travail V1. Faits [FAIT-B]
 reconstitués par recherche web ; dimensions et garanties à confirmer sur
 devis/documents officiels Lidget si besoin d'exactitude contractuelle.
+
+---
+
+## 6. Complément — analyse de la vidéo de montage réelle (2026-07-19)
+
+Vidéo « Concrete base and concrete panel garage build in UK » (5 min 33)
+analysée image par image. Ce qu'elle révèle — et qui corrige l'hypothèse
+« panneaux massifs » :
+
+1. **Les plaques sont MINCES et NERVURÉES**, pas des voiles pleins de 60 :
+   peau fine (~40 mm apparent [HYP]) avec nervures verticales de rive
+   visibles côté intérieur ; boulonnage nervure contre nervure. Largeur
+   ~610, hauteur ~2000-2100 (garage, PAS 2700 habitable). Poids estimé
+   90-120 kg/plaque [CALCUL] → bascule à 2 poseurs expérimentés, sans
+   engin. C'est ce profil nervuré + la faible hauteur qui rendent le
+   vertical manuportable chez eux.
+2. **L'esthétique « maison finie » est bien MOULÉE** : finition
+   gravillonnée (pebble-dash) moulée dans la peau + **poteaux d'angle en
+   béton moulé façon brique** (fausse maçonnerie) + porte/fenêtres
+   pré-cadrées blanches. Confirmation visuelle du §5 : le décor vient du
+   moule, pas de l'orientation des joints.
+3. **La dalle est le vrai chantier** : ~70 % de la vidéo = coffrage bois,
+   hérisson compacté, DPM polyane, toupie + règle manuelle, par 2-3
+   personnes non professionnelles. La dalle « client » est faisable mais
+   c'est elle qui prend le temps et porte le risque de planéité.
+4. Toiture : fermes acier légères (rouge) boulonnées + tôle/fibro sur
+   pannes bois — même famille que le toit parasol, sans ventilation.
+5. Intérieur brut : nervures et joints apparents — le « fini » n'est que
+   côté rue.
+
+**Conséquence pour le débat vertical/horizontal Noéma** : même en copiant
+la plaque nervurée mince, le verrou tropical demeure — une peau de 40 ne
+peut pas loger l'enrobage 27 mm acté (durabilité XC4 côtière), et à
+h. 2700 habitable le poids remonte à ~130-155 kg [CALCUL] avec une
+contrainte de démoulage ×(2700/2030)² ≈ ×1,8. La plaque Lidget marche
+parce qu'elle est BASSE (2,0 m), MINCE (climat doux, garantie 10 ans,
+enjeu garage) et finie au moule. Transposable à Noéma : la FINITION
+moulée (oui, immédiatement) ; la géométrie verticale mince (non en V1 —
+étude V2 « panneau nervuré » possible, cf. ETUDE-OPTI §5.4).
