@@ -15,17 +15,17 @@ Langue de travail : **français**.
 - **3 niveaux d'équipement** : M1 basique · M2 électricité · M3 eau+électricité.
 - **5 offres** : Box Commerce, Sanitaire public, Studio, Poste de gardiennage,
   Module brut.
-- **DÉCISION 2026-07-19 — fin du démontage** : tous les modules sont
-  DÉFINITIFS (« en dur »). Montage inchangé (empilage à sec manuporté,
-  1 jour), puis **rainures coulissées au mortier** = ouvrage définitif.
-  Plus AUCUNE reprise/récupération de module. Voir
-  `docs/decisions/2026-07-19-fin-demontage.md`.
-- **Modes de vente** : achat · location-accession et location = crédit/bail
-  classique SANS reprise d'actif (**cadre juridique à refondre — juriste
-  TBV**) · location de terrain.
-- **Assise unique** : scellement 400 + dalle coulée. La variante skid est
-  SUPPRIMÉE du catalogue (le détail skid des planches PL-03/PL-07 est
-  obsolète, à réviser en V2).
+- **DÉCISIONS démontage (19 & 26/07/2026)** — deux familles de modules :
+  **VENDU = définitif** (empilage à sec puis rainures coulissées au
+  mortier, scellement 400 + dalle — « du dur posé en 1 jour ») ·
+  **LOCATION = démontable UNIQUEMENT sur foncier sécurisé ≥ 10 ans**
+  (parcs Noéma à bail ou bail client enregistré) — en cas d'impayé on
+  remplace le LOCATAIRE, on ne démonte pas ; démontage = dernier recours.
+  Assise location simplifiée : plots + platines 4×M12 (le skid complet
+  rails/traverses reste supprimé). Voir `docs/decisions/`.
+- **Modes de vente** : achat · location sur foncier sécurisé ·
+  location-accession (coulis à la levée d'option) [juridique TBV] ·
+  location de terrain.
 - **Marques annexes B2B** (négoce import Chine, JAMAIS de travaux) :
   Étansol (étanchéité), Hydralis (plomberie/eau), Ventalis (ventilation),
   Saniva (sanitaire).
