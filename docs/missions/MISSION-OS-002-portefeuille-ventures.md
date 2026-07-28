@@ -6,6 +6,8 @@
 > Code réels, Telegram, routines cron, plafonds Pro/Max respectés).
 > Objet : étendre le hub au PORTEFEUILLE COMPLET de Jeremy et construire
 > la PREMIÈRE VERSION exécutable.
+> Révision : la venture COMPTA a été RETIRÉE du portefeuille sur décision
+> de Jeremy (2026-07-26) — aucune donnée client comptable dans l'AIOS.
 
 ---
 
@@ -16,8 +18,7 @@
 | NOEMA | Noéma Group (construction + 4 marques) | industriel | actif — mémoire = repo sarahballet | haute (jalon Chine octobre) |
 | LEA | « Léa » — agent vocal IA vendu aux professionnels (prospection par cold calling) | produit SaaS | à structurer | haute |
 | IMMO | Agence d'optimisation d'annonces immobilières | service | à structurer | moyenne |
-| WEBFLOW | Création de sites & workflows IA pour clients | service (déjà pratiqué) | actif informel | haute (revenus courts) |
-| COMPTA | Services comptables pour clients — client principal : Olivier Doukouré | service | ACTIF (client réel) | **critique (client payant)** |
+| WEBFLOW | Création de sites & workflows IA pour clients | service (déjà pratiqué) | actif informel | **haute (revenus courts)** |
 | LAB | Studio de recherche : startups à lancer en Afrique francophone | R&D | à structurer | fond de tâche |
 | (ctx) | Numeribat · GR Rénovation | activités existantes de Jeremy | contexte | fiches contexte seulement |
 
@@ -43,7 +44,6 @@ l'ajout d'une venture = **1 dossier + 1 fiche, zéro refactor**.
 │   ├── lea/                   #   brief.md · agents dédiés · missions/ · memory/
 │   ├── immo/                  #   idem
 │   ├── webflow/               #   idem (+ portfolio clients)
-│   ├── compta/                #   ⚠ VOIR §5.2 — données clients HORS git, chiffrées
 │   └── lab/                   #   idem
 ├── skills/                    # SOPs réutilisables (créer-un-site, business-plan, dossier-chine…)
 ├── memory/                    # wiki inter-ventures (les leçons voyagent)
@@ -71,7 +71,6 @@ aucun service AIOS sur les ports 80/443/CloudPanel ; ressources plafonnées
     améliorer, grille tarifaire du service).
   - WEBFLOW : chef de projet clients (devis type, templates de sites,
     catalogue de workflows vendables).
-  - COMPTA : assistant de production comptable (voir périmètre légal §5.2).
   - LAB : analyste ventures Afrique francophone (pipeline GO/NO-GO de
     MISSION-OS-001 §4-P4).
   - NOEMA : les agents EXISTANTS du repo (BET, CMO, VISUAL…) — convertir
@@ -95,21 +94,7 @@ publication, dépense) · anti-invention [HYP]/[TBV] · décisions actées
 prioritaires · scraping éthique (sources publiques, CGU/robots respectés,
 volumes modérés) · budget suivi.
 
-### 5.2 COMPTA — confidentialité et cadre réglementé ⚠
-- Les données comptables clients (Olivier Doukouré, etc.) sont
-  CONFIDENTIELLES : stockage chiffré, HORS Git, HORS mémoire partagée,
-  jamais citées dans les rapports inter-ventures. Un agent d'une autre
-  venture ne peut PAS y accéder.
-- En France, l'expertise comptable est une profession RÉGLEMENTÉE
-  (tenue/révision des comptes de tiers = monopole de l'Ordre). Le
-  périmètre exact de ce que Jeremy peut vendre légalement (saisie,
-  pré-comptabilité, gestion, tableaux de bord vs « comptabilité ») doit
-  être CADRÉ PAR UN PROFESSIONNEL [TBV JURIDIQUE — BLOQUANT avant tout
-  marketing de cette offre]. Les agents produisent des OUTILS et de la
-  pré-saisie ; aucune communication commerciale « comptabilité » avant
-  ce cadrage.
-
-### 5.3 LEA — prospection téléphonique encadrée ⚠
+### 5.2 LEA — prospection téléphonique encadrée ⚠
 - Le démarchage téléphonique est très encadré (RGPD, Bloctel, horaires,
   consentement selon pays ; règles spécifiques aux automates d'appel).
   V1 : les agents construisent le PRODUIT (scripts, démo, pricing, site)
@@ -119,7 +104,7 @@ volumes modérés) · budget suivi.
 - Le produit Léa lui-même (agent vocal pour les clients pros) devra
   embarquer consentement/mentions — à specifier dans le brief produit.
 
-### 5.4 IMMO — données de tiers
+### 5.3 IMMO — données de tiers
 Optimiser les annonces d'un CLIENT (mandat) : OK. Scraper massivement les
 portails (SeLoger, LBC…) pour prospecter : CGU restrictives — le
 prospect se trouve par des moyens licites (annonces publiques consultées
@@ -130,13 +115,12 @@ manuellement/volumes faibles, réseaux, bouche-à-oreille) [compliance].
 1. **Squelette** : arborescence §2 complète + CLAUDE.md constitution +
    registry + queue vide + fiches `brief.md` de chaque venture (générées
    depuis ce document, complétées de questions à Jeremy si trous).
-2. **Agents** : les 6 transverses + les 6 dédiés (prompts versionnés,
+2. **Agents** : les 6 transverses + les 5 dédiés (prompts versionnés,
    NOEMA importés du repo).
 3. **Orchestrateur + routine 1 et 2** opérationnels (cron réels).
 4. **Premières missions en queue** (ordre imposé) :
-   - COMPTA : sécuriser l'espace Olivier Doukouré (structure chiffrée,
-     checklist mensuelle de production) — le client payant d'abord ;
-   - WEBFLOW : catalogue d'offres + 3 templates de devis (revenus courts) ;
+   - WEBFLOW : catalogue d'offres + 3 templates de devis — les revenus
+     courts d'abord ;
    - LEA : brief produit V1 + démo scriptée + landing ;
    - NOEMA : reprendre la queue existante (dossiers Chine) ;
    - IMMO : offre + grille de prix + 3 audits d'annonces exemples ;
