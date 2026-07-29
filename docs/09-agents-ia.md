@@ -3,7 +3,24 @@
 Le projet est piloté par Jeremy avec une équipe d'agents IA spécialisés.
 Chaque agent a un rôle, des livrables et des limites définis.
 
-## 1. Les agents et leurs rôles
+## 0. REGISTRE OFFICIEL DE L'ÉQUIPE (mise à jour 2026-07-26)
+
+| # | Agent | System prompt | Rôle | Livrables majeurs |
+|---|---|---|---|---|
+| 1 | **Coordinateur / ingénieur-conseil** (session web claude.ai/code) | — (session continue) | Études, planches PL-06→09, missions des autres agents, actes de décision, coordination du repo | Études panneaux/toiture/MEP/murs plats, PL-06/07/08/09, docs/decisions/, docs/missions/ |
+| 2 | **NOEMA_BET** | `docs/agents/NOEMA_BET_AGENT-system-prompt.md` | Bureau d'études (7 experts internes) | REPONSE-MISSION-ING-001 |
+| 3 | **NOEMA_CMO** | `docs/agents/NOEMA_MARKETING_AGENT-system-prompt.md` | Directeur marketing | BENCHMARK-001, STRATEGIE-001, briefs S1-S5, plan 30 j, BRAND-BOOK, LEARNINGS |
+| 4 | **NOEMA_VISUAL** | `docs/agents/NOEMA_VISUAL_AGENT-system-prompt.md` | Génération de visuels | Rendus Box Commerce/Studio |
+| 5 | **NOEMA_ENGINEER** | — (session historique) | Ingénieur bâtiment d'origine | diagnostic-technique-ingenierie-V1.md |
+| 6 | **SITE** | — (sessions terminal, préfixe `SITE :`) | Développeur du site | Monorepo Phase 0, refonte MISSION-SITE-002, pricing engine, checkout, Noéma Impact |
+| 7 | **ARCHI** | — (session dédiée) | Recherche architecture | ETUDE-PROUVE-BIOCLIMATIQUE-V1 (+PDF) |
+
+**Depuis le 2026-07-26, l'équipe est en cours de migration vers l'AIOS**
+(VPS 24/7, voir `docs/missions/MISSION-OS-001` et `MISSION-OS-002`) : les
+system prompts de `docs/agents/` deviennent des sous-agents hébergés, la
+mémoire partagée reste CE repo (git pull), le pilotage passe par Telegram.
+
+## 1. Les agents et leurs rôles (historique V1)
 
 | Agent | Rôle | Livrables | Limites |
 |---|---|---|---|
