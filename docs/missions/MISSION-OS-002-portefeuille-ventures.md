@@ -130,3 +130,35 @@ manuellement/volumes faibles, réseaux, bouche-à-oreille) [compliance].
 Interdits V1 : Telegram bot ouvert au public (authentifié Jeremy seul),
 tout envoi vers un tiers réel, toute dépense. Livrer le coût estimé de
 fonctionnement (quota/routines) avec le rapport n°1.
+
+---
+
+## 7. ADDENDUM (2026-07-30) — Couche de publication & cycle de vie des skills
+
+Inspiré de l'exploration approfondie d'AIOS/Azuro
+(`docs/references/AUDIT-AIOS-AZURO.md`, partie 2) — à intégrer à la V1+ :
+
+1. **Couche de publication** : un sous-domaine dédié géré par CloudPanel
+   (ex. `apps.<domaine-de-jeremy>`) où l'AIOS peut DÉPLOYER les outils
+   qu'il génère (formulaires, mini-dashboards, landings) — vhost séparé,
+   jamais sur les sites clients existants, HTTPS, accès par lien signé ou
+   auth simple par défaut.
+2. **Cycle de vie des skills — mieux qu'Azuro, nativement** :
+   - chaque skill = dossier versionné DANS GIT (code visible, historique,
+     **rollback = git revert**) ;
+   - **manifeste de permissions par skill** (fichier déclaratif : outils
+     autorisés, destinataires/domaines permis, plafonds, mode d'action
+     brouillon/validation/autonome) — l'orchestrateur REFUSE toute action
+     hors manifeste ;
+   - environnements **dev → prod** : une skill nouvelle tourne N fois en
+     mode brouillon/journal avant d'être promue ;
+   - exécution du code généré dans un contexte confiné (user dédié,
+     limites réseau/ressources — mécanisme exact au choix de l'architecte
+     [TBV]) ; dépendances épinglées et auditées.
+3. **Webhooks assumés** : l'AIOS crée et maintient ses webhooks/triggers,
+   et les JOURNALISE (pas de magie « sans webhook » — de l'abstraction
+   honnête).
+4. **Script de démo commerciale (Relayo)** : les 5 preuves du §« angle
+   mort » de l'audit deviennent notre démo standard — code d'une skill,
+   historique, erreur provoquée + rollback en direct, matrice
+   d'autorisations, connecteur créé en live.

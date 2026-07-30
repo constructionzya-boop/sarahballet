@@ -81,3 +81,51 @@
   plus accessible.
 - Vocabulaire : ils ont installé la catégorie « AIOS » — nous parlerons
   d'« employé IA » (leur meilleur mot) sans reprendre leur sigle.
+
+---
+
+## PARTIE 2 — Exploration approfondie (2026-07-30)
+
+### La vraie nature du produit
+AIOS n'est pas un « connecteur d'outils » : c'est un **environnement privé
+de développement et d'exécution piloté en langage naturel** — l'agent
+(Claude Sonnet 4.5 + tool use) GÉNÈRE du code (scripts, connecteurs API,
+formulaires, dashboards), le DÉPLOIE sur un sous-domaine
+(form.azuro-ai.com), transforme un workflow réussi en **skill versionnée**
+et programme son exécution. Le contrat précise que les outils créés
+peuvent fonctionner indépendamment du modèle qui les a produits.
+→ Notre AIOS (Claude Code + sous-agents sur VPS) est EXACTEMENT cette
+classe de produit — nous sommes plus proches du vrai AIOS que de sa
+plaquette marketing.
+
+### Faits techniques nouveaux
+- Chaîne : app desktop/mobile → orchestrateur → Claude Sonnet 4.5 + tool
+  use → mémoire/fichiers workspace → connecteurs ou API REST générées →
+  scripts/forms/dashboards → skill versionnée → déclencheur (cron, email,
+  événement, webhook) → exécution + logs + notification.
+- « Plus de webhooks à maintenir » = webhooks MASQUÉS (créés/maintenus par
+  l'agent), pas supprimés (« Trigger activé · webhook < 200 ms »).
+- Écosystème multi-domaines : aios.fr (commercial FR) · my-aios.com
+  (international) · azuro-ai.com/aios (technique) · aios.azuro-ai.com
+  (console) · form.azuro-ai.com (publication des outils générés).
+  Gouvernance web instable (duplication SEO, versions divergentes).
+- **Offres NON STABILISÉES** : le contenu de Growth et Pro diffère entre
+  aios.fr et azuro-ai.com (onboarding 10 cas vs ateliers collectifs ;
+  automatisations vs 1 skill/trimestre + WhatsApp) → devis écrit exigé.
+- App mobile « native » non vérifiable publiquement (probable PWA/
+  distribution privée).
+
+### L'angle mort n°1 : l'exécution sécurisée du code généré
+Non documentés chez eux : sandbox, tests automatiques, environnements
+dev/prod, rollback d'une skill, limites réseau, permissions par skill,
+validation avant déploiement, dépendances vulnérables. La « réparation
+autonome » reste une affirmation commerciale.
+
+### Les 5 preuves à exiger en démo (→ notre script de démo Relayo, inversé)
+1. Créer un connecteur inconnu en direct ; 2. Afficher le CODE d'une
+skill ; 3. Montrer son historique de versions ; 4. Provoquer une erreur
+puis revenir en arrière ; 5. Montrer quelles actions exigent une
+autorisation humaine.
+→ Chez nous : skills en Git = code visible + versions + rollback NATIFS ;
+manifeste de permissions par skill ; matrice d'autorisations affichable.
+En faire les 5 moments forts de NOTRE démo commerciale.
