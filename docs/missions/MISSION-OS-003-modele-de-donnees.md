@@ -33,8 +33,7 @@ plus tard si besoin d'API/RLS hébergées [choix architecte, TBV].
    **statut (brouillon/validé/obsolète)**, checksum anti-doublons,
    texte extrait, embedding.
 3. **entities** — les objets réels : clients, prospects, fournisseurs,
-   projets, offres, contrats, véhicules/chauffeurs (VTC), chantiers
-   (Noéma)… avec relations et source de l'info. (Un email, un devis PDF
+   projets, offres, contrats, chantiers (Noéma)… avec relations et source de l'info. (Un email, un devis PDF
    et une ligne Airtable pointent la MÊME entité.)
 4. **facts** — LA mémoire métier : sujet, prédicat, valeur, venture,
    document source, **confiance, validé_par, valid_from/until,
@@ -72,26 +71,15 @@ renforcée · remboursement/suppression de fichier = toujours manuel ·
 code nouveau = sandbox puis validation · avis juridique = interdit sans
 expert.
 
-## 4. Registre étendu (nouvelles ventures révélées)
-
-Ajouter au registre OS-002 §1 — **fiches à compléter par Jeremy** :
-| Code | Entité | Notes |
-|---|---|---|
-| VTC | VTC Control — SaaS gestion de flottes VTC (offres tarifées en FCFA, scripts SPIN, démos) | étanchéité CRM/tarifs : facts avec statut obligatoire (jamais un ancien tarif ou une fonctionnalité abandonnée) |
-| FLOURISH | Conseil RSE/ESG (Gabon — loi, référentiels, diagnostics) | séparation STRICTE : normatif ≠ pédagogique ≠ hypothèse ≠ livrable — chaque affirmation réglementaire porte territoire/date/source/statut juridique ; jamais une note de cours présentée comme obligation légale |
-| (espace) | Studio architecture/design (plans, rendus D5, SketchUp) | fichiers lourds : archiver l'original + indexer exports JPG/PDF + métadonnées seulement |
-Étanchéité inter-ventures ABSOLUE (rien ne passe de Clara/VTC/FLOURISH
-vers Noéma ou inversement sans action explicite de Jeremy).
-
-## 5. Les 8 premières skills (V1.5)
+## 4. Les 8 premières skills (V1.5)
 
 Socle : 1-recherche documentaire expliquée · 2-compte-rendu de réunion ·
 3-mémoire de décision (avec supersedes) · 4-brief quotidien (déjà en V1).
-Métier : 5-contrôle de cohérence d'un brief de rendu (architecture) ·
-6-suivi des corrections client · 7-préparation de démo VTC (SPIN) ·
-8-analyse documentaire RSE (obligations/recommandations/sources/certitude).
+Métier (portefeuille OS-002) : 5-devis/proposition WEBFLOW depuis un
+brief · 6-suivi des corrections client · 7-préparation de démo LEA
+(script + argumentaire) · 8-audit d'annonce IMMO (grille standard).
 
-## 6. Kit de données AVANT de coder (par venture, fourni par Jeremy)
+## 5. Kit de données AVANT de coder (par venture, fourni par Jeremy)
 
 10-20 documents de référence validés · 5 excellentes productions ·
 3 mauvaises AVEC l'explication des erreurs (→ cas de test) · offres et
@@ -99,7 +87,7 @@ tarifs actuels · lexique métier · règles inviolables · clients/projets
 actifs · modèles de documents · 5-10 tâches répétitives décrites ·
 journal des décisions.
 
-## 7. Ordre de construction (le MVP 70-80 %)
+## 6. Ordre de construction (le MVP 70-80 %)
 
 1. V1 OS-002 d'abord (squelette, agents, routines, Telegram) — inchangée.
 2. V1.5 : Postgres+pgvector local → tables 1-7 → ingestion PROPRE
