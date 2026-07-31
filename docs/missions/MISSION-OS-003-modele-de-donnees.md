@@ -56,7 +56,7 @@ plus tard si besoin d'API/RLS hébergées [choix architecte, TBV].
 
 4 modes combinés : **exacte** (noms, références, dates) · **sémantique**
 (pgvector — « le projet avec le comptoir bleu ») · **relationnelle**
-(SQL — « prospects >10 véhicules démo faite non relancés ») ·
+(SQL — « prospects avec devis envoyé jamais relancés ») ·
 **chronologique** (dernière décision, prochain engagement, non-résolu).
 
 ## 3. Permissions EXÉCUTOIRES (pas des phrases dans un prompt)
